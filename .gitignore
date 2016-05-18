@@ -1,4 +1,12 @@
 SickCity/SFML-2.3.2
+
+#visual c++ cache files
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.cachefile
+
 # Compiled Object files
 *.slo
 *.lo

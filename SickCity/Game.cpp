@@ -2,6 +2,11 @@
 #include "Game.h"
 #include "GameState.h"
 
+void Game::loadTextures()
+{
+	texmgr.loadTexture("background", "media/background.png");
+}
+
 void Game::pushState(GameState* state)
 {
 	this->states.push(state);
@@ -42,8 +47,11 @@ void Game::gameLoop()
 Game::Game()
 {
 	// Constructor
+	this->loadTextures();
+
 	this->window.create(sf::VideoMode(800, 600), "Sick City");
 	this->window.setFramerateLimit(60);
+	this->background.setTexture(this->texmgr.getRef("background"));
 }
 
 Game::~Game()
