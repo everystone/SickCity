@@ -2,9 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "AnimationHandler.h"
+#include <sstream>
 
 enum class TileType { VOID, GRASS, FOREST, WATER, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, ROAD };
 std::string tileTypeToStr(TileType type);
+
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str();
+    }
+}
 
 class Tile
 {
@@ -55,6 +66,7 @@ public:
 
 	std::string getCost()
 	{
-		return std::to_string(this->cost);
+		return patch::to_string(this->cost);
 	}
 };
+
