@@ -1,0 +1,781 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 8] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 8] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 8: GUI System | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 8: GUI System - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 8: GUI System</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130#comments" class="grey-button icon-comment-1 addcomment">
+								1							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 12, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>We have but two more classes to make, and our game will be done! First up is the <code>Gui</code> class, which we'll use to draw (as you might expect) a graphical user interface. We could use a separate library dedicated to this task, but the task is simple enough (in this case) for us to roll our own. Actually, there are 4 classes, because <code>gui.hpp</code> contains 3; <code>GuiStyle</code>, <code>GuiEntry</code>, and <code>Gui</code>. A <code>Gui</code> is made up of a series of <code>GuiEntry</code>s which each display some text and are styled according to a <code>GuiStyle</code>.</p>
+
+<pre class="prettyprint"><code>#ifndef GUI_HPP
+#define GUI_HPP
+
+#include &lt;vector&gt;
+#include &lt;utility&gt;
+#include &lt;string&gt;
+
+class GuiStyle
+{
+    public:
+
+    sf::Color bodyCol;
+    sf::Color bodyHighlightCol;
+    sf::Color borderCol;
+    sf::Color borderHighlightCol;
+    sf::Color textCol;
+    sf::Color textHighlightCol;
+    sf::Font* font;
+
+    float borderSize;
+
+    GuiStyle(sf::Font* font, float borderSize,
+        sf::Color bodyCol, sf::Color borderCol, sf::Color textCol,
+        sf::Color bodyHighlightCol, sf::Color borderHighlightCol, sf::Color textHighlightCol)
+    {
+        this-&gt;bodyCol = bodyCol;
+        this-&gt;borderCol = borderCol;
+        this-&gt;textCol = textCol;
+        this-&gt;bodyHighlightCol = bodyHighlightCol;
+        this-&gt;borderHighlightCol = borderHighlightCol;
+        this-&gt;textHighlightCol = textHighlightCol;
+        this-&gt;font = font;
+        this-&gt;borderSize = borderSize;
+    }
+    GuiStyle() { }
+};</code></pre>
+
+<p>This class is just one big data structure with a constructor slapped on. The only new code would be <code>sf::Font</code>, which contains a pointer to the font the style we'll use. It's a pointer because <code>sf::Font</code>s are large things, and so should only be created once, like <code>sf::Texture</code>s. As a quick overview of the <code>GuiStyle</code>, <code>bodyCol</code> is the background color of the entry, <code>borderCol</code> is the color of the entry's outline, <code>textCol</code> is the color of the text written on the entry, and the highlight colors are used instead of the normal ones when the player hovers over the entry with their mouse (or selects it with the keyboard, etc.) Moving on to <code>GuiEntry</code>:</p>
+
+<pre class="prettyprint"><code>class GuiEntry
+{
+    public:
+
+    /* Handles appearance of the entry */
+    sf::RectangleShape shape;
+
+    /* String returned when the entry is activated */
+    std::string message;
+
+    /* Text displayed on the entry */
+    sf::Text text;
+
+    GuiEntry(const std::string&amp; message, sf::RectangleShape shape, sf::Text text)
+    {
+        this-&gt;message = message;
+        this-&gt;shape = shape;
+        this-&gt;text = text;
+    }
+    GuiEntry() { }
+};</code></pre>
+
+<p>Also a data structure meets constructor combo, we have an <code>sf::RectangleShape</code> to store what the entry looks like. We aren't using sprites because everything is determined by the style, so instead we have a rectangle that can be displayed using the properties of a <code>GuiStyle</code>. <code>sf::RectangleShape</code>s can be drawn to the screen like a sprite however, as we will see. <code>message</code> is what the <code>Gui</code> will return when that particular entry is activated (i.e. clicked), and <code>sf::Text</code> is a string given the ability to be drawn to the screen using an <code>sf::Font</code>. Now let's examine the <code>Gui</code> class.</p>
+
+<pre class="prettyprint"><code>class Gui : public sf::Transformable, public sf::Drawable
+{
+    private:
+
+    /* If true the menu entries will be horizontally, not vertically, adjacent */
+    bool horizontal;
+
+    GuiStyle style;
+
+    sf::Vector2f dimensions;
+
+    int padding;
+
+    public:
+
+    std::vector&lt;GuiEntry&gt; entries;
+
+    bool visible;
+
+    /* Constructor */
+    Gui(sf::Vector2f dimensions, int padding, bool horizontal,
+        GuiStyle&amp; style, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; entries)
+    {
+        visible = false;
+        this-&gt;horizontal = horizontal;
+        this-&gt;style = style;
+        this-&gt;dimensions = dimensions;
+        this-&gt;padding = padding;
+
+        /* Construct the background shape */
+        sf::RectangleShape shape;
+        shape.setSize(dimensions);
+        shape.setFillColor(style.bodyCol);
+        shape.setOutlineThickness(-style.borderSize);
+        shape.setOutlineColor(style.borderCol);
+
+        /* Construct each gui entry */
+        for(auto entry : entries)
+        {
+            /* Construct the text */
+            sf::Text text;
+            text.setString(entry.first);
+            text.setFont(*style.font);
+            text.setColor(style.textCol);
+            text.setCharacterSize(dimensions.y-style.borderSize-padding);
+
+            this-&gt;entries.push_back(GuiEntry(entry.second, shape, text));
+        }
+    }
+
+    sf::Vector2f getSize();
+
+    /* Return the entry that the mouse is hovering over. Returns
+     * -1 if the mouse if outside of the Gui */
+    int getEntry(const sf::Vector2f mousePos);
+
+    /* Change the text of an entry. */
+    void setEntryText(int entry, std::string text);
+
+    /* Change the entry dimensions. */
+    void setDimensions(sf::Vector2f dimensions);
+
+    /* Draw the menu. */
+    virtual void draw(sf::RenderTarget&amp; target, sf::RenderStates states) const;
+
+    void show();
+
+    void hide();
+
+    /* Highlights an entry of the menu. */
+    void highlight(const int entry);
+
+    /* Return the message bound to the entry. */
+    std::string activate(const int entry);
+    std::string activate(const sf::Vector2f mousePos);
+};
+
+#endif /* GUI_HPP */</code></pre>
+
+<p>Note that <code>Gui</code> inherits from two SFML classes, <code>sf::Transformable</code> and <code>sf::Drawable</code>. These allow us to move the <code>Gui</code> around (like we can a sprite) and also use the <code>window.draw</code> instead of <code>draw(window)</code> syntax. As arguments the constructors takes the <code>dimensions</code> of each <code>GuiEntry</code>, the <code>padding</code> (in pixels) that surrounds the text to stop it from overlapping the edges, whether the <code>Gui</code> should arrange the entries <code>horizontal</code>ly or vertically, which <code>GuiStyle</code> it should use, and an <code>std::vector</code> that contains a pair of <code>std::string</code>s, where the first is the <code>text</code> of the entry and the second is the <code>message</code>. The argument itself might look ugly but passing values to it isn't too bad. </p>
+
+<p>We then set the variables accordingly and create the <code>sf::RectangleShape</code> that will be used on each <code>GuiEntry</code>. The functions describe themselves but one thing to note is the <code>-</code> in the <code>setOutlineThickness</code> function. This is so that the outline expands inwards toward the center of the shape instead of outwards, preserving the size of the shape and stopping the borders of adjacent elements from overlapping.</p>
+
+<p>We then iterate over each entry pair and create the <code>text</code> using the arguments and the <code>GuiStyle</code>. Here <code>setCharacterSize</code> is the function of note; so that the text fits inside the entry correctly we subtract the <code>borderSize</code> and the <code>padding</code> from the height of the entry shape. There can still be overlap due to the descender on <code>y</code>s and <code>g</code>s for example, but this works well enough for us. Feel free to improve of course, I encourage it!</p>
+
+<p>We will now look at each of the functions in turn and examine their definitions inside <code>gui.cpp</code>. First is <code>getSize</code>, which simply returns the total dimensions of the <code>Gui</code> (these should be placed in <code>gui.cpp</code>).</p>
+
+<pre class="prettyprint"><code>sf::Vector2f Gui::getSize()
+{
+    return sf::Vector2f(this-&gt;dimensions.x, this-&gt;dimensions.y * this-&gt;entries.size());
+}</code></pre>
+
+<p>We then have <code>getEntry</code>, which takes the mouse position (in screen coordinates, or really the coordinates for the <code>sf::View</code> that the <code>Gui</code> is displayed on) as an argument and returns the index of the entry that mouse is hovering over. If the mouse is outside of the <code>Gui</code> then it returns -1.</p>
+
+<pre class="prettyprint"><code>int Gui::getEntry(const sf::Vector2f mousePos)
+{
+    /* If there are no entries then outside the menu. */
+    if(entries.size() == 0) return -1;
+    if(!this-&gt;visible) return -1;
+
+    for(int i = 0; i &lt; this-&gt;entries.size(); ++i)
+    {
+        /* Translate point to use the entry's local coordinates. */
+        sf::Vector2f point = mousePos;
+        point += this-&gt;entries[i].shape.getOrigin();
+        point -= this-&gt;entries[i].shape.getPosition();
+
+        if(point.x &lt; 0 || point.x &gt; this-&gt;entries[i].shape.getScale().x*this-&gt;dimensions.x) continue;
+        if(point.y &lt; 0 || point.y &gt; this-&gt;entries[i].shape.getScale().y*this-&gt;dimensions.y) continue;
+        return i;
+    }
+
+    return -1;
+}</code></pre>
+
+<p>By adding the origin of the entry's <code>shape</code> to the mouse position and subtracting the position of the <code>shape</code> we convert <code>point</code> from view coordinates to 'local' coordinates, where <code>(0,0)</code> is the top left of the <code>GuiEntry</code> in question and the coordinates extend up to its dimensions. It's then very easy to check if the cursor lies within the current entry.
+Next we have <code>setEntryText</code>, which of course takes an <code>std::string</code> as an argument and sets the <code>text</code> of the specified entry accordingly.</p>
+
+<pre class="prettyprint"><code>void Gui::setEntryText(int entry, std::string text)
+{
+    if(entry &gt;= entries.size() || entry &lt; 0) return;
+
+    entries[entry].text.setString(text);
+
+    return;
+}</code></pre>
+
+<p><code>setDimensions</code> simply changes the size of all the entries</p>
+
+<pre class="prettyprint"><code>void Gui::setDimensions(sf::Vector2f dimensions)
+{
+    this-&gt;dimensions = dimensions;
+
+    for(auto&amp; entry : entries)
+    {
+        entry.shape.setSize(dimensions);
+        entry.text.setCharacterSize(dimensions.y-style.borderSize-padding);
+    }
+
+    return;
+}</code></pre>
+
+<p>Now <code>draw</code> is far more interesting. We are overriding the pure virtual function <code>draw</code> in the <code>sf::Drawable</code> class that <code>Gui</code> inherits from, and by doing this we can use the <code>window.draw(gui)</code> syntax as I said before. The function itself is very simple, and we don't have to worry about the <code>sf::RenderTarget</code> and <code>sf::RenderStates</code> classes; for our purposes <code>sf::RenderTarget</code> is just the window we are drawing to. If you haven't seen it before the <code>const</code> at the end denotes that the function does not change any member variables of the class it belongs to. This is necessary for us to override <code>draw</code>:</p>
+
+<pre class="prettyprint"><code>void Gui::draw(sf::RenderTarget&amp; target, sf::RenderStates states) const
+{
+    if(!visible) return;
+
+    /* Draw each entry of the menu. */
+    for(auto entry : this-&gt;entries)
+    {
+        /* Draw the entry. */
+        target.draw(entry.shape);
+        target.draw(entry.text);
+    }
+
+    return;
+}</code></pre>
+
+<p>The <code>show</code> and <code>hide</code> functions change the visibility of the <code>Gui</code>; if it isn't <code>visible</code>, it won't be drawn. <code>show</code> does more than that however, and is used to calculate the position that each <code>GuiEntry</code> should be in; we could put that in <code>draw</code> but we aren't allowed to because of the <code>const</code>!</p>
+
+<pre class="prettyprint"><code>void Gui::show()
+{
+    sf::Vector2f offset(0.0f, 0.0f);
+
+    this-&gt;visible = true;
+
+    /* Draw each entry of the menu. */
+    for(auto&amp; entry : this-&gt;entries)
+    {
+        /* Set the origin of the entry. */
+        sf::Vector2f origin = this-&gt;getOrigin();
+        origin -= offset;
+        entry.shape.setOrigin(origin);
+        entry.text.setOrigin(origin);
+
+        /* Compute the position of the entry. */
+        entry.shape.setPosition(this-&gt;getPosition());
+        entry.text.setPosition(this-&gt;getPosition());
+
+        if(this-&gt;horizontal) offset.x += this-&gt;dimensions.x;
+        else offset.y += this-&gt;dimensions.y;
+    }
+
+    return;
+}
+
+void Gui::hide()
+{
+    this-&gt;visible = false;
+
+    return;
+}</code></pre>
+
+<p>As we iterate over the entries we maintain an <code>offset</code> variable that is used to modify the origin of each entry in order to place it in the correct place. At the end of each iteration we modify the <code>offset</code> depending on whether the <code>Gui</code> is displayed <code>horizontal</code>ly or vertically.</p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/08-01.png" alt="Entries are displayed relative to each other by changing their origins" /></p>
+
+<p>Lastly, we have the <code>highlight</code> and <code>activate</code> functions. <code>highlight</code> simply changes the colors of each entry to use the highlighted or normal versions from the <code>GuiStyle</code> depending on whether they are marked as highlighted or not, and <code>activate</code> returns the <code>message</code> associated with the entry. The second <code>activate</code> combines the first <code>activate</code> and <code>getEntry</code> together into a more handy function.</p>
+
+<pre class="prettyprint"><code>/* Highlights an entry of the menu. */
+void Gui::highlight(const int entry)
+{
+    for(int i = 0; i &lt; entries.size(); ++i)
+    {
+        if(i == entry) 
+        {
+            entries[i].shape.setFillColor(style.bodyHighlightCol);
+            entries[i].shape.setOutlineColor(style.borderHighlightCol);
+            entries[i].text.setColor(style.textHighlightCol);
+        }
+        else
+        {
+            entries[i].shape.setFillColor(style.bodyCol);
+            entries[i].shape.setOutlineColor(style.borderCol);
+            entries[i].text.setColor(style.textCol);
+        }
+    }
+
+    return;
+}
+
+/* Return the message bound to the entry. */
+std::string Gui::activate(const int entry)
+{
+    if(entry == -1) return &quot;null&quot;;
+    return entries[entry].message;
+}
+
+std::string Gui::activate(sf::Vector2f mousePos)
+{
+    int entry = this-&gt;getEntry(mousePos);
+    return this-&gt;activate(entry);
+}</code></pre>
+
+<p>Now we have a completed <code>Gui</code> class! Before we can add any <code>Gui</code> systems though it would make sense to create some <code>GuiStyle</code>s. It will look better if we have a consistent theme across the entire game, and so we should add the <code>GuiStyle</code>s to the <code>Game</code> class to keep them in an easy to access place. Inside of <code>game.hpp</code> we'll create an <code>std::map</code> of <code>std::string</code>s to <code>GuiStyle</code>s called <code>stylesheets</code> to store the styles and then we'll also add a <code>loadStylesheets</code> function to fill that map, like we did with <code>loadTiles</code>. We will also requrie a <code>loadFonts</code> function and an <code>std::map</code> to go with it. Don't forget to include <code>gui.hpp</code>!</p>
+
+<pre class="prettyprint"><code>private:
+
+void loadTextures();
+void loadTiles();
+void loadStylesheets();
+void loadFonts();
+
+public:
+
+const static int tileSize = 8;
+
+std::stack&lt;GameState*&gt; states;
+
+sf::RenderWindow window;
+TextureManager texmgr;
+sf::Sprite background;
+
+std::map&lt;std::string, Tile&gt; tileAtlas;
+std::map&lt;std::string, GuiStyle&gt; stylesheets;
+std::map&lt;std::string, sf::Font&gt; fonts;</code></pre>
+
+<p>In <code>game.cpp</code> we'll define the two new functions.</p>
+
+<pre class="prettyprint"><code>void Game::loadFonts()
+{
+    sf::Font font;
+    font.loadFromFile(&quot;media/font.ttf&quot;);
+    this-&gt;fonts[&quot;main_font&quot;] = font;
+
+    return;
+}
+
+void Game::loadStylesheets()
+{
+    this-&gt;stylesheets[&quot;button&quot;] = GuiStyle(&amp;this-&gt;fonts.at(&quot;main_font&quot;), 1,
+        sf::Color(0xc6,0xc6,0xc6), sf::Color(0x94,0x94,0x94), sf::Color(0x00,0x00,0x00),
+        sf::Color(0x61,0x61,0x61), sf::Color(0x94,0x94,0x94), sf::Color(0x00,0x00,0x00));
+    this-&gt;stylesheets[&quot;text&quot;] = GuiStyle(&amp;this-&gt;fonts.at(&quot;main_font&quot;), 0,
+        sf::Color(0x00,0x00,0x00,0x00), sf::Color(0x00,0x00,0x00), sf::Color(0xff,0xff,0xff),
+        sf::Color(0x00,0x00,0x00,0x00), sf::Color(0x00,0x00,0x00), sf::Color(0xff,0x00,0x00));
+
+    return;
+}</code></pre>
+
+<p>Sadly SFML does not allow us to create a new <code>sf::Font</code> directly from a file so we have to go through a variable instead, but both functions are quite self-explanatory. Just note that the <code>backgroundCol</code> and <code>backgroundHighlightCol</code> for the <code>text</code> stylesheet have 4 arguments and not 3; the last is an optional alpha value, so by setting it to 0 we remove the background and are left with just some text. Very handy! All that's left now is to call both functions in the <code>Game</code> constructor. Make sure you call <code>loadFonts</code> before <code>loadStylesheets</code>!</p>
+
+<p>Now we can finally add a <code>Gui</code> to <code>GameStateEditor</code> and <code>GameStateStart</code>. First then let's go into <code>game_state_start.hpp</code></p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+#include &quot;game_state.hpp&quot;
+#include &quot;gui.hpp&quot;
+
+class GameStateStart : public GameState
+{
+    private:
+
+    sf::View view;
+
+    std::map&lt;std::string, Gui&gt; guiSystem;
+
+    void loadgame();</code></pre>
+
+<p>By using an <code>std::map</code> instead of an <code>std::vector</code> we can refer to the <code>Gui</code>s by name instead of by an index, which makes things much simpler for us! Inside of <code>GameStateStart</code>'s constructor we will create the <code>Gui</code></p>
+
+<pre class="prettyprint"><code>this-&gt;guiSystem.emplace(&quot;menu&quot;, Gui(sf::Vector2f(192, 32), 4, false, game-&gt;stylesheets.at(&quot;button&quot;),
+    { std::make_pair(&quot;Load Game&quot;, &quot;load_game&quot;) }));
+
+this-&gt;guiSystem.at(&quot;menu&quot;).setPosition(pos);
+this-&gt;guiSystem.at(&quot;menu&quot;).setOrigin(96, 32*1/2);
+this-&gt;guiSystem.at(&quot;menu&quot;).show();</code></pre>
+
+<p>This <code>Gui</code> will act as a main menu for the game. To add new elements to every othe <code>std::map</code> we've used the <code>[]</code> syntax, but we can't do that here and must use <code>emplace</code> instead. This is because <code>[]</code> works by first creating an empty object of the type you are trying to add (thereby calling an empty constructor), then copying the object to the right of the <code>=</code> into <code>std::map</code>. <code>Gui</code> doesn't have an empty constructor so we use <code>emplace</code>, which works differently.</p>
+
+<p>Remember to include the <code>&lt;utility&gt;</code> header so that we can use <code>std::make_pair</code>. We then place the <code>Gui</code> in the center of the screen before setting the <code>Gui</code>'s origin to its center. <code>setOrigin</code> uses local coordinates (<code>(0,0</code>) is the top left of the <code>Gui</code>) unlike <code>setPosition</code> that uses world coordinates. Finally we <code>show</code> the <code>Gui</code> to make it visible and place all the entries in the correct location.</p>
+
+<p>If we were to run the game now nothing new will appear, even though we've <code>show</code>n the <code>Gui</code>! We need to call its <code>draw</code> function first, which we will do in <code>GameStateStart</code>'s <code>draw</code> function.</p>
+
+<pre class="prettyprint"><code>this-&gt;game-&gt;window.draw(this-&gt;game-&gt;background);
+
+for(auto gui : this-&gt;guiSystem) this-&gt;game-&gt;window.draw(gui.second);
+
+return;</code></pre>
+
+<p>Simple as that! Unlike in our previous <code>for each</code> loops, we are iterating over an <code>std::map</code> which has both a key and a value. We want to access the value and so we pass <code>gui.second</code> to the <code>draw</code> function instead of <code>gui</code>. Try running the program, and hopefully there will be a big &quot;Load Game&quot; button in the middle of the screen! To add some interactivity to the button we will have to go to the <code>handleInput</code> function</p>
+
+<pre class="prettyprint"><code>void GameStateStart::handleInput()
+{
+    sf::Event event;
+
+    sf::Vector2f mousePos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;view);
+
+    while(this-&gt;game-&gt;window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+            /* Close the window. */
+            case sf::Event::Closed:
+            {
+                game-&gt;window.close();
+                break;
+            }
+            /* Resize the window. */
+            case sf::Event::Resized:
+            {
+                this-&gt;view.setSize(event.size.width, event.size.height);
+                this-&gt;game-&gt;background.setPosition(this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(0, 0), this-&gt;view));
+                sf::Vector2f pos = sf::Vector2f(event.size.width, event.size.height);
+                pos *= 0.5f;
+                pos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(pos), this-&gt;view);
+                this-&gt;guiSystem.at(&quot;menu&quot;).setPosition(pos);
+                this-&gt;game-&gt;background.setScale(
+                    float(event.size.width) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().x),
+                    float(event.size.height) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().y));
+                break;
+            }
+            /* Highlight menu items. */
+            case sf::Event::MouseMoved:
+            {
+                this-&gt;guiSystem.at(&quot;menu&quot;).highlight(this-&gt;guiSystem.at(&quot;menu&quot;).getEntry(mousePos));
+                break;
+            }
+            /* Click on menu items. */
+            case sf::Event::MouseButtonPressed:
+            {
+                if(event.mouseButton.button == sf::Mouse::Left)
+                {
+                    std::string msg = this-&gt;guiSystem.at(&quot;menu&quot;).activate(mousePos);
+
+                    if(msg == &quot;load_game&quot;)
+                    {
+                        this-&gt;loadgame();
+                    }
+                }
+                break;
+            }
+            case sf::Event::KeyPressed:
+            {
+                if(event.key.code == sf::Keyboard::Escape) this-&gt;game-&gt;window.close();
+                break;
+            }
+            default: break;
+        }
+    }
+
+    return;
+}</code></pre>
+
+<p>Note the new <code>mousePos</code> variable that saves us a lot of typing and some <em>really</em> long lines. We've also made sure to re-center the <code>Gui</code> when the window changes size, and have removed the ability to press the space bar to move to the next state. Instead the player hovers over the <code>Gui</code> (highlighting it) and then left clicks. If the <code>load_game</code> message is received (i.e. the player has pressed the &quot;Load Game&quot; entry) then the game will move to the next state. Try it and see!</p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/08-02.png" alt="Cute as a button!" /></p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 9: A Complete City</em>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 7: Tile Selection</em>
+								<small>2 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="130" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130&t=Creating+a+City+Building+Game+with+SFML+Part+8%3A+GUI+System+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+8%3A+GUI+System+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130&title=Creating+a+City+Building+Game+with+SFML+Part+8%3A+GUI+SystemTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-8-gui-system%2F130"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>1 comment</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130" />
+			<input type="hidden" name="tutorial_id" value="130" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="0f3dfb" value="6830d5" /> <input type="text" name="532f9b" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment256">
+	<a name="comment256"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="256" />
+				<a name="comment256"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/fd7cab30e2baccb2fd4c99e442087331?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JA</span></span>		<span class="author">Jake Adams</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>11 months ago</span>
+				<blockquote class="comment">Hi
+
+I'm using SFML 2.3 (latest as of this writing) and getting an error at the following line:
+
+	this->guiSystem.emplace("menu", Gui(sf::Vector2f(192, 32), 4, false, game->stylesheets.at("button"), 
+	{ std::make_pair("Load Game", "load_game") }));
+
+
+Error:
+
+error C2259: 'Gui' : cannot instantiate abstract class
+1>          due to following members:
+1>          'void sf::Drawable::draw(sf::RenderTarget &,sf::RenderStates) const' : is abstract</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/256">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,121,new Date().getTime(),"","","","",""]);</script></body>
+</html>

@@ -1,0 +1,948 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 10] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 10] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 10: Putting it All Together | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 10: Putting it All Together - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 10: Putting it All Together</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132#comments" class="grey-button icon-comment-1 addcomment">
+								10							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 12, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>Now we'll look at the (rather long) <code>update</code> function. We'll split it into several parts.</p>
+
+<pre class="prettyprint"><code>void City::update(float dt)
+{
+    double popTotal = 0;
+    double commercialRevenue = 0;
+    double industrialRevenue = 0;
+
+    /* Update the game time */
+    this-&gt;currentTime += dt;
+    if(this-&gt;currentTime &lt; this-&gt;timePerDay) return;
+    ++day;
+    this-&gt;currentTime = 0.0;
+    if(day % 30 == 0)
+    {
+        this-&gt;funds += this-&gt;earnings;
+        this-&gt;earnings = 0;
+    }
+    /* Run first pass of tile updates. Mostly handles pool distribution. */
+    for(int i = 0; i &lt; this-&gt;map.tiles.size(); ++i)
+    {
+        Tile&amp; tile = this-&gt;map.tiles[this-&gt;shuffledTiles[i]];
+
+        if(tile.tileType == TileType::RESIDENTIAL)
+        {
+            /* Redistribute the pool and increase the population total by the tile's population */
+            this-&gt;distributePool(this-&gt;populationPool, tile, this-&gt;birthRate - this-&gt;deathRate);
+
+            popTotal += tile.population;
+        }
+        else if(tile.tileType == TileType::COMMERCIAL)
+        {
+            /* Hire people. */
+            if(rand() % 100 &lt; 15 * (1.0-this-&gt;commercialTax))
+                this-&gt;distributePool(this-&gt;employmentPool, tile, 0.00);
+        }
+        else if(tile.tileType == TileType::INDUSTRIAL)
+        {
+            /* Extract resources from the ground. */
+            if(this-&gt;map.resources[i] &gt; 0 &amp;&amp; rand() % 100 &lt; this-&gt;population)
+            {
+                ++tile.production;
+                --this-&gt;map.resources[i];
+            }
+            /* Hire people. */
+            if(rand() % 100 &lt; 15 * (1.0-this-&gt;industrialTax))
+                this-&gt;distributePool(this-&gt;employmentPool, tile, 0.0);
+        }
+
+        tile.update();
+    }</code></pre>
+
+<p>Initially we move to the next day if enough time has passed, much like how <code>AnimationHandler::update</code> works. If a month has passed, then the <code>earnings</code> are added to <code>funds</code> and the <code>earnings</code> reset to 0. The bulk of the <code>update</code> function is a series of loops that iterate over every <code>tile</code> in the <code>map</code> (using <code>shuffledTiles</code> of course). These loops must be separate as the order in which various things happen is important.</p>
+
+<p>First, people attempt to move from the <code>populationPool</code> into the residential zones, and the population of each zone is adjusted according to the net birth rate. The commercial zones then attempt to hire people, where they will hire more people the lower the <code>commercialTax</code> is. Finally the industrial zones will attempt to hire people too, but will also extract resources from the ground if any are left. (Remember the <code>resources</code> variable in <code>Map</code>?) We then call <code>update</code> on the <code>tile</code> to change its <code>tileVariant</code> if necessary (i.e. the population is full).</p>
+
+<pre class="prettyprint"><code>    /* Run second pass. Mostly handles goods manufacture */
+    for(int i = 0; i &lt; this-&gt;map.tiles.size(); ++i)
+    {
+        Tile&amp; tile = this-&gt;map.tiles[this-&gt;shuffledTiles[i]];
+
+        if(tile.tileType == TileType::INDUSTRIAL)
+        {
+            int receivedResources = 0;
+            /* Receive resources from smaller and connected zones */
+            for(auto&amp; tile2 : this-&gt;map.tiles)
+            {
+                if(tile2.regions[0] == tile.regions[0] &amp;&amp; tile2.tileType == TileType::INDUSTRIAL)
+                {
+                    if(tile2.production &gt; 0)
+                    {
+                        ++receivedResources;
+                        --tile2.production;
+                    }
+                    if(receivedResources &gt;= tile.tileVariant+1) break;
+                }
+            }
+            /* Turn resources into goods */
+            tile.storedGoods += (receivedResources+tile.production)*(tile.tileVariant+1);
+        }
+    }</code></pre>
+
+<p>In the second pass, the industrial zones attempt to take any resources from smaller zones that they are connected to via roads or zones (those in the same region) before turning those <code>resource</code>s into <code>storedGoods</code>. Each zone can only receive one resource from every other tile, and can only receive one more than its <code>tileVariant</code> in total resources. The larger the <code>tileVariant</code> (and so the larger and more advanced the industrial zone) the more goods it can produce per resource and the more resources it can receive.</p>
+
+<pre class="prettyprint"><code>    /* Run third pass. Mostly handles goods distribution. */
+    for(int i = 0; i &lt; this-&gt;map.tiles.size(); ++i)
+    {
+        Tile&amp; tile = this-&gt;map.tiles[this-&gt;shuffledTiles[i]];
+
+        if(tile.tileType == TileType::COMMERCIAL)
+        {
+            int receivedGoods = 0;
+            double maxCustomers = 0.0;
+            for(auto&amp; tile2 : this-&gt;map.tiles)
+            {
+                if(tile2.regions[0] == tile.regions[0] &amp;&amp;
+                    tile2.tileType == TileType::INDUSTRIAL &amp;&amp;
+                    tile2.storedGoods &gt; 0)
+                {
+                    while(tile2.storedGoods &gt; 0 &amp;&amp; receivedGoods != tile.tileVariant+1)
+                    {
+                        --tile2.storedGoods;
+                        ++receivedGoods;
+                        industrialRevenue += 100 * (1.0-industrialTax);
+                    }
+                }
+                else if(tile2.regions[0] == tile.regions[0] &amp;&amp;
+                    tile2.tileType == TileType::RESIDENTIAL)
+                {
+                    maxCustomers += tile2.population;
+                }
+                if(receivedGoods == tile.tileVariant+1) break;
+            }
+            /* Calculate the overall revenue for the tile. */
+            tile.production = (receivedGoods*100.0 + rand() % 20) * (1.0-this-&gt;commercialTax);
+
+            double revenue = tile.production * maxCustomers * tile.population / 100.0;
+            commercialRevenue += revenue;
+        }
+    }</code></pre>
+
+<p>In the third and final pass, the goods produced by the industrial zones are distributed amongst the commercial zones which then sell the goods. First, any goods in connected industrial zones are moved into the commercial zone producing taxable income for the industrial zones. Any connected residential regions increase the maximum number of customers the commercial zone can receive. We then calculate the revenue the commercial zones generate from selling the goods.</p>
+
+<pre class="prettyprint"><code>    /* Adjust population pool for births and deaths. */
+    this-&gt;populationPool = this-&gt;adjustPopulation(this-&gt;populationPool, this-&gt;birthRate - this-&gt;deathRate);
+    popTotal += this-&gt;populationPool;
+
+    /* Adjust the employment pool for the changing population. */
+    float newWorkers = (popTotal - this-&gt;population) * this-&gt;propCanWork;
+    newWorkers *= newWorkers &lt; 0 ? -1 : 1;
+    this-&gt;employmentPool += newWorkers;
+    this-&gt;employable += newWorkers;
+    if(this-&gt;employmentPool &lt; 0) this-&gt;employmentPool = 0;
+    if(this-&gt;employable &lt; 0) this-&gt;employable = 0;
+
+    /* Update the city population. */
+    this-&gt;population = popTotal;
+
+    /* Calculate city income from tax. */
+    this-&gt;earnings = (this-&gt;population - this-&gt;populationPool) * 15 * this-&gt;residentialTax;
+    this-&gt;earnings += commercialRevenue * this-&gt;commercialTax;
+    this-&gt;earnings += industrialRevenue * this-&gt;industrialTax;
+
+    return;
+}</code></pre>
+
+<p>In the last part of <code>update</code> we adjust the <code>populationPool</code> based on the net birth rate, and we add new people to the <code>employmentPool</code> if the total population is different from the population on the previous day. This simulates citizens entering the job market, although of course if the population decreases then the number of employable people will drop too. Finally, we tax all the income (as well as the residential zones) and increase <code>earnings</code> by the total amount.</p>
+
+<p>And with that the final class is completed! Now all that's left is to incorporate this into <code>GameStateEditor</code> and put a <code>Gui</code> in that class too. Firstly, we'll replace the <code>map</code> variable in <code>GameStateEditor</code> with a <code>City</code>, <code>city</code> instead. So now instead of <code>this-&gt;map.tileSize</code> calls (for example) we will have <code>this-&gt;city.map.tileSize</code> calls. (Beware the <code>mapPixelToCoords</code> function if you find and replace <code>map</code> with <code>city.map</code>!) We'll also need to add a <code>guiSystem</code> variable like we did in <code>GameStateStart</code>. Oh, and remember to include <code>&lt;map&gt;</code>, <code>&lt;string</code>, and <code>&quot;gui.hpp&quot;</code>!</p>
+
+<p>Inside the constructor we should of course replace <code>map.load</code> with the <code>City</code> equivalent,</p>
+
+<pre class="prettyprint"><code>    this-&gt;city = City(&quot;city&quot;, this-&gt;game-&gt;tileSize, this-&gt;game-&gt;tileAtlas);
+    this-&gt;city.shuffleTiles();</code></pre>
+
+<p>And we'll also need to add the <code>Gui</code> system. This one will be considerably longer than in <code>GameStateStart</code>!</p>
+
+<pre class="prettyprint"><code>/* Create gui elements. */
+this-&gt;guiSystem.emplace(&quot;rightClickMenu&quot;, Gui(sf::Vector2f(196, 16), 2, false, this-&gt;game-&gt;stylesheets.at(&quot;button&quot;),
+    {
+        std::make_pair(&quot;Flatten $&quot;          + this-&gt;game-&gt;tileAtlas[&quot;grass&quot;].getCost(),         &quot;grass&quot;),
+        std::make_pair(&quot;Forest $&quot;           + this-&gt;game-&gt;tileAtlas[&quot;forest&quot;].getCost(),        &quot;forest&quot; ),
+        std::make_pair(&quot;Residential Zone $&quot; + this-&gt;game-&gt;tileAtlas[&quot;residential&quot;].getCost(),   &quot;residential&quot;),
+        std::make_pair(&quot;Commercial Zone $&quot;  + this-&gt;game-&gt;tileAtlas[&quot;commercial&quot;].getCost(),    &quot;commercial&quot;),
+        std::make_pair(&quot;Industrial Zone $&quot;  + this-&gt;game-&gt;tileAtlas[&quot;industrial&quot;].getCost(),    &quot;industrial&quot;),
+        std::make_pair(&quot;Road $&quot;             + this-&gt;game-&gt;tileAtlas[&quot;road&quot;].getCost(),          &quot;road&quot;)
+    }));
+
+this-&gt;guiSystem.emplace(&quot;selectionCostText&quot;, Gui(sf::Vector2f(196, 16), 0, false, this-&gt;game-&gt;stylesheets.at(&quot;text&quot;),
+    { std::make_pair(&quot;&quot;, &quot;&quot;) }));
+
+this-&gt;guiSystem.emplace(&quot;infoBar&quot;, Gui(sf::Vector2f(this-&gt;game-&gt;window.getSize().x / 5 , 16), 2, true, this-&gt;game-&gt;stylesheets.at(&quot;button&quot;),
+    {
+        std::make_pair(&quot;time&quot;,          &quot;time&quot;),
+        std::make_pair(&quot;funds&quot;,         &quot;funds&quot;),
+        std::make_pair(&quot;population&quot;,    &quot;population&quot;),
+        std::make_pair(&quot;employment&quot;,    &quot;employment&quot;),
+        std::make_pair(&quot;current tile&quot;,  &quot;tile&quot;)
+    }));
+this-&gt;guiSystem.at(&quot;infoBar&quot;).setPosition(sf::Vector2f(0, this-&gt;game-&gt;window.getSize().y - 16));
+this-&gt;guiSystem.at(&quot;infoBar&quot;).show();</code></pre>
+
+<p>The <code>&quot;rightClickMenu&quot;</code> will (as its name implies) be shown when the player presses the right mouse button. It will list all of the possible tiles that they can place along with their prices, and when a tile is chosen <code>currentTile</code> will be set to that tile. Any time the player selects tiles, from then on, will cause the selected tiles to be replaced with <code>currentTile</code>. <code>&quot;selectionCostText&quot;</code> will be displayed when the player is selecting tiles, and will tell them how much the tiles they are placing will cost. It will go red if the player does not have enough funds to place the tiles.</p>
+
+<p>Lastly, <code>&quot;infoBar&quot;</code> will sit and span the bottom of the screen, displaying the game day and other useful information for the player. If we want it to display information we'll have to update that information all the time, so we can put that code inside of <code>update</code></p>
+
+<pre class="prettyprint"><code>void GameStateEditor::update(const float dt)
+{
+    this-&gt;city.update(dt);
+
+    /* Update the info bar at the bottom of the screen */
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setEntryText(0, &quot;Day: &quot; + std::to_string(this-&gt;city.day));
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setEntryText(1, &quot;$&quot; + std::to_string(long(this-&gt;city.funds)));
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setEntryText(2, std::to_string(long(this-&gt;city.population)) + &quot; (&quot; + std::to_string(long(this-&gt;city.getHomeless())) + &quot;)&quot;);
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setEntryText(3, std::to_string(long(this-&gt;city.employable)) + &quot; (&quot; + std::to_string(long(this-&gt;city.getUnemployed())) + &quot;)&quot;);
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setEntryText(4, tileTypeToStr(currentTile-&gt;tileType));
+
+    /* Highlight entries of the right click context menu */
+    this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).highlight(this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getEntry(this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;guiView)));
+
+    return;
+}</code></pre>
+
+<p>The first entry of the <code>&quot;infobar&quot;</code> will be the game day, the second the <code>city</code>'s funds, the third the population (with the number of homeless in parentheses), the fourth the number of employable people (with the number left unemployed in parentheses), and the fifth the name of the <code>currentTile</code>. We have to first typecast to a <code>long</code> so that we don't get floating point populations appearing (we used a <code>double</code> for ease of calculation but we truncate it here to print the 'real' value). With <code>update</code> done let's make sure that the <code>Gui</code> is actually drawn to the screen.</p>
+
+<pre class="prettyprint"><code>void GameStateEditor::draw(const float dt)
+{
+    this-&gt;game-&gt;window.clear(sf::Color::Black);
+
+    this-&gt;game-&gt;window.setView(this-&gt;guiView);
+    this-&gt;game-&gt;window.draw(this-&gt;game-&gt;background);
+
+    this-&gt;game-&gt;window.setView(this-&gt;gameView);
+    this-&gt;city.map.draw(this-&gt;game-&gt;window, dt);
+
+    this-&gt;game-&gt;window.setView(this-&gt;guiView);
+    for(auto gui : this-&gt;guiSystem) this-&gt;game-&gt;window.draw(gui.second);
+
+    return;
+}</code></pre>
+
+<p>First, we switch to the <code>guiView</code> and then we draw each <code>Gui</code> in turn like in <code>GameStateStart</code>. The <code>Gui</code> is of course drawn after the <code>city</code>, otherwise the player wouldn't be able to see it! Finally we can add the <code>Gui</code> code to <code>handleInput</code>. Before we get to the <code>switch</code> statement it would be sensible to save ourselves some writing and create <code>gamePos</code> and <code>guiPos</code> variables that record the position of the mouse in <code>gameView</code> and <code>guiView</code> coordinates.</p>
+
+<pre class="prettyprint"><code>void GameStateEditor::handleInput()
+{
+    sf::Event event;
+
+    sf::Vector2f guiPos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;guiView);
+    sf::Vector2f gamePos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;gameView);
+
+    while(this-&gt;game-&gt;window.pollEvent(event))</code></pre>
+
+<p>Inside of the <code>MouseMoved</code> event we'll add the code to display the <code>&quot;selectionCostText&quot;</code> <code>Gui</code>.</p>
+
+<pre class="prettyprint"><code>    else
+    {
+        this-&gt;city.map.select(selectionStart, selectionEnd,
+            {
+                this-&gt;currentTile-&gt;tileType,    TileType::FOREST,
+                TileType::WATER,                TileType::ROAD,
+                TileType::RESIDENTIAL,          TileType::COMMERCIAL,
+                TileType::INDUSTRIAL
+            });
+    }
+
+    this-&gt;guiSystem.at(&quot;selectionCostText&quot;).setEntryText(0, &quot;$&quot; + std::to_string(this-&gt;currentTile-&gt;cost * this-&gt;city.map.numSelected));
+    if(this-&gt;city.funds &lt;= this-&gt;city.map.numSelected * this-&gt;currentTile-&gt;cost)
+        this-&gt;guiSystem.at(&quot;selectionCostText&quot;).highlight(0);
+    else
+        this-&gt;guiSystem.at(&quot;selectionCostText&quot;).highlight(-1);
+    this-&gt;guiSystem.at(&quot;selectionCostText&quot;).setPosition(guiPos + sf::Vector2f(16, -16));
+    this-&gt;guiSystem.at(&quot;selectionCostText&quot;).show();
+}
+/* Highlight entries of the right click context menu */
+this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).highlight(this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getEntry(guiPos));
+break;</code></pre>
+
+<p>}</p>
+
+<p>The total cost is of course the cost per tile multiplied by the number of selected tiles. If the city does not has enough <code>funds</code> we highlight the text, making it red. We then position the text to the bottom right of the cursors and <code>show</code> it. We also <code>highlight</code> the entry of the <code>&quot;rightClickMenu&quot;</code> that the player is hovering over. For the <code>MouseButtonPressed</code> event, we hide the <code>Gui</code> when the middle mouse button is pressed.</p>
+
+<pre class="prettyprint"><code>case sf::Event::MouseButtonPressed:
+{
+    /* Start panning */
+    if(event.mouseButton.button == sf::Mouse::Middle)
+    {
+        this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).hide();
+        this-&gt;guiSystem.at(&quot;selectionCostText&quot;).hide();</code></pre>
+
+<p>When the left mouse button is pressed we select a tile from the <code>&quot;rightClickMenu&quot;</code> if it is visible, or we start selecting tiles if it isn't.</p>
+
+<pre class="prettyprint"><code>else if(event.mouseButton.button == sf::Mouse::Left)
+{
+    /* Select a context menu entry. */
+    if(this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).visible == true)
+    {
+        std::string msg = this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).activate(guiPos);
+        if(msg != &quot;null&quot;) this-&gt;currentTile = &amp;this-&gt;game-&gt;tileAtlas.at(msg);
+
+        this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).hide();
+    }
+    /* Select map tile. */
+    else
+    {
+        /* Select map tile. */
+        if(this-&gt;actionState != ActionState::SELECTING)
+        {
+            this-&gt;actionState = ActionState::SELECTING;
+            selectionStart.x = gamePos.y / (this-&gt;city.map.tileSize) + gamePos.x / (2*this-&gt;city.map.tileSize) - this-&gt;city.map.width * 0.5 - 0.5;
+            selectionStart.y = gamePos.y / (this-&gt;city.map.tileSize) - gamePos.x / (2*this-&gt;city.map.tileSize) + this-&gt;city.map.width * 0.5 + 0.5;
+        }
+    }
+}</code></pre>
+
+<p>When we created the <code>&quot;rightClickMenu&quot;</code> we set the <code>message</code>s to be equal to the name of the tile in the <code>tileAtlas</code>, and so we can easily set <code>currentTile</code> to the one clicked. When an entry is selected we <code>hide</code> the menu. Finally, in the <code>MouseButtonPressed</code> event we handle what happens when the right mouse button is pressed.</p>
+
+<pre class="prettyprint"><code>else if(event.mouseButton.button == sf::Mouse::Right)
+{
+    /* Stop selecting. */
+    if(this-&gt;actionState == ActionState::SELECTING)
+    {
+        this-&gt;actionState = ActionState::NONE;
+        this-&gt;guiSystem.at(&quot;selectionCostText&quot;).hide();
+        this-&gt;city.map.clearSelected();
+    }
+    else
+    {
+        /* Open the tile select menu. */
+        sf::Vector2f pos = guiPos;
+
+        if(pos.x &gt; this-&gt;game-&gt;window.getSize().x - this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getSize().x)
+        {
+            pos -= sf::Vector2f(this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getSize().x, 0);
+        }
+        if(pos.y &gt; this-&gt;game-&gt;window.getSize().y - this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getSize().y)
+        {
+            pos -= sf::Vector2f(0, this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).getSize().y);
+        }
+        this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).setPosition(pos);
+        this-&gt;guiSystem.at(&quot;rightClickMenu&quot;).show();
+    }
+}
+break;</code></pre>
+
+<p>As before, we stop selecting if the right mouse button is pressed, but we also make sure that we hide the <code>&quot;selectionCostText&quot;</code>. If the player isn't selecting then we open the <code>&quot;rightClickMenu&quot;</code>. The <code>if</code> statements make sure that the <code>Gui</code> is not opened in a position so as to go off the edge of the screen; it will always open with a corner on the mouse cursor, but which corner depends on where the mouse is when the button is pressed. We then set the position of the <code>Gui</code> before <code>show</code>ing it. </p>
+
+<p>Next, we'll add the code to change the selected tiles. When the left mouse button is released.</p>
+
+<pre class="prettyprint"><code>/* Stop selecting. */
+else if(event.mouseButton.button == sf::Mouse::Left)
+{
+    if(this-&gt;actionState == ActionState::SELECTING)
+    {
+        /* Replace tiles if enough funds and a tile is selected */
+        if(this-&gt;currentTile != nullptr)
+        {
+            unsigned int cost = this-&gt;currentTile-&gt;cost * this-&gt;city.map.numSelected;
+            if(this-&gt;city.funds &gt;= cost)
+            {
+                this-&gt;city.bulldoze(*this-&gt;currentTile);
+                this-&gt;city.funds -= this-&gt;currentTile-&gt;cost * this-&gt;city.map.numSelected;
+                this-&gt;city.tileChanged();
+            }
+        }
+        this-&gt;guiSystem.at(&quot;selectionCostText&quot;).hide();
+        this-&gt;actionState = ActionState::NONE;
+        this-&gt;city.map.clearSelected();
+    }
+}</code></pre>
+
+<p>Now, as well as clearing the selection, we hide the <code>&quot;selectionCostText&quot;</code> and replace the selected tiles if the <code>city</code> has enough <code>funds</code> to do so. We also call <code>tileChanged</code> to update the regions and roads.</p>
+
+<p>Lastly, we need to readjust the dimensions and position of the <code>&quot;infobar&quot;</code> when the screen is resized.</p>
+
+<pre class="prettyprint"><code>/* Resize the window. */
+case sf::Event::Resized:
+{
+    gameView.setSize(event.size.width, event.size.height);
+    gameView.zoom(zoomLevel);
+    guiView.setSize(event.size.width, event.size.height);
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setDimensions(sf::Vector2f(event.size.width / this-&gt;guiSystem.at(&quot;infoBar&quot;).entries.size(), 16));
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).setPosition(this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(0, event.size.height - 16), this-&gt;guiView));
+    this-&gt;guiSystem.at(&quot;infoBar&quot;).show();
+    this-&gt;game-&gt;background.setPosition(this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(0, 0), this-&gt;guiView));
+    this-&gt;game-&gt;background.setScale(
+        float(event.size.width) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().x), 
+        float(event.size.height) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().y));
+    break;
+}</code></pre>
+
+<p>This is just the same code as we had in the constructor, but placed in the <code>resize</code> function instead.</p>
+
+<p>Phew, that was a lot of code! Try compiling and playing the game, hopefully it does everything it's supposed to... I hope you enjoyed this adventure into SFML, there's still a lot you can do with this game! Perhaps add some new power station, pylon tiles and create an electricity system (add another region to help distribute the electricity) or make the zones demand water. You could also add some nice background music (use the <a href="http://www.sfml-dev.org/documentation/2.1/group__audio.php"><code>sf::Music</code> class</a>) or add the option to create a new game instead of just continuing from an existing one. Above all, enjoy yourself whilst you do it, and happy programming!</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml/137"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML</em>
+								<small>10 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 9: A Complete City</em>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="132" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132&t=Creating+a+City+Building+Game+with+SFML+Part+10%3A+Putting+it+All+Together+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+10%3A+Putting+it+All+Together+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132&title=Creating+a+City+Building+Game+with+SFML+Part+10%3A+Putting+it+All+TogetherTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-10-putting-it-all-together%2F132"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>10 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132" />
+			<input type="hidden" name="tutorial_id" value="132" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="23388d" value="8f52ea" /> <input type="text" name="e1769f" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment302">
+	<a name="comment302"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="302" />
+				<a name="comment302"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/2d7e40a5905079a8fe90c15fc5c0a5b7?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>H</span></span>		<span class="author">HoodedSpectre</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">I figured out why It wasn't creating the map if anyone is still having issues. You need to create the city_cfg.dat in order to get it to properly load.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/302">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment303">
+	<a name="comment303"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="303" />
+				<input type="hidden" name="parent_id" value="302" />
+				<a name="comment303"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/2d7e40a5905079a8fe90c15fc5c0a5b7?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>H</span></span>		<span class="author">HoodedSpectre</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">width=64
+height=64
+day=0
+populationPool=50
+employmentPool=25
+population=50
+employable=25
+birthRate=0.00055
+deathRate=0.00023
+residentialTax=0.05
+commercialTax=0.05
+industrialTax=0.05
+funds=30000
+earnings=0</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/303/parent/302">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment299">
+	<a name="comment299"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="299" />
+				<a name="comment299"></a>
+				<span class="avatar small color6"><img src="https://www.gravatar.com/avatar/a0033cc1bd31335f0c15f8f8e59602a4?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>NL</span></span>		<span class="author">N3RD L1F3</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">So i worked through this great tutorial....but now at the end I am having a problem getting it to run.
+
+Once i start the game by clicking the button, I get the background and the gui but no Map. If i right click, the gui menu appears but if i left click i get a vector subscript error. I am new to C++ so my understanding is pretty basic. I was able to debug to the point of where it crashes, which is in map.cpp.
+
+line:
+for (int x = start.x; x <= end.x; ++x)
+		{
+			/* Check if the tile type is in the blacklist. If it is, mark it as
+			* invalid, otherwise select it */
+			this->selected[y*this->width + x] = 1;
+			++this->numSelected;
+			
+if I understand correctling by left clicking it is trying to select a tile, but since there is no map, it can not select a tile and crashes.....
+
+So my question, why does it not create a map when i start the game?
+
+Any help would be appriciated.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/299">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment304">
+	<a name="comment304"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="304" />
+				<input type="hidden" name="parent_id" value="299" />
+				<a name="comment304"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/2d7e40a5905079a8fe90c15fc5c0a5b7?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>H</span></span>		<span class="author">HoodedSpectre</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">I'm not sure if you found a solution or not but I posted one.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/304/parent/299">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment294">
+	<a name="comment294"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="294" />
+				<a name="comment294"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/ed27fba05c8276fb965435591cb7a3ab?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JB</span></span>		<span class="author">Josh Braun</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>5 months ago</span>
+				<blockquote class="comment">Just wandering how to run/compile the game??</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/294">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment259">
+	<a name="comment259"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="259" />
+				<a name="comment259"></a>
+				<span class="avatar small color3"><img src="https://www.gravatar.com/avatar/98808e4f84853762627162892022944d?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>E</span></span>		<span class="author">Edg</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>10 months ago</span>
+				<blockquote class="comment">I got the vector subscript out of range error on VS2013 as well. It turns out that the shuffledTiles should range from 0 to map.tiles.size()-1, instead of 1 to map.tiles.size(). I changed the 3rd parameter in the call to std::iota to 0 from 1 to fix this. The statement is now:
+    std::iota(shuffledTiles.begin(), shuffledTiles.end(), 0);</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/259">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment254">
+	<a name="comment254"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="254" />
+				<a name="comment254"></a>
+				<span class="avatar small color1"><img src="https://www.gravatar.com/avatar/a55a4980b72981384a6464ff595d8cc8?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>DW</span></span>		<span class="author">Don Wilson</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>11 months ago</span>
+				<blockquote class="comment">Just an FYI, there's likely an issue with the city earnings from taxation calculations. At the very bottom of update() when calculating the city earnings we're multiplying the commercial and industrial tax rates against the post-taxed commercial/residential revenues, not the pre-taxed revenues.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/254">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment255">
+	<a name="comment255"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="255" />
+				<input type="hidden" name="parent_id" value="254" />
+				<a name="comment255"></a>
+				<span class="avatar small color1"><img src="https://www.gravatar.com/avatar/a55a4980b72981384a6464ff595d8cc8?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>DW</span></span>		<span class="author">Don Wilson</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>11 months ago</span>
+				<blockquote class="comment">Not to mention there's no method City::adjustPopulation(), that line should be:
+
+this->populationPool += this->populationPool * (this->birthRate - this->deathRate);</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/255/parent/254">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment251">
+	<a name="comment251"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="251" />
+				<a name="comment251"></a>
+				<span class="avatar small color3"><img src="https://www.gravatar.com/avatar/20dd3e1d8f14978264700dec6d313f1c?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>H</span></span>		<span class="author">Harry</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>11 months ago</span>
+				<blockquote class="comment">I get exactly the same problem as Tom. Think I've narrowed it down to the:
+
+this->selected[y*this->width + x] = 1;
+
+within Map::select(....)
+
+line 263 on Map.cpp on the GitHub source code 
+(<a href="https://github.com/Piepenguin1995/citybuilder/blob/master/map.cpp#L263)" rel="nofollow">https://github.com/Piepenguin1995/citybuilder/blob/master/map.cpp#L263)</a>
+
+But no idea how to fix it. 
+
+Great tutorial project tho!</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/251">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment246">
+	<a name="comment246"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="246" />
+				<a name="comment246"></a>
+				<span class="avatar small color3"><img src="https://www.gravatar.com/avatar/d7b99d6590d8b3af0d985bdd645533db?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>T</span></span>		<span class="author">Tom</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>11 months ago</span>
+				<blockquote class="comment">Hey, not sure if you keep up with this tutorial,but I've found a bug in the code where if I compile this in VS2013 I receive a "vector out of subscript range" error once I make the first for loop pass in City::update. Not sure if you ran into this error, but I've followed this tutorial closely so I'm not entirely sure where my code might differ.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/246">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,128,new Date().getTime(),"","","","",""]);</script></body>
+</html>

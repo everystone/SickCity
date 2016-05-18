@@ -1,0 +1,580 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 7] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 7] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 7: Tile Selection | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 7: Tile Selection - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 7: Tile Selection</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129#comments" class="grey-button icon-comment-1 addcomment">
+								2							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 11, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>With that all done we can start to add the ability to change the <code>Map</code> by bulldozing tiles and placing new ones. For this to work we'd need a way for the player to select the tiles to be changed. For this we will use an <code>std::vector</code> like <code>tiles</code>, but it will store <code>int</code>s instead. The player will left click and drag to select the tiles, and when they release the left mouse button the selection will be replaced with the new tiles. First then, we'll need to create this <code>std::vector</code>. Whilst it is only relevant to the <code>GameStateEditor</code> class, we will place it in <code>Map</code> instead, as it's far easier to manage there.</p>
+
+<pre class="prettyprint"><code>/* 0 = Deselected, 1 = Selected, 2 = Invalid */
+std::vector&lt;char&gt; selected;
+unsigned int numSelected;
+
+/* Select the tiles within the bounds */
+void select(sf::Vector2i start, sf::Vector2i end, std::vector&lt;TileType&gt; blacklist);
+
+/* Deselect all tiles */
+void clearSelected();</code></pre>
+
+<p>We've used <code>char</code>s instead of <code>int</code>s to be more efficient but we'll still interpret them as numbers. <code>numSelected</code> is, unsurprisingly, the number of tiles that are currently selected (and are not invalid). We have the extra invalid option (so sadly we can't use an <code>std::vector&lt;bool&gt;</code>) for tiles that are within the selection area but cannot be replaced by the tile we are planning on adding (no zones over rivers, for example). We then have the <code>select</code> function that selects all the tiles within the bounding rectangle of <code>start</code> and <code>end</code>, and sets all the tiles within that rectangle that are in the <code>blacklist</code> to invalid. Finally, we have <code>clearSelected</code> to just deselect every tile.</p>
+
+<p>Now we have to update the constructors</p>
+
+<pre class="prettyprint"><code>/* Blank map constructor */
+Map()
+{
+    this-&gt;numSelected = 0;
+    this-&gt;tileSize = 8;
+    this-&gt;width = 0;
+    this-&gt;height = 0;
+    this-&gt;numRegions[0] = 1;
+}
+/* Load map from file constructor */
+Map(const std::string&amp; filename, unsigned int width, unsigned int height,
+    std::map&lt;std::string, Tile&gt;&amp; tileAtlas)
+{
+    this-&gt;numSelected = 0;
+    this-&gt;tileSize = 8;
+    load(filename, width, height, tileAtlas);
+}</code></pre>
+
+<p>With the data structures and declarations set up, let's go to <code>map.cpp</code> to write the function definitions for <code>select</code> and <code>clearSelected</code>.</p>
+
+<pre class="prettyprint"><code>void Map::clearSelected()
+{
+    for(auto&amp; tile : this-&gt;selected) tile = 0;
+
+    this-&gt;numSelected = 0;
+
+    return;
+}
+
+void Map::select(sf::Vector2i start, sf::Vector2i end, std::vector&lt;TileType&gt; blacklist)
+{
+    /* Swap coordinates if necessary */
+    if(end.y &lt; start.y) std::swap(start.y, end.y);
+    if(end.x &lt; start.x) std::swap(start.x, end.x);
+
+    /* Clamp in range */
+    if(end.x &gt;= this-&gt;width)      end.x = this-&gt;width - 1;
+    else if(end.x &lt; 0)               end.x = 0;
+    if(end.y &gt;= this-&gt;height)         end.y = this-&gt;height - 1;
+    else if(end.y &lt; 0)               end.y = 0;
+    if(start.x &gt;= this-&gt;width)        start.x = this-&gt;width - 1;
+    else if(start.x &lt; 0)             start.x = 0;
+    if (start.y &gt;= this-&gt;height)  start.y = this-&gt;height - 1;
+    else if(start.y &lt; 0)             start.y = 0;
+
+    for(int y = start.y; y &lt;= end.y; ++y)
+    {
+        for(int x = start.x; x &lt;= end.x; ++x)
+        {
+            /* Check if the tile type is in the blacklist. If it is, mark it as
+             * invalid, otherwise select it */
+            this-&gt;selected[y*this-&gt;width+x] = 1;
+            ++this-&gt;numSelected;
+            for(auto type : blacklist)
+            {
+                if(this-&gt;tiles[y*this-&gt;width+x].tileType == type)
+                {
+                    this-&gt;selected[y*this-&gt;width+x] = 2;
+                    --this-&gt;numSelected;
+                    break;
+                }
+            }
+        }
+    }
+
+    return;
+}</code></pre>
+
+<p>I don't think <code>clearSelected</code> requires explanation anymore, but <code>select</code> deserves some. We first make sure that the bounding rectangle is extending down and to the right (increasing in both axes) by using the <code>std::swap</code> function (found in the <code>&lt;algorithm&gt;</code> header) to make sure that the <code>start</code> coordinates are smaller than the <code>end</code> ones. We then ensure that the bounding rectangle does not extend off the edges of the map (this would cause a buffer overflow, which we certainly do not want!), before starting at the top left of the rectangle and iterating over every tile within it. To save us an <code>if</code> we just default to selecting the tile, and then mark it as invalid if the tile's <code>tileType</code> is in the <code>blacklist</code>. We have one more thing to in <code>map.cpp</code>; go to the <code>load</code> function and construct <code>selected</code> (the last line is the new one)</p>
+
+<pre class="prettyprint"><code>/* Load map from disk */
+void Map::load(const std::string&amp; filename, unsigned int width, unsigned int height,
+    std::map&lt;std::string, Tile&gt;&amp; tileAtlas)
+{
+    std::ifstream inputFile;
+    inputFile.open(filename, std::ios::in | std::ios::binary);
+
+    this-&gt;width = width;
+    this-&gt;height = height;
+
+    for(int pos = 0; pos &lt; this-&gt;width * this-&gt;height; ++pos)
+    {
+        this-&gt;resources.push_back(255);
+        this-&gt;selected.push_back(0);</code></pre>
+
+<p>With the selection functions in place the player needs a way to use them! As discussed before the left mouse button will control all of the selecting. Obviously this will be done in the <code>GameStateEditor</code> class, so let's go to <code>game_state_editor.hpp</code> and add a few necessary variables.</p>
+
+<pre class="prettyprint"><code>enum class ActionState { NONE, PANNING, SELECTING };
+
+class GameStateEditor : public GameState
+{
+    private:
+
+    ActionState actionState;
+
+    sf::View gameView;
+    sf::View guiView;
+
+    Map map;
+
+    sf::Vector2i panningAnchor;
+    float zoomLevel;
+
+    sf::Vector2i selectionStart;
+    sf::Vector2i selectionEnd;
+
+    Tile* currentTile;</code></pre>
+
+<p>As you can see we've added another entry to the <code>ActionState</code> enum, <code>ActionState::SELECTING</code>, and we've added two new <code>sf::Vector2i</code>s, <code>selectionStart</code> and <code>selectionEnd</code>. These will be the <code>start</code> and <code>end</code> arguments that we pass to <code>select</code>. We've also added a pointer to a <code>Tile</code>. <code>currentTile</code> will point to whatever tile the player wants to replace the selection with. Not forgetting to initialize them in the constructor,</p>
+
+<pre class="prettyprint"><code>    this-&gt;selectionStart = sf::Vector2i(0, 0);
+    this-&gt;selectionEnd = sf::Vector2i(0, 0);
+
+    this-&gt;currentTile = &amp;this-&gt;game-&gt;tileAtlas.at(&quot;grass&quot;);
+    this-&gt;actionState = ActionState::NONE;
+}</code></pre>
+
+<p>We'll let the player choose <code>currentTile</code> later, for now we'll just set it to the <code>TileType::GRASS</code> tile. The selection code itself will be in the <code>handleInput</code> function like before, which now looks like:</p>
+
+<pre class="prettyprint"><code>case sf::Event::MouseMoved:
+{
+    /* Pan the camera */
+    if(this-&gt;actionState == ActionState::PANNING)
+    {
+        sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(this-&gt;game-&gt;window) - this-&gt;panningAnchor);
+        gameView.move(-1.0f * pos * this-&gt;zoomLevel);
+        panningAnchor = sf::Mouse::getPosition(this-&gt;game-&gt;window);
+    }
+    /* Select tiles */
+    else if(actionState == ActionState::SELECTING)
+    {
+        sf::Vector2f pos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;gameView);
+        selectionEnd.x = pos.y / (this-&gt;map.tileSize) + pos.x / (2*this-&gt;map.tileSize) - this-&gt;map.width * 0.5 - 0.5;
+        selectionEnd.y = pos.y / (this-&gt;map.tileSize) - pos.x / (2*this-&gt;map.tileSize) + this-&gt;map.width * 0.5 + 0.5;
+
+        this-&gt;map.clearSelected();
+        if(this-&gt;currentTile-&gt;tileType == TileType::GRASS)
+        {
+            this-&gt;map.select(selectionStart, selectionEnd, {this-&gt;currentTile-&gt;tileType, TileType::WATER});
+        }
+        else
+        {
+            this-&gt;map.select(selectionStart, selectionEnd,
+                {
+                    this-&gt;currentTile-&gt;tileType,    TileType::FOREST,
+                    TileType::WATER,                TileType::ROAD,
+                    TileType::RESIDENTIAL,          TileType::COMMERCIAL,
+                    TileType::INDUSTRIAL
+                });
+        }
+    }
+    break;
+}
+case sf::Event::MouseButtonPressed:
+{
+    /* Start panning */
+    if(event.mouseButton.button == sf::Mouse::Middle)
+    {
+        if(this-&gt;actionState != ActionState::PANNING)
+        {
+            this-&gt;actionState = ActionState::PANNING;
+            this-&gt;panningAnchor = sf::Mouse::getPosition(this-&gt;game-&gt;window);
+        }
+    }
+    else if(event.mouseButton.button == sf::Mouse::Left)
+    {
+        /* Select map tile */
+        if(this-&gt;actionState != ActionState::SELECTING)
+        {
+            this-&gt;actionState = ActionState::SELECTING;
+            sf::Vector2f pos = this-&gt;game-&gt;window.mapPixelToCoords(sf::Mouse::getPosition(this-&gt;game-&gt;window), this-&gt;gameView);
+            selectionStart.x = pos.y / (this-&gt;map.tileSize) + pos.x / (2*this-&gt;map.tileSize) - this-&gt;map.width * 0.5 - 0.5;
+            selectionStart.y = pos.y / (this-&gt;map.tileSize) - pos.x / (2*this-&gt;map.tileSize) + this-&gt;map.width * 0.5 + 0.5;
+        }
+    }
+    else if(event.mouseButton.button == sf::Mouse::Right)
+    {
+        /* Stop selecting */
+        if(this-&gt;actionState == ActionState::SELECTING)
+        {
+            this-&gt;actionState = ActionState::NONE;
+            this-&gt;map.clearSelected();
+        }
+    }
+    break;
+}
+case sf::Event::MouseButtonReleased:
+{
+    /* Stop panning */
+    if(event.mouseButton.button == sf::Mouse::Middle)
+    {
+        this-&gt;actionState = ActionState::NONE;
+    }
+    /* Stop selecting */
+    else if(event.mouseButton.button == sf::Mouse::Left)
+    {
+        if(this-&gt;actionState == ActionState::SELECTING)
+        {
+            this-&gt;actionState = ActionState::NONE;
+            this-&gt;map.clearSelected();
+        }
+    }
+    break;
+}</code></pre>
+
+<p>Examining what happens when the left mouse button is pressed, we see that if the player is not already selecting tiles then <code>actionState</code> is set accordingly and the position of the mouse in game world coordinates is recorded. We then use a far fancier looking formula than before to convert from the world coordinates to the <code>Map</code> coordinates. This is the reverse of what we did previously (tile coordinates to screen coordinates) and so a little bit of algebra can be used to rearrange the old equation into these new ones. I encourage you to try it out for yourself as sadly the derivation is too cumbersome to write in this format! I'm not just being lazy, I promise... </p>
+
+<p>When the mouse is moved and the player is selecting tiles we repeat the same calculation on the new mouse position to compute the end point of the rectangle. We then use the <code>select</code> function to select the tiles. The <code>if</code> statement is there because the grass tile acts like a bulldozer, replacing anything that isn't water with grass, but when placing any other tile you are building and not demolishing, and so the land must be free of other buildings first.</p>
+
+<p>Hopefully this code should compile fine, and under the hood it should work although the selection box will not be visible. To fix this we need to go back into <code>map.cpp</code> (sorry, I was wrong when I said that was all!) and alter the <code>draw</code> function. A simple and effective way of marking the selection area is to simply darken all the tiles. We can do this using <code>sf::Sprite</code>'s <code>setColor</code> function, which changes the overall color of the sprite using a color multiply. The <code>sf::Color</code> constructor takes <code>rgb</code> values from 0-255, or 0x0-0xff in hexadecimal</p>
+
+<pre class="prettyprint"><code>/* Change the color if the tile is selected */
+if(this-&gt;selected[y*this-&gt;width+x])
+    this-&gt;tiles[y*this-&gt;width+x].sprite.setColor(sf::Color(0x7d, 0x7d, 0x7d));
+else
+    this-&gt;tiles[y*this-&gt;width+x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
+
+/* Draw the tile */
+this-&gt;tiles[y*this-&gt;width+x].draw(window, dt);</code></pre>
+
+<p>If the <code>Tile</code> isn't selected, we set it's color to white (so that it is unchanged) and if it is we halve its brightness. Now running the code should allow you to draw lovely selection boxes! They might not do anything, but at it's a step in the right direction.</p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/07-01.png" alt="A wide selection of tiles to choose from" /></p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 8: GUI System</em>
+								<small>1 comment</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-6-exploring-the-world/128"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 6: Exploring the World</em>
+								<small>9 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="129" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129&t=Creating+a+City+Building+Game+with+SFML+Part+7%3A+Tile+Selection+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+7%3A+Tile+Selection+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129&title=Creating+a+City+Building+Game+with+SFML+Part+7%3A+Tile+SelectionTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-7-tile-selection%2F129"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>2 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129" />
+			<input type="hidden" name="tutorial_id" value="129" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-7-tile-selection/129">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="16bd0a" value="d5eb7b" /> <input type="text" name="6a11ea" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment223">
+	<a name="comment223"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="223" />
+				<a name="comment223"></a>
+				<span class="avatar small color0"><img src="https://www.gravatar.com/avatar/a97a3f2acd388306e6c0d18e7609bb42?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>AF</span></span>		<span class="author">Andy Felix</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Hello! Thanks for the guide, I'm pretty new to programming and up to this point haven't had too much trouble.
+My problem is that, while it complies, it fails to load the images.
+I'm not sure where to put the PNG files, or how to make them readable.
+Any help is appreciated!</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/223">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment283">
+	<a name="comment283"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="283" />
+				<input type="hidden" name="parent_id" value="223" />
+				<a name="comment283"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/fd0533b4fcc6bc6df45d3696f57ade9c?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>CG</span></span>		<span class="author">Christian Gold</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>7 months ago</span>
+				<blockquote class="comment">Just leave them in the media folder in your project directory. </blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/283/parent/223">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,109,new Date().getTime(),"","","","",""]);</script></body>
+</html>

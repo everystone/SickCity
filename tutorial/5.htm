@@ -1,0 +1,578 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 5] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 5] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 5: The Game World | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 5: The Game World - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 5: The Game World</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127#comments" class="grey-button icon-comment-1 addcomment">
+								3							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 8, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>With the <code>Tile</code> class now in place we can put them to use by combining them into a <code>Map</code>. The <code>Map</code> class will contain a 2D array of <code>Tile</code>s as well as a bunch of helper variables and functions for altering the array. This will be our largest class yet (definition-wise, there aren't too many declarations) as some of the functions are complicated. But anyway, let's examine <code>map.hpp</code></p>
+
+<pre class="prettyprint"><code>#ifndef MAP_HPP
+#define MAP_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+
+#include &lt;string&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+
+#include &quot;tile.hpp&quot;
+
+class Map
+{
+    private:
+
+    void depthfirstsearch(std::vector&lt;TileType&gt;&amp; whitelist,
+        sf::Vector2i pos, int label, int type);
+
+    public:
+
+    unsigned int width;
+    unsigned int height;
+
+    std::vector&lt;Tile&gt; tiles;
+
+    /* Resource map */
+    std::vector&lt;int&gt; resources;
+
+    unsigned int tileSize;
+
+    unsigned int numSelected;
+
+    unsigned int numRegions[1];
+
+    /* Load map from disk */
+    void load(const std::string&amp; filename, unsigned int width, unsigned int height,
+        std::map&lt;std::string, Tile&gt;&amp; tileAtlas);
+
+    /* Save map to disk */
+    void save(const std::string&amp; filename);
+
+    /* Draw the map */  
+    void draw(sf::RenderWindow&amp; window, float dt);
+
+    /* Checks if one position in the map is connected to another by
+     * only traversing tiles in the whitelist */
+    void findConnectedRegions(std::vector&lt;TileType&gt; whitelist, int type);
+
+    /* Update the direction of directional tiles so that they face the correct
+     * way. Used to orient roads, pylons, rivers etc */
+    void updateDirection(TileType tileType);
+
+    /* Blank map constructor */
+    Map()
+    {
+        this-&gt;tileSize = 8;
+        this-&gt;width = 0;
+        this-&gt;height = 0;
+        this-&gt;numRegions[0] = 1;
+    }
+    /* Load map from file constructor */
+    Map(const std::string&amp; filename, unsigned int width, unsigned int height,
+        std::map&lt;std::string, Tile&gt;&amp; tileAtlas)
+    {
+        this-&gt;tileSize = 8;
+        load(filename, width, height, tileAtlas);
+    }
+};
+
+#endif /* MAP_HPP */</code></pre>
+
+<p>The <code>width</code> and <code>height</code> values are just the dimensions of the map, which we have to remember because we aren't using a 2D array to contain the tiles (I'm sorry, I lied); we're using a single <code>std::vector</code> and just pretending that it's two dimensional. This makes it much simpler (and more efficient) to iterate through when the position of the tile is not needed, and it isn't very complicated when the position is needed either.</p>
+
+<p>The <code>resources</code> <code>std::vector</code> will be used later by the industrial zone tiles in order to produce their goods. Each tile will have a limited amount of resources that the zone can extract, which is what that array manages. Zones will also buy goods from other (smaller) zones that do have resources, and so industrial zones will not simply accelerate their production and then suddenly become useless. But that's all for another tutorial! Right now we have a few simple variables, and then finally some functions. We will use a custom binary format to load and save the maps, which we'll examine when we define the functions. Then there's the now familiar <code>draw</code> function, and some rather simple constructors.</p>
+
+<p>There's three functions that we haven't discussed; <code>findConnectingRegions</code>, <code>depthfirstsearch</code>, and <code>updateDirection</code>. <code>updateDirection</code> is simple (if tedious to implement) and iterates over each <code>Tile</code> in the <code>Map</code>, changing their <code>tileVariant</code> so as to change their animation and orient (if they have a correctly created texture) them in the correct direction. The other two functions will be used to split the <code>Map</code> into different regions, labeling them according to what region they fall in. The <code>whitelist</code> argument is simply a <code>std::vector</code> containing all the different <code>TileType</code>s that can make up the region. So if you wanted a &quot;greenery&quot; region you might pass <code>TileType::GRASS</code> and <code>TileType::FOREST</code> as arguments. <code>type</code> is the index of the <code>regions</code> array in the <code>Tile</code> class that the region information should be stored in. Currently we only have one possible region, but as mentioned above more will be added later.</p>
+
+<p>Now let's begin creating <code>map.cpp</code></p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+#include &lt;fstream&gt;
+
+#include &quot;map.hpp&quot;
+#include &quot;tile.hpp&quot;
+
+/* Load map from disk */
+void Map::load(const std::string&amp; filename, unsigned int width, unsigned int height,
+    std::map&lt;std::string, Tile&gt;&amp; tileAtlas)
+{
+    std::ifstream inputFile;
+    inputFile.open(filename, std::ios::in | std::ios::binary);
+
+    this-&gt;width = width;
+    this-&gt;height = height;
+
+    for(int pos = 0; pos &lt; this-&gt;width * this-&gt;height; ++pos)
+    {
+        this-&gt;resources.push_back(255);
+
+        TileType tileType;
+        inputFile.read((char*)&amp;tileType, sizeof(int));
+        switch(tileType)
+        {
+            default:
+            case TileType::VOID:
+            case TileType::GRASS:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;grass&quot;));
+                break;
+            case TileType::FOREST:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;forest&quot;));
+                break;
+            case TileType::WATER:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;water&quot;));
+                break;
+            case TileType::RESIDENTIAL:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;residential&quot;));
+                break;
+            case TileType::COMMERCIAL:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;commercial&quot;));
+                break;
+            case TileType::INDUSTRIAL:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;industrial&quot;));
+                break;
+            case TileType::ROAD:
+                this-&gt;tiles.push_back(tileAtlas.at(&quot;road&quot;));
+                break;
+        }
+        Tile&amp; tile = this-&gt;tiles.back();
+        inputFile.read((char*)&amp;tile.tileVariant, sizeof(int));
+        inputFile.read((char*)&amp;tile.regions, sizeof(int)*1);
+        inputFile.read((char*)&amp;tile.population, sizeof(double));
+        inputFile.read((char*)&amp;tile.storedGoods, sizeof(float));
+    }
+
+    inputFile.close();
+
+    return;
+}</code></pre>
+
+<p>First we open a binary <code>std::ifstream</code> for the file specified. If you are not familiar with <code>std::ifstream</code>, it is the C++ way of reading from files. It inherits from the same class <code>std::cin</code> does (both are input streams) and so has a very similar interface, although we won't be using that here as we are dealing with binary files, not text files. Instead we will use the <code>read</code> member function. Once we've opened the stream we set <code>width</code> and <code>height</code> and then we loop enough times to read every <code>Tile</code> from the stream, <code>read</code>ing the data upon each loop. <code>read</code> requires a <code>char*</code> as the first argument, which can be interpreted as a pointer to the start of an array of individual bytes (a <code>char</code> is the size of a byte).</p>
+
+<p>The second argument is the number of bytes to read. If we pass a pointer to the variable we want to read and pretend it's a <code>char*</code> pointer by using a cast, <code>read</code> will fill the variable with the data we want. We repeat this for all the variables we require. Note that in our first <code>read</code> call we are also pretending that <code>tileType</code> is of type <code>int</code> and not an <code>enum</code>; this is valid, as <code>enum</code>s are (kind of) the same as <code>int</code>s, just referred to differently.</p>
+
+<pre class="prettyprint"><code>void Map::save(const std::string&amp; filename)
+{
+    std::ofstream outputFile;
+    outputFile.open(filename, std::ios::out | std::ios::binary);
+
+    for(auto tile : this-&gt;tiles)
+    {
+        outputFile.write((char*)&amp;tile.tileType, sizeof(int));
+        outputFile.write((char*)&amp;tile.tileVariant, sizeof(int));
+        outputFile.write((char*)&amp;tile.regions, sizeof(int)*1);
+        outputFile.write((char*)&amp;tile.population, sizeof(double));
+        outputFile.write((char*)&amp;tile.storedGoods, sizeof(float));
+    }
+
+    outputFile.close();
+
+    return;
+}</code></pre>
+
+<p>As you might expect, <code>save</code> is <code>load</code> in reverse. Well almost, we're still processing the file in the same direction, so mostly we just replace the <code>read</code>s with <code>write</code>s! And we replace the <code>std::ifstream</code> with an <code>std::ofstream</code> of course. We then have a <code>for</code> loop, although in a form you won't be familiar with unless you've seen some <code>c++11</code>; it says &quot;for each <code>tile</code> in <code>this-&gt;tiles</code>, do the following&quot; The <code>auto</code> keyword is another <code>c++11</code> feature, and can be used instead of the variable's type if the type is obvious. 'auto' is far easier to write than <code>std::vector&lt;Tile&gt;::iterator</code>, and without <code>c++11</code> the loop would look far worse.</p>
+
+<pre class="prettyprint"><code>void Map::draw(sf::RenderWindow&amp; window, float dt)
+{
+    for(int y = 0; y &lt; this-&gt;height; ++y)
+    {
+        for(int x = 0; x &lt; this-&gt;width; ++x)
+        {
+            /* Set the position of the tile in the 2d world */
+            sf::Vector2f pos;
+            pos.x = (x - y) * this-&gt;tileSize + this-&gt;width * this-&gt;tileSize;
+            pos.y = (x + y) * this-&gt;tileSize * 0.5;
+            this-&gt;tiles[y*this-&gt;width+x].sprite.setPosition(pos);
+
+            /* Draw the tile */
+            this-&gt;tiles[y*this-&gt;width+x].draw(window, dt);
+        }
+    }
+    return;
+}</code></pre>
+
+<p>With the saving and loading functions done, we can write the code to draw the <code>Map</code>. For this we need to know the coordinates of the <code>Tile</code>, and so we use some normal nested <code>for</code> loops (<code>y</code> before <code>x</code> so we iterate horizontally first, and then vertically). We then have some formulae, seemingly conjured out of thin air, that convert the <code>Map</code> coordinates <code>(x,y)</code> to world coordinates that we can use to draw each <code>Tile</code> to the screen. They aren't conjured from thin air however, and are created with just a small amount of reasoning! </p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/05-01.png" alt="An isometric grid, for your convenience" /></p>
+
+<p>Consider an isometric grid, where the very top point has coordinates <code>(0, 0)</code>, the <code>x</code> axis extends along the right edge and the <code>y</code> axis extends along the left edge. If we increase <code>x</code> by 1, then <code>pos.x</code> will increase by <code>tileSize</code> (remember <code>tileSize</code> is half the width, or the height, of each sprite) and <code>pos.y</code> will increase by <code>tileSize * 0.5</code>.</p>
+
+<pre class="prettyprint"><code>pos.x = x * this-&gt;tileSize;
+pos.y = x * this-&gt;tileSize * 0.5;</code></pre>
+
+<p>If we increase <code>y</code> by 1, then <code>pos.x</code> will decrease by <code>tileSize</code> (follow along the grid lines) and <code>pos.y</code> will increase by <code>tileSize * 0.5</code>.</p>
+
+<pre class="prettyprint"><code>pos.x = x * this-&gt;tileSize - y * this-&gt;tileSize;
+pos.y = x * this-&gt;tileSize * 0.5 + y * this-&gt;tileSize * 0.5;</code></pre>
+
+<p>With a tiny bit of algebra we get</p>
+
+<pre class="prettyprint"><code>pos.x = (x - y) * this-&gt;tileSize;
+pos.y = (x + y) * this-&gt;tileSize * 0.5;</code></pre>
+
+<p>The way we've set up our coordinates means that all sprites to the left will have negative world coordinates. We don't want that, so we shift the world coordinates to the right by half the width of the <code>Map</code> (in pixels). Once we've converted to the world coordinates, we set the position of the <code>Tile</code>'s sprite and then draw it. Because we're using a 1D <code>std::vector</code> instead of a 2D array, we have to convert our <code>(x,y)</code> coordinates to a single value by using <code>index = y * this-&gt;width + x</code>.</p>
+
+<p>That's all for now, in the next tutorial we will complete the definitions of the <code>Map</code> member functions!</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-6-exploring-the-world/128"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 6: Exploring the World</em>
+								<small>9 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 4: Tiles</em>
+								<small>9 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="127" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127&t=Creating+a+City+Building+Game+with+SFML+Part+5%3A+The+Game+World+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+5%3A+The+Game+World+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127&title=Creating+a+City+Building+Game+with+SFML+Part+5%3A+The+Game+WorldTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-5-the-game-world%2F127"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>3 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127" />
+			<input type="hidden" name="tutorial_id" value="127" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="80e608" value="a6ca5c" /> <input type="text" name="0014e6" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment142">
+	<a name="comment142"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="142" />
+				<a name="comment142"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/7d8b764e30b012616b3f5e9744054000?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>K</span></span>		<span class="author">Kenneth</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 years ago</span>
+				<blockquote class="comment">Why is the multiple at end different?
+inputFile.read((char*)&tile.regions, sizeof(int) * 1);
+outputFile.write((char*)&tile.regions, sizeof(int) * 3);</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/142">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment145">
+	<a name="comment145"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="145" />
+				<input type="hidden" name="parent_id" value="142" />
+				<a name="comment145"></a>
+				<span class="avatar small color4"><img src="https://www.gravatar.com/avatar/3cff8bc256b9ac4d700be32422efe92b?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>DM</span></span>		<span class="author">Daniel Mansfield</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">We're only dealing with one region at this point, not 3, so that should be a 1 instead, thanks for pointing it out!</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/145/parent/142">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment132">
+	<a name="comment132"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="132" />
+				<a name="comment132"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/9ca23fc27a1faffe6ee344a164c0447f?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>RN</span></span>		<span class="author">Reinout Nonhebel</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 years ago</span>
+				<blockquote class="comment">Loving it so far, but "The way we've set up our coordinates means that all sprites to the left will have negative world coordinates. We don't want that"
+
+Why don't we want that? It seems easy enough to just move the view to the left? (Must admit I haven't tried it yet)</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/132">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,118,new Date().getTime(),"","","","",""]);</script></body>
+</html>

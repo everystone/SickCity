@@ -1,0 +1,849 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 4] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 4] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 4: Tiles | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 4: Tiles - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 4: Tiles</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126#comments" class="grey-button icon-comment-1 addcomment">
+								9							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 8, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>Up until now we haven't really discussed how the game will work, but it's time to fix that! The city will be constructed from a 2D grid of tiles (drawn isometrically) that will evolve over time. The player will be able to (using their city's funds) bulldoze areas and place new tiles, then watch as their population grows over time. We will only have a few tiles; grass, forest, water, roads, and three zones; residential, commercial, and industrial.  We won't go any further in this tutorial series, but it should be easy to add whatever kind of tile you like!</p>
+
+<p>Residential zones will house the city's population, commercial zones will sell goods and employ people, and industrial zones will supply those goods to the commercial zones, as well as employ people themselves. The goods will be transported via roads, and currently the other tiles will be purely aesthetic, other than imposing restrictions on what can be placed where. You won't be able to place a commercial zone over a river, for example. Let's start by examining the <code>Tile</code> class (in <code>tile.hpp</code>)</p>
+
+<pre class="prettyprint"><code>#ifndef TILE_HPP
+#define TILE_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;vector&gt;
+
+#include &quot;animation_handler.hpp&quot;
+
+enum class TileType { VOID, GRASS, FOREST, WATER, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, ROAD };
+
+std::string tileTypeToStr(TileType type);
+
+class Tile
+{
+    public:
+
+    AnimationHandler animHandler;
+    sf::Sprite sprite;
+
+    TileType tileType;
+
+    /* Tile variant, allowing for different looking versions of the
+     * same tile */
+    int tileVariant;
+
+    /* Region IDs of the tile, tiles in the same region are connected.
+     * First is for transport */
+    unsigned int regions[1];
+
+    /* Placement cost of the tile */
+    unsigned int cost;
+
+    /* Current residents / employees */
+    double population;
+    /* Maximum population per growth stage / tile variant */
+    unsigned int maxPopPerLevel;
+    /* Maximum number of building levels */
+    unsigned int maxLevels;
+    /* Production output per customer/worker per day, either monetary or goods */
+    float production;
+    /* Goods stored */
+    float storedGoods;
+
+    /* Constructor */
+    Tile() { }
+    Tile(const unsigned int tileSize, const unsigned int height, sf::Texture&amp; texture,
+        const std::vector&lt;Animation&gt;&amp; animations,
+        const TileType tileType, const unsigned int cost, const unsigned int maxPopPerLevel,
+        const unsigned int maxLevels)
+    {
+        this-&gt;tileType = tileType;
+        this-&gt;tileVariant = 0;
+        this-&gt;regions[0] = 0;
+
+        this-&gt;cost = cost;
+        this-&gt;population = 0;
+        this-&gt;maxPopPerLevel = maxPopPerLevel;
+        this-&gt;maxLevels = maxLevels;
+        this-&gt;production = 0;
+        this-&gt;storedGoods = 0;
+
+        this-&gt;sprite.setOrigin(sf::Vector2f(0.0f, tileSize*(height-1)));
+        this-&gt;sprite.setTexture(texture);
+        this-&gt;animHandler.frameSize = sf::IntRect(0, 0, tileSize*2, tileSize*height);
+        for(auto animation : animations)
+        {
+            this-&gt;animHandler.addAnim(animation);
+        }
+        this-&gt;animHandler.update(0.0f);
+    }
+
+    void draw(sf::RenderWindow&amp; window, float dt);
+
+    void update();
+
+    /* Return a string containing the display cost of the tile */
+    std::string getCost()
+    {
+        return std::to_string(this-&gt;cost);
+    }
+};
+
+#endif /* TILE_HPP */</code></pre>
+
+<p>There's quite a lot here but not much that is complicated! The first thing that you might not have seen before is the <code>enum class</code> line. A <code>c++11</code> feature, it's a standard <code>enum</code> but you access it like a <code>static</code> class variable. So instead of just writing <code>GRASS</code> you have to write <code>TileType::GRASS</code>. This is makes it almost equivalent to including the <code>enum</code> in its own namespace, but without the ability to add a <code>using namespace</code> line.</p>
+
+<p>We then declare the <code>tileTypeToStr</code> function which converts the specified <code>enum</code> entry to a string. Whilst it would be nicer to include both of these in some kind of class or namespace, I feel it makes the rest of the code too complicated and ugly to bother! Up until the constructor we have some standard variable declarations, whose comments describe. Two things should be mentioned: firstly, our tiles will use the <code>tileVariant</code> variable in order to change appearance but provide the same function. For zones the population (employees) that they can support is proportional to their variant. So a <code>tileVariant = 0</code> could support <code>maxPopPerLevel</code> (say 50) and may look like some small shops, whereas a <code>tileVariant = 4</code> could support <code>5*maxPopPerLevel</code> and may look like a large shopping center.</p>
+
+<p>For other tiles the variant is purely cosmetic, and for roads will be used to store their orientation information so they point the right way. Secondly, why have we used an array for the <code>regions</code> variable? That's purely some cheeky foresight, in the future we'll want to know not only which tiles are connected together by roads, but we may also want to know which tiles are connected electrically and which are in the same watered region.</p>
+
+<p>The constructor itself is a little more complicated, taking quite a few arguments. <code>tileSize</code> and <code>height</code> are the half width of the tile's sprite, measured in pixels, and the height of the tile, measured in tiles (or multiples of the half width). This will be either 1, for roads and small buildings, or 2 for larger buildings. We use this to set the origin of the sprite and to calcuate the correct frame size for the animation. Using the <code>setOrigin</code> function we change what is regarded as <code>(0,0)</code> on the sprite; here we set it to <code>(0,tileSize*(height-1))</code>. The sprite is drawn starting from the origin position, so this ensures that the tiles will always be drawn in the correct place, regardless of their size. </p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/04-01.png" alt="Origin remains at the top left corner of the ground plane" /></p>
+
+<p>After setting the <code>frameSize</code> to the correct dimensions we pass each of the specified animations to the animation handler and then update it once in order to initialise everything correctly. Unlike with our <code>GameState</code> class <code>update</code> does not have a timestep parameter. This is because it should be called every time a new game day occurs, which will be the same for all tiles. It is therefore a waste to keep track of the time since each tile's update. Also unlike our <code>GameState</code> class, <code>draw</code> takes an additional <code>sf::RenderWindow</code> parameter. This is so the tiles do not have any knowledge of the <code>Game</code> class, which they do not need.</p>
+
+<p>Moving on to <code>tile.cpp</code>,</p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+
+#include &quot;animation_handler.hpp&quot;
+#include &quot;tile.hpp&quot;
+
+void Tile::draw(sf::RenderWindow&amp; window, float dt)
+{
+    /* Change the sprite to reflect the tile variant */
+    this-&gt;animHandler.changeAnim(this-&gt;tileVariant);
+
+    /* Update the animation */
+    this-&gt;animHandler.update(dt);
+
+    /* Update the sprite */
+    this-&gt;sprite.setTextureRect(this-&gt;animHandler.bounds);
+
+    /* Draw the tile */
+    window.draw(this-&gt;sprite);
+
+    return;
+}
+
+void Tile::update()
+{
+    /* If the population is at the maximum value for the tile,
+     * there is a small chance that the tile will increase its
+     * building stage */
+    if((this-&gt;tileType == TileType::RESIDENTIAL ||
+        this-&gt;tileType == TileType::COMMERCIAL ||
+        this-&gt;tileType == TileType::INDUSTRIAL) &amp;&amp;
+        this-&gt;population == this-&gt;maxPopPerLevel * (this-&gt;tileVariant+1) &amp;&amp;
+        this-&gt;tileVariant &lt; this-&gt;maxLevels)
+    {
+        if(rand() % int(1e4) &lt; 1e2 / (this-&gt;tileVariant+1)) ++this-&gt;tileVariant;
+    }
+
+    return;
+}
+
+std::string tileTypeToStr(TileType type)
+{
+    switch(type)
+    {
+        default:
+        case TileType::VOID:            return &quot;Void&quot;;
+        case TileType::GRASS:           return &quot;Flatten&quot;;
+        case TileType::FOREST:          return &quot;Forest&quot;;
+        case TileType::WATER:           return &quot;Water&quot;;
+        case TileType::RESIDENTIAL:     return &quot;Residential Zone&quot;;
+        case TileType::COMMERCIAL:      return &quot;Commercial Zone&quot;;
+        case TileType::INDUSTRIAL:      return &quot;Industrial Zone&quot;;
+    }
+}</code></pre>
+
+<p>Covering <code>draw</code> first, we change the animation to whatever <code>tileVariant</code> is. This is handy as it means that we can place all of the sprites for each tile in a single file, with the animation frames extending to the right and the tile variants extending downwards as separate animations. We then update the animation and use the created <code>bounds</code> variable (the section of the texture that the frame is in) to tell the sprite which area to display. Finally we draw the tile to the screen. In the update function we check to see if we are dealing with a zone, and if we are we give the zone a chance to advance to the next tile variant if the population is outgrowing the current one.</p>
+
+<p>What's with the <code>1e4</code> and <code>1e2</code> though? As you probably know, <code>rand</code> generates a number between 0 and <code>RAND_MAX</code>, which on my system is equal to 2147483647 (but is guaranteed to be at least 32767). Ideally we'd use <code>rand() &lt; 0.1 / (this-&gt;tileVariant+1)</code> where <code>rand</code> generates a number between 0 and 1, and so we to take <code>rand() % 10000</code> to get a number from 0 to 10000 and then multiply the other side by 10000 to get an equivalent expression using the actual version of <code>rand</code>. If we make the value we mod by larger than <code>RAND_MAX</code> we run into problems, so 10000 is really the largest we can go safely. Essentially the chance is <code>10%</code> for <code>tileVariant = 0</code>, <code>5%</code> for <code>tileVariant = 1</code>, <code>3.33%</code> for <code>tileVariant = 2</code>, and so on.</p>
+
+<p>Lastly we have our non-member function that converts the <code>TileType</code> to a string, using nothing but a simple <code>switch</code> statement. We put <code>default</code> first with no <code>break</code> so that if an unlisted <code>TileType</code> occurs (say we add a new one but forget to update the function) the function will just return <code>&quot;void&quot;</code>. Since we're using <code>return</code>s we don't need <code>break</code>s in any of the other <code>case</code>s either!</p>
+
+<p>With the <code>Tile</code> class done (for now), we can actually create the tiles we'll be using. We'll do this using what I like to call a &quot;tile atlas,&quot; which will be an <code>std::map</code> from a string to a <code>Tile</code>. Whenever we want a new tile, we copy an existing one from the tile atlas. Using an <code>std::map</code> instead of an array just makes it easier for us; it's much easier to remember that <code>&quot;forest&quot;</code> is the forest tile than it is to remember that 4 is the index for a forest (fourest?). We'll create this atlas, <code>tileAtlas</code>, inside of the <code>Game</code> class.</p>
+
+<pre class="prettyprint"><code>private:
+
+void loadTextures();
+void loadTiles();
+
+public:
+
+const static int tileSize = 8;
+
+std::stack&lt;GameState*&gt; states;
+
+sf::RenderWindow window;
+TextureManager texmgr;
+sf::Sprite background;
+
+std::map&lt;std::string, Tile&gt; tileAtlas;
+
+void pushState(GameState* state);</code></pre>
+
+<p>Don't forget to include the necessary headers as well! (<code>&lt;map&gt;</code>, <code>&lt;string&gt;</code>, and <code>&quot;tile.hpp&quot;</code>) Note the new <code>tileSize</code> variable. This is equal to half width the width of each tile (in pixels), as we mentioned earlier. It's the same for all tiles and remains constant, so we've made it <code>const static</code>. We've also declared a <code>loadTextures</code> function that will populate the atlas, and that we will now define in <code>game.cpp</code></p>
+
+<pre class="prettyprint"><code>void Game::loadTiles()
+{
+    Animation staticAnim(0, 0, 1.0f);
+    this-&gt;tileAtlas[&quot;grass&quot;] =
+        Tile(this-&gt;tileSize, 1, texmgr.getRef(&quot;grass&quot;),
+            { staticAnim },
+            TileType::GRASS, 50, 0, 1);
+    tileAtlas[&quot;forest&quot;] =
+        Tile(this-&gt;tileSize, 1, texmgr.getRef(&quot;forest&quot;),
+            { staticAnim },
+            TileType::FOREST, 100, 0, 1);   
+    tileAtlas[&quot;water&quot;] =
+        Tile(this-&gt;tileSize, 1, texmgr.getRef(&quot;water&quot;),
+            { Animation(0, 3, 0.5f),
+            Animation(0, 3, 0.5f),
+            Animation(0, 3, 0.5f) },
+            TileType::WATER, 0, 0, 1);
+    tileAtlas[&quot;residential&quot;] =
+        Tile(this-&gt;tileSize, 2, texmgr.getRef(&quot;residential&quot;),
+            { staticAnim, staticAnim, staticAnim,
+            staticAnim, staticAnim, staticAnim },
+            TileType::RESIDENTIAL, 300, 50, 6);
+    tileAtlas[&quot;commercial&quot;] =
+        Tile(this-&gt;tileSize, 2, texmgr.getRef(&quot;commercial&quot;),
+            { staticAnim, staticAnim, staticAnim, staticAnim},
+            TileType::COMMERCIAL, 300, 50, 4);
+    tileAtlas[&quot;industrial&quot;] =
+        Tile(this-&gt;tileSize, 2, texmgr.getRef(&quot;industrial&quot;),
+            { staticAnim, staticAnim, staticAnim,
+            staticAnim },
+            TileType::INDUSTRIAL, 300, 50, 4);
+    tileAtlas[&quot;road&quot;] =
+        Tile(this-&gt;tileSize, 1, texmgr.getRef(&quot;road&quot;),
+            { staticAnim, staticAnim, staticAnim,
+            staticAnim, staticAnim, staticAnim,
+            staticAnim, staticAnim, staticAnim,
+            staticAnim, staticAnim },
+            TileType::ROAD, 100, 0, 1);
+
+    return;
+}</code></pre>
+
+<p>Include the <code>&quot;animation_handler.hpp&quot;</code> header this time! First we've created a new <code>Animation</code> in order to save ourselves some writing. It's named <code>staticAnim</code> as we will use it if the tile only has one frame of animation (regardless of how many different animations it has). Thus we give it a start and end frame of 0 and a duration of 1 second, although it doesn't really matter what we set for that. Now we actually create the tiles and add them to the atlas. You should be able to understand most of it by looking at the <code>Tile</code> constructor, but we'll step through the first to save you checking back.</p>
+
+<p>We first add an entry with the key <code>&quot;grass&quot;</code> to the <code>std::map</code> and assign it a new <code>Tile</code> with a <code>tileSize</code> equal to the <code>const static</code> one inside the <code>Game</code> class, a <code>height</code> equal to 1, the texture named <code>&quot;grass&quot;</code>, a single animation (which in this case is the static one), the <code>tileType</code> <code>TileType::GRASS</code>, a construction cost of 50, a population per tile variant of 0 and a maximum number of tile variants of 1. If you've never seen the <code>{ staticAnim, Animation(0, 3, 0.5f) }</code> code before, this is a new <code>c++11</code> feature that gives us an easier way of passing <code>std::vector</code>s (and others) to functions without creating them in advance. Personally it's my favorite feature, as not only is it clear (you can initialize an array using that syntax already!) it's a big time saver.</p>
+
+<p>We'll also need to load the textures that all these tiles will need, since as you can see we require them to create the tiles! Our updated <code>loadTextures</code> function will look like</p>
+
+<pre class="prettyprint"><code>void Game::loadTextures()
+{
+    texmgr.loadTexture(&quot;grass&quot;,         &quot;media/grass.png&quot;);
+    texmgr.loadTexture(&quot;forest&quot;,        &quot;media/forest.png&quot;);
+    texmgr.loadTexture(&quot;water&quot;,         &quot;media/water.png&quot;);
+    texmgr.loadTexture(&quot;residential&quot;,   &quot;media/residential.png&quot;);
+    texmgr.loadTexture(&quot;commercial&quot;,    &quot;media/commercial.png&quot;);
+    texmgr.loadTexture(&quot;industrial&quot;,    &quot;media/industrial.png&quot;);
+    texmgr.loadTexture(&quot;road&quot;,          &quot;media/road.png&quot;);
+
+    texmgr.loadTexture(&quot;background&quot;,    &quot;media/background.png&quot;);
+}</code></pre>
+
+<p>Finally, make sure that you call the <code>loadTiles</code> function inside of the constructor</p>
+
+<pre class="prettyprint"><code>Game::Game()
+{
+    this-&gt;loadTextures();
+    this-&gt;loadTiles();
+
+    this-&gt;window.create(sf::VideoMode(800, 600), &quot;City Builder&quot;);
+    this-&gt;window.setFramerateLimit(60);
+
+    this-&gt;background.setTexture(this-&gt;texmgr.getRef(&quot;background&quot;));
+}</code></pre>
+
+<p>That's the end for the tiles at the moment, let's move on to creating a game map!</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-5-the-game-world/127"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 5: The Game World</em>
+								<small>3 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 3: Textures and Animations</em>
+								<small>5 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="126" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126&t=Creating+a+City+Building+Game+with+SFML+Part+4%3A+Tiles+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+4%3A+Tiles+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126&title=Creating+a+City+Building+Game+with+SFML+Part+4%3A+TilesTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-4-tiles%2F126"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>9 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126" />
+			<input type="hidden" name="tutorial_id" value="126" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="b8b849" value="e80b10" /> <input type="text" name="ea587e" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment265">
+	<a name="comment265"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="265" />
+				<a name="comment265"></a>
+				<span class="avatar small color0"><img src="https://www.gravatar.com/avatar/3d0e7af5675fccb4683b110ffe7ecb5e?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>J</span></span>		<span class="author">Juhiz</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>10 months ago</span>
+				<blockquote class="comment">Excellent tutorial! I love this. But one question. Can I use this code in my own projects?</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/265">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment231">
+	<a name="comment231"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="231" />
+				<a name="comment231"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/eb28f60e1134da7f974caa71e94bf6d4?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>R</span></span>		<span class="author">RiordanIX</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">For anyone with the same issue, the Mingw version of gcc that comes bundled with code::blocks has some issues with std::to_string(int)
+
+A workaround is putting this code in and using patch::to_string()
+
+namespace patch
+{
+	template < typename T > std::string to_string( const T& n )
+	{
+		std::ostringstream stm ;
+		stm << n ;
+		return stm.str() ;
+	}
+}</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/231">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment315">
+	<a name="comment315"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="315" />
+				<input type="hidden" name="parent_id" value="231" />
+				<a name="comment315"></a>
+				<span class="avatar small color0"><img src="https://www.gravatar.com/avatar/9003b6476dd9576f352fad4028ebb119?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>TG</span></span>		<span class="author">Tim Graham</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 months ago</span>
+				<blockquote class="comment">another workaround, the namespace patch one didn't work for me. here's how mine worked.
+Put this at the top of tile.hpp just under the #include statements from the tutorial.
+
+/* start kludge code */
+#include <sstream>
+template <typename T>
+std::string to_string(T value)
+{
+	std::ostringstream os ;
+	os << value ;
+	return os.str() ;
+}
+/* end kludge code */
+
+
+Then your call looks like this:
+
+            /* Return a string containing the display cost of the tile */
+            std::string getCost()
+            {
+                return to_string(this->cost);
+            }
+
+</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/315/parent/231">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li><li id="comment316">
+	<a name="comment316"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="316" />
+				<input type="hidden" name="parent_id" value="231" />
+				<a name="comment316"></a>
+				<span class="avatar small color0"><img src="https://www.gravatar.com/avatar/9003b6476dd9576f352fad4028ebb119?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>TG</span></span>		<span class="author">Tim Graham</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 months ago</span>
+				<blockquote class="comment">crud, the include didn't paste properly, make sure the include statement points to sstream</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/316/parent/231">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment159">
+	<a name="comment159"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="159" />
+				<a name="comment159"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/83b952531dd62d17012aa8f79f8c6ffd?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>S</span></span>		<span class="author">Shariq</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Hi,
+Where can I download all your pngs? Can't seem to find a link</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/159">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment117">
+	<a name="comment117"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="117" />
+				<a name="comment117"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/ee8733e1ea92126f6d5b5d7acfdaf207?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>M</span></span>		<span class="author">Maciej</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 years ago</span>
+				<blockquote class="comment">Hi I have problems with compiling the code after I added loadTiles class to my game.cpp. I am using Visual Studio 2012 and the errors I get looks like this:
+1>------ Build started: Project: CityBuilder, Configuration: Debug Win32 ------
+1>  game.cpp
+1>d:\projekty\citybuilder\citybuilder\tile.hpp(62): warning C4244: 'argument' : conversion from 'const unsigned int' to 'float', possible loss of data
+1>d:\projekty\citybuilder\citybuilder\game.cpp(34): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(34): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(34): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(34): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(34): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(37): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(37): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(37): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(37): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(37): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(38): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(41): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(41): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(41): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(41): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(43): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(44): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(47): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(47): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(47): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(48): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(48): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(49): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(52): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(52): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(52): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(52): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(52): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(53): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(56): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(56): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(56): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(57): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(57): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(58): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(61): error C2143: syntax error : missing ')' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(61): error C2059: syntax error : ')'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(61): error C2143: syntax error : missing ';' before '{'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(64): error C2143: syntax error : missing ';' before '}'
+1>d:\projekty\citybuilder\citybuilder\game.cpp(64): error C2143: syntax error : missing ';' before ','
+1>d:\projekty\citybuilder\citybuilder\game.cpp(65): error C2059: syntax error : ')'
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/117">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment118">
+	<a name="comment118"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="118" />
+				<input type="hidden" name="parent_id" value="117" />
+				<a name="comment118"></a>
+				<span class="avatar small color4"><img src="https://www.gravatar.com/avatar/3cff8bc256b9ac4d700be32422efe92b?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>DM</span></span>		<span class="author">Daniel Mansfield</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 years ago</span>
+				<blockquote class="comment">By the looks of it you've missed a parenthesis or a semicolon, could you post or e-mail me the contents of your game.cpp file please.</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/118/parent/117">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li><li id="comment125">
+	<a name="comment125"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="125" />
+				<input type="hidden" name="parent_id" value="117" />
+				<a name="comment125"></a>
+				<span class="avatar small color1"><img src="https://www.gravatar.com/avatar/196fbd142b1211dc77c7ca616de473c2?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>EJ</span></span>		<span class="author">Emily Johnson</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>2 years ago</span>
+				<blockquote class="comment">I am having this problem too, I don't think VS2012 supports the c++11 syntax of initialising a vector with {x, y, z}</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/125/parent/117">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li><li id="comment195">
+	<a name="comment195"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="195" />
+				<input type="hidden" name="parent_id" value="117" />
+				<a name="comment195"></a>
+				<span class="avatar small color5"><img src="https://www.gravatar.com/avatar/ee8733e1ea92126f6d5b5d7acfdaf207?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>M</span></span>		<span class="author">Maciej</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Yep vs2012 have some problems compiling that code best solution move to vs2013 it helps ;)</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/195/parent/117">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,126,new Date().getTime(),"","","","",""]);</script></body>
+</html>

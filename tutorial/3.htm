@@ -1,0 +1,711 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 3] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 3] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 3: Textures and Animations | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 3: Textures and Animations - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 3: Textures and Animations</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125#comments" class="grey-button icon-comment-1 addcomment">
+								5							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 8, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>Before we can draw any graphics, we need to discuss the difference between sprites, textures, and images. In SFML, an image (<code>sf::Image</code>) is exactly how it sounds; a collection of pixels in a 2D array. They can be easily manipulated on a per-pixel level, but they can't be drawn to the screen. A texture (<code>sf::Texture</code>) is an image that can be drawn, and lives in the graphics card instead of in RAM. Textures are not efficiently mutable however, and cannot have their pixels accessed individually. As such they are best created once and drawn repeatedly. They do not have any kind of position however, and so cannot be drawn without the help of another class, the sprite (<code>sf::Sprite</code>).</p>
+
+<p>Sprites are both drawable and transformable, so they <em>can</em> be drawn to the screen. Thus, to create our background, we'll need both a texture, and a sprite. We could create both of these in <code>GameStateStart</code> and maintain them there, however if we want to reuse the background in another game state we would have to load the texture and create the sprite all over again! Instead we will use a texture manager to store our textures, which will be part of the <code>Game</code> class. Create a <code>texture_manager.hpp</code> file:</p>
+
+<pre class="prettyprint"><code>#ifndef TEXTURE_MANAGER_HPP
+#define TEXTURE_MANAGER_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+class TextureManager
+{
+    private:
+
+    /* Array of textures used */
+    std::map&lt;std::string, sf::Texture&gt; textures;
+
+    public:
+
+    /* Add a texture from a file */
+    void loadTexture(const std::string&amp; name, const std::string &amp;filename);
+
+    /* Translate an id into a reference */
+    sf::Texture&amp; getRef(const std::string&amp; texture);
+
+    /* Constructor */
+    TextureManager()
+    {
+    }
+};
+
+#endif /* TEXTURE_MANAGER_HPP */</code></pre>
+
+<p>Our texture manager will work by storing an <code>std::map</code> that maps strings to textures; when we want a texture we will call the <code>getRef</code> function with the name of the texture we want and the manager will return a reference to it. This way our textures will not be destroyed unless our manager is, we don't have to use a bunch of pointers storing each individual texture, and our pointers will have easy to remember names instead of indices in an array. This method is not the best way to handle textures, but it is a simple way of doing it. In larger games (where the VRAM space is actually an issue) you would require ways of unloading textures so that only the required textures were loaded at any one time. For our purposes though, this will do fine. In a <code>texture_manager.cpp</code> file, place</p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+#include &quot;texture_manager.hpp&quot;
+
+void TextureManager::loadTexture(const std::string&amp; name, const std::string&amp; filename)
+{
+    /* Load the texture */
+    sf::Texture tex;
+    tex.loadFromFile(filename);
+
+    /* Add it to the list of textures */
+    this-&gt;textures[name] = tex;
+
+    return;
+}
+
+sf::Texture&amp; TextureManager::getRef(const std::string&amp; texture)
+{
+    return this-&gt;textures.at(texture);
+}</code></pre>
+
+<p>In <code>loadTexture</code> we take the name to give the texture and the path of the file it's stored in. We then load the texture from that file and add it to the map with the name given. In <code>getRef</code> we return a reference to the texture whose name is passed to the function. If you are not familiar, <code>std::map</code> can be accessed like an array (as we did to add the texture) or by using the <code>at</code> member function. The <code>at</code> function provides bounds checking, and will throw an exception (error, in other words) if the specified element does not exist. As such, it's only useful for reading or writing to existing elements, and not for creating new ones. That's all for our texture manager! And unlike our state manager, we won't be going back to it. Speaking of the state manager, it's time to change <code>game.hpp</code> and add our new manager!</p>
+
+<pre class="prettyprint"><code>#include &quot;texture_manager.hpp&quot;
+
+class GameState;
+
+class Game
+{
+    private:
+
+    void loadTextures();
+
+    public:
+
+    std::stack&lt;GameState*&gt; states;
+
+    sf::RenderWindow window;
+    TextureManager texmgr;
+    sf::Sprite background;
+
+    void pushState(GameState* state);</code></pre>
+
+<p>As you can see we've added our texture manager, <code>texmgr</code>, and we've declared a new private function called <code>loadTextures</code>. <code>loadTextures</code> will fill <code>texmgr</code> with the textures we need. We've also finally created <code>background</code>! Inside <code>game.cpp</code> we will define the <code>loadTextures</code> function</p>
+
+<pre class="prettyprint"><code>#include &quot;game.hpp&quot;
+#include &quot;game_state.hpp&quot;
+#include &quot;texture_manager.hpp&quot;
+
+void Game::loadTextures()
+{
+    texmgr.loadTexture(&quot;background&quot;, &quot;media/background.png&quot;);
+}</code></pre>
+
+<p>Using the <code>loadTexture</code> function that we created, we add a new texture called <code>&quot;background&quot;</code> from the <code>media/background.png</code> file. Lastly we need to change the <code>Game</code> constructor to call the <code>loadTextures</code> function and set the texture of our background</p>
+
+<pre class="prettyprint"><code>Game::Game()
+{
+    this-&gt;loadTextures();
+
+    this-&gt;window.create(sf::VideoMode(800, 600), &quot;City Builder&quot;);
+    this-&gt;window.setFramerateLimit(60);
+
+    this-&gt;background.setTexture(this-&gt;texmgr.getRef(&quot;background&quot;));
+}</code></pre>
+
+<p>Using the <code>getRef</code> function we set to the texture of the <code>background</code> to the <code>&quot;background&quot;</code> texture we created in <code>loadTextures</code>. Finally, we can compile the code! If everything has gone well you should have a window with a lovely background, that can be resized and, even better, properly closed!</p>
+
+<p>We now have most of the game engine structure out of the way, there's just one or two things left. The first of which being the <code>AnimationHandler</code> class. We'll use this class to provide animation support to any sprites we create, by including an <code>AnimationHandler</code> as a member variable in the class that contains the sprite. We could create a new <code>AnimatedSprite</code> class using inheritance instead, but I prefer this method.</p>
+
+<p>Before we begin, let's discuss how the handler will work. We're going to keep this simple, so each sprite will have its own texture file that will contain all the animation stages for its different animations. It would be more efficient (for the computer, not us!) to store multiple sprites in the same file, but that makes the code and asset creation more complex so we won't do that. Anyway, we'll split the texture file into a grid, where each frame of the same animation extends to the right, and each animation extends downwards. </p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/03-01.png" alt="Here's the water tile sprite as an example" /></p>
+
+<p>The handler will have an <code>update</code> function that takes a timestep <code>dt</code> and moves the animation to the next frame if necessary. First let's create an individual <code>Animation</code> class, which the handler will store an array of. In <code>animation_handler.hpp</code>...</p>
+
+<pre class="prettyprint"><code>#ifndef ANIMATION_HANDLER_HPP
+#define ANIMATION_HANDLER_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;vector&gt;
+
+class Animation
+{
+    public:
+
+    unsigned int startFrame;
+    unsigned int endFrame;
+
+    float duration;
+
+    Animation(unsigned int startFrame, unsigned int endFrame, float duration)
+    {
+        this-&gt;startFrame = startFrame;
+        this-&gt;endFrame = endFrame;
+        this-&gt;duration = duration;
+    }
+
+    unsigned int getLength() { return endFrame - startFrame + 1; }
+};
+
+#endif /* ANIMATION_HANDLER_HPP */</code></pre>
+
+<p>It's such a simple class we could have used a <code>struct</code> if not for the <code>getLength</code> function. <code>startFrame</code> and <code>endFrame</code> are the zero-based indices of the start and stop frame in the grid, and <code>duration</code> is the amount of time one frame should last for. I find that this is nicer to work with than a frequency or frames-per-second value. And now we create the handler itself (underneath <code>Animation</code> and before that header guard).</p>
+
+<pre class="prettyprint"><code>class AnimationHandler
+{
+    private:
+
+    /* Array of animations */
+    std::vector&lt;Animation&gt; animations;
+
+    /* Current time since the animation loop started */
+    float t;
+
+    int currentAnim;
+
+    public:
+
+    /* Add a new animation */
+    void addAnim(Animation&amp; anim);
+
+    /* Update the current frame of animation. dt is the time since
+     * the update was last called (i.e. the time for one frame to be
+     * executed) */
+    void update(const float dt);
+
+    /* Change the animation, resetting t in the process */
+    void changeAnim(unsigned int animNum);
+
+    /* Current section of the texture that should be displayed */
+    sf::IntRect bounds;
+
+    /* Pixel dimensions of each individual frame */
+    sf::IntRect frameSize;
+
+    /* Constructor */
+    AnimationHandler()
+    {
+        this-&gt;t = 0.0f;
+        this-&gt;currentAnim = -1;
+    }
+    AnimationHandler(const sf::IntRect&amp; frameSize)
+    {
+        this-&gt;frameSize = frameSize;
+
+        this-&gt;t = 0.0f;
+        this-&gt;currentAnim = -1;
+    }
+};
+
+#endif /* ANIMATION_HANDLER_HPP */</code></pre>
+
+<p>First up we have that <code>std::vector</code> of <code>Animation</code>s we mentioned. <code>t</code> is the elapsed time since the animation started or looped, and is used to determine when the next frame should occur. Every time <code>update</code> is called we will increase <code>t</code> by <code>dt</code> to keep track of the time. <code>currentAnim</code> is the (vertical) index in the grid or the (horizontal) index in the <code>std::vector</code> used to keep track of which animation is running. The next three functions are self-explanatory (or are with the comments), but then we have some SFML code.</p>
+
+<p>An <code>sf::IntRect</code> is a rectangle with integers for its start coordinate, its width, and its height. Since we're using a single texture for all of the animations, we use an <code>sf::IntRect</code> to keep track of which section of the texture the sprite should show. Later we'll tell the sprite to use that section of the texture by using <code>sf::Sprite</code>'s <code>setTextureRect</code> member function. The constructors are rather straightforward, so we'll move on to writing the algorithms for the handler to use. In <code>animation_handler.cpp</code> we first create the <code>update</code> function</p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+#include &lt;vector&gt;
+
+#include &quot;animation_handler.hpp&quot;
+
+void AnimationHandler::update(const float dt)
+{
+    if(currentAnim &gt;= this-&gt;animations.size() || currentAnim &lt; 0) return;
+
+    float duration = this-&gt;animations[currentAnim].duration;
+
+    /* Check if the animation has progessed to a new frame and if so
+     * change to the next frame */
+    if(int((t + dt) / duration) &gt; int(t / duration))
+    {
+        /* Calculate the frame number */
+        int frame = int((t + dt) / duration);
+
+        /* Adjust for looping */
+        frame %= this-&gt;animations[currentAnim].getLength();
+
+        /* Set the sprite to the new frame */
+        sf::IntRect rect = this-&gt;frameSize;
+        rect.left = rect.width * frame;
+        rect.top = rect.height * this-&gt;currentAnim;
+        this-&gt;bounds = rect;
+    }
+
+    /* Increment the time elapsed */
+    this-&gt;t += dt;
+    /* Adjust for looping */
+    if(this-&gt;t &gt; duration * this-&gt;animations[currentAnim].getLength())
+    {
+        this-&gt;t = 0.0f;
+    }
+
+    return;
+}</code></pre>
+
+<p>Firstly, we don't update if the current animation does not exist. The next line just saves us some writing every time we want to know the animation's duration. If each animation takes <code>duration</code> seconds, then from <code>t</code> between 0 and <code>duration</code>, we're on frame 0, <code>t</code> between <code>duration</code> and <code>2*duration</code> we are on frame 1, <code>t</code> between <code>2*duration</code> and <code>3*duration</code> we are on frame 2, and so on.</p>
+
+<p>If we divide <code>t</code> by <code>duration</code> them frame 0 is between 0 and 1, frame 1 is between 1 and 2, and so on. Thus if we round <code>t / duration</code> down (i.e. cast it to an integer) we get what frame of the animation is playing. So if the new time <code>t+dt</code> gives a different answer using that formula to <code>t</code> we need to advance the animation to the next frame. Can you see when this wouldn't work? So long as <code>dt &lt; duration</code>, we'll only ever advance one frame at a time, but if <code>dt</code> is too large we should skip a frame of animation! That's why we calculate the new frame on the next line, instead of just incrementing the frame number. </p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/03-02.gif" alt="And here's the water sprite animated!" /></p>
+
+<p>This brings us to another problem, however. If we have a 4 frame animation (0-3) then when we are on frame 3 we should not go to frame 4 or 5 or higher (depending on <code>dt</code>), we should loop back to frame 0, 1 or whatever is next! To do this we simply take the modulus of the frame with the number of frames to ensure that the animation loops correctly. This shows a limitation of our animation handler: every animation loops, and nothing happens at the end.</p>
+
+<p>We then compute the rectangle of the texture that the sprite should show using the pattern mentioned before (frames move to the right). Regardless of whether the frame has changed or not we advance the elapsed time by the timestep and then ensure that the elapsed time resets round to 0 if it is greater than the duration of the animation. By setting it to 0 instead of taking the modulus (which is awkward with a floating point value) we may introduce a slight jitter at the end of the animation, but this is only noticeable if multiple frames are being jumped at once. Adding the last two functions,</p>
+
+<pre class="prettyprint"><code>void AnimationHandler::addAnim(Animation&amp; anim)
+{
+    this-&gt;animations.push_back(anim);
+
+    return;
+}
+
+void AnimationHandler::changeAnim(unsigned int animID)
+{
+    /* Do not change the animation if the animation is currently active or
+     * the new animation does not exist */
+    if(this-&gt;currentAnim == animID || animID &gt;= this-&gt;animations.size() ||
+        animID &lt; 0) return;
+
+    /* Set the current animation */
+    this-&gt;currentAnim = animID;
+    /* Update the animation bounds */
+    sf::IntRect rect = this-&gt;frameSize;
+    rect.top = rect.height * animID;
+    this-&gt;bounds = rect;
+    this-&gt;t = 0.0;
+
+    return;
+}</code></pre>
+
+<p><code>addAnim</code> just adds the specified animation to the animation <code>std::vector</code>, and <code>changeAnim</code> sets the current animation to the new one (if the new one is valid) before setting the bounds rectangle to the first frame and resetting the elapsed time. And with that our game engine is essentially complete! In part four, we'll move back and add some more to <code>GameStateEditor</code> before moving on to the <code>Tile</code>s.</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-4-tiles/126"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 4: Tiles</em>
+								<small>9 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 2: The First State</em>
+								<small>4 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="125" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125&t=Creating+a+City+Building+Game+with+SFML+Part+3%3A+Textures+and+Animations+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+3%3A+Textures+and+Animations+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125&title=Creating+a+City+Building+Game+with+SFML+Part+3%3A+Textures+and+AnimationsTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-3-textures-and-animations%2F125"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>5 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125" />
+			<input type="hidden" name="tutorial_id" value="125" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="43450b" value="cfed85" /> <input type="text" name="ca6fa8" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment264">
+	<a name="comment264"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="264" />
+				<a name="comment264"></a>
+				<span class="avatar small color4"><img src="https://www.gravatar.com/avatar/0bb5b3e76ec60d213a7945fda6ab2551?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JH</span></span>		<span class="author">James Horton</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>10 months ago</span>
+				<blockquote class="comment">Using Ubuntu, I did everything as you said up to the point when you say we can compile to get a nice window.
+
+I am using Ubuntu 15.04 and SFML 2.3
+
+I successfuly compiled the files into a single game.o file using:
+
+"g++ -c -std=c++11 game.cpp"
+
+but when I try to continue compilation with:
+
+"g++ game.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system -std=c++11"
+
+then I encounter these errors:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.9/../../../x86_64-linux-gnu/crt1.o: In function `_start':
+/build/buildd/glibc-2.21/csu/../sysdeps/x86_64/start.S:114: undefined reference to `main'
+game.o: In function `Game::loadTextures()':
+game.cpp:(.text+0x11c): undefined reference to `TextureManager::loadTexture(std::string const&, std::string const&)'
+game.o: In function `Game::Game()':
+game.cpp:(.text+0x550): undefined reference to `TextureManager::getRef(std::string const&)'
+collect2: error: ld returned 1 exit status
+
+What am I doing wrong?</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/264">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment204">
+	<a name="comment204"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="204" />
+				<a name="comment204"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/e6749aba7682e9562819b7471193ad52?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>A</span></span>		<span class="author">Andrew</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Structs can actually have functions in C++, they're really just syntactical sugar for classes whose members default to public instead of private. So Animation could have been a struct regardless. :D</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/204">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+		</ul>
+	</li><li id="comment183">
+	<a name="comment183"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="183" />
+				<a name="comment183"></a>
+				<span class="avatar small color7"><img src="https://www.gravatar.com/avatar/6aaf8d76eee71ab738edfef497bb73ea?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JM</span></span>		<span class="author">John Peter McGrath</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">I am attempting to run the program using Windows Visual Studio Express 2013 on Windows 8 after completing the changes in Game constructor in game.cpp.  However, I got compiler errors because of getSize().
+
+I happen to be using SFML 2.1 instead of 1.6
+
+Is there an equivalent to to getsize for 2.1 or later?</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/183">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment184">
+	<a name="comment184"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="184" />
+				<input type="hidden" name="parent_id" value="183" />
+				<a name="comment184"></a>
+				<span class="avatar small color7"><img src="https://www.gravatar.com/avatar/6aaf8d76eee71ab738edfef497bb73ea?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JM</span></span>		<span class="author">John Peter McGrath</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">I found out that Texture has not been added until 2.0. I will have to try out 2.0 to see if it solves the problem</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/184/parent/183">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li><li id="comment185">
+	<a name="comment185"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="185" />
+				<input type="hidden" name="parent_id" value="183" />
+				<a name="comment185"></a>
+				<span class="avatar small color7"><img src="https://www.gravatar.com/avatar/6aaf8d76eee71ab738edfef497bb73ea?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>JM</span></span>		<span class="author">John Peter McGrath</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Never mind, I forgot the () at the end of 'getTexture' (which should have been getTexture() )
+
+I have to always remember that when using get and set member functions</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/185/parent/183">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,123,new Date().getTime(),"","","","",""]);</script></body>
+</html>

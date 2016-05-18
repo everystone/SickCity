@@ -1,0 +1,667 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 2] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 2] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 2: The First State | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 2: The First State - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 2: The First State</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124#comments" class="grey-button icon-comment-1 addcomment">
+								4							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 8, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>Now that we can change the state of the game we need a state to change to! Our game will use two states in this tutorial, <code>GameStateStart</code> and <code>GameStateEditor</code>. The first will be the main game menu and the second will be the game itself. For now the class definitions of each will be almost identical, but that will change soon. Both of these states will inherit from the base <code>GameState</code> class, and should be put in <code>game_state_start.hpp</code> and <code>game_state_editor.hpp</code>.</p>
+
+<pre class="prettyprint"><code>#ifndef GAME_STATE_START_HPP
+#define GAME_STATE_START_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+
+#include &quot;game_state.hpp&quot;
+
+class GameStateStart : public GameState
+{
+    private:
+
+    sf::View view;
+
+    public:
+
+    virtual void draw(const float dt);
+    virtual void update(const float dt);
+    virtual void handleInput();
+
+    GameStateStart(Game* game);
+};
+
+#endif /* GAME_STATE_START_HPP */</code></pre>
+
+<p>For <code>GameStateStart</code> and</p>
+
+<pre class="prettyprint"><code>#ifndef GAME_STATE_EDITOR_HPP
+#define GAME_STATE_EDITOR_HPP
+
+#include &lt;SFML/Graphics.hpp&gt;
+
+#include &quot;game_state.hpp&quot;
+
+class GameStateEditor : public GameState
+{
+    private:
+
+    sf::View gameView;
+    sf::View guiView;
+
+    public:
+
+    virtual void draw(const float dt);
+    virtual void update(const float dt);
+    virtual void handleInput();
+
+    GameStateEditor(Game* game);
+};
+
+#endif /* GAME_STATE_EDITOR_HPP */</code></pre>
+
+<p>For <code>GameStateEditor</code>, most of this should be pretty clear: we've overridden the pure virtual functions in the base class, and we've added constructors that take a pointer to the <code>Game</code> that created them (remember in <code>GameState</code> we need such a pointer). We've also added private <code>sf::View</code> variables. A view is a lot like a camera, and the window displays what all the cameras are seeing. Because we're making a 2D game, the world coordinates will be in pixels, but they're unbounded unlike screen coordinates! (Whereas screen coordinates may be between 0 and 1024 horizontally and 0 to 768 vertically.)</p>
+
+<p>A view looks at a certain section of world coordinates, and then draws those in a certain place in the window. We can move the view around, scale it, and even rotate it, which allows us to change how the player views the world without changing the world itself. Whilst the default view that <code>sf::Window</code> creates would suffice in our <code>GameStateStart</code> class, we're going to make our own for clarity and consistency, since we'll be making two in <code>GameStateEditor</code>. As for why we're doing that, I'll be explained when we get there.</p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/02-01.png" alt="A view" /></p>
+
+<p>Now let's make <code>game_state_start.cpp</code>. This is a longer file, so we'll put the source code in sections. First up are the headers and the <code>draw</code> and <code>update</code> functions.</p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+
+#include &quot;game_state_start.hpp&quot;
+#include &quot;game_state_editor.hpp&quot;
+#include &quot;game_state.hpp&quot;
+
+void GameStateStart::draw(const float dt)
+{
+    this-&gt;game-&gt;window.setView(this-&gt;view);
+
+    this-&gt;game-&gt;window.clear(sf::Color::Black);
+    this-&gt;game-&gt;window.draw(this-&gt;game-&gt;background);
+
+    return;
+}
+
+void GameStateStart::update(const float dt)
+{
+}</code></pre>
+
+<p>Nothing particularly new here, except for the <code>setView</code> and <code>draw</code> calls. <code>setView</code> does what it says; it changes the current view that will be draw to <code>window</code> (which we defined in <code>GameState</code>). We'll actually create that view in the constructor, but it will take up the entire window and everything in this state will be drawn to it. We then have the <code>draw</code> call, which again is an <code>sf::Window</code> member function. See how we're using <code>game</code> to get a pointer to that window? We could just as easily pass the window as an argument to the draw function in this case, but later on some of the virtual functions will have arguments that we didn't know about when we created the <code>GameState</code> class. And since we can't change the number of arguments in a virtual function, we'll have to use a mechanism like this anyway.</p>
+
+<p>The <code>draw</code> call, unsurprisingly, draws its argument to the window's current view. In this case we're drawing something called <code>background</code>, which doesn't actually exist yet! We'll go back and create it after we finish this state. You can probably guess what it is though! With those rather boring functions done, we move on to the more interesting ones; <code>handleInput</code> and the constructor:</p>
+
+<pre class="prettyprint"><code>void GameStateStart::handleInput()
+{
+    sf::Event event;
+
+    while(this-&gt;game-&gt;window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+            /* Close the window */
+            case sf::Event::Closed:
+            {
+                game-&gt;window.close();
+                break;
+            }
+            /* Resize the window */
+            case sf::Event::Resized:
+            {
+                this-&gt;view.setSize(event.size.width, event.size.height);
+                this-&gt;game-&gt;background.setPosition(this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(0, 0)));
+                this-&gt;game-&gt;background.setScale(
+                    float(event.size.width) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().x),
+                    float(event.size.height) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().y));
+                break;
+            }
+            case sf::Event::KeyPressed:
+            {
+                if(event.key.code == sf::Keyboard::Escape) this-&gt;game-&gt;window.close();
+                break;
+            }
+            default: break;
+        }
+    }
+
+    return;
+}</code></pre>
+
+<p>That's a whole lot of SFML code there! We'll start by examining how SFML processes input. When the user presses a key, moves the mouse, resizes the window or anything else that is an interaction with the program an event is triggered. These events store all the information that comes with the interaction, so a &quot;button is pressed&quot; event will contain which button has been pressed, and so on. To process these events we must use the <code>pollEvent</code> function, which is once again an <code>sf::Window</code> member function, and which takes a single <code>sf::Event</code> as an argument. <code>pollEvent</code> returns <code>true</code> whilst there are still events left to process, and <code>false</code> otherwise, so by placing it in a <code>while</code> loop we can process every event in sequence. We then use a <code>switch</code> statement on the type of the event in order to process it.</p>
+
+<p>Here we have three events, a <code>Closed</code> event, a <code>Resized</code> event, and a <code>KeyPressed</code> event. When we see a <code>Closed</code> event we know that the user is trying to close the window, so we should let them do that by telling the window to close with the handy <code>close</code> function. When we see a <code>KeyPressed</code> event we check to see which key was pressed, and if it was the escape key we close the window.</p>
+
+<p>Things are somewhat more complex with the <code>Resized</code> event. Usually when a window is resized, the view will continue to look at the same part of the game world but the window will change its size. This means that what the user sees will become stretched and distorted as they resize the window, which is not very visually appealing! To fix this, we change the view so that the number of pixels that the view can see is the same as the number of pixels the window displays. This way there is a 1:1 relationship between view size and window size and it doesn't become stretched. That's what we do with the <code>setSize</code> function.</p>
+
+<p><img src="http://www.binpress.com/images/uploads/35620/02-02.png" alt="We don't want this!" /></p>
+
+<p>The problem with expanding the viewing area is that if we have a background image (<code>background</code>) we will quickly see an area of the screen that the background image does not cover. Because of this we need to expand the background, too. Of course, expanding the background has exactly the same problem as expanding the window: it'll be stretched! This isn't a problem for us though as our background is just a nice, smooth gradient. If we had an actual picture instead, then we would have to create the picture at a larger size and only show part of it, or just stop the user from resizing the window (add a third argument to <code>window.create</code> equal to <code>sf::Style::Titlebar | sf::Style::Close</code>). </p>
+
+<p>Returning to the background, let's examine that <code>setPosition</code> call. Going from the inside to the outside, we first create an <code>sf::Vector2i</code> object. Unlike an <code>std::vector&lt;int&gt;</code>, an <code>sf::Vector2i</code> is a mathematical vector, and in this case a mathematical vector that can only take integer arguments and that has two dimensions. In other words, it's just the point <code>(0, 0)</code>! But what is that rather long function call next to it? Well as we said before window coordinates and world coordinates are different things. A ball placed at the point <code>(320, 521)</code> in the game world might be displayed at the point <code>(220, 421)</code> in the window due to our use of views.</p>
+
+<p>What the <code>mapPixelToCoords</code> function does is convert a position in window coordinates to its equivalent position in world coordinates using the current view. By using that function we ensure that the user always sees the background in the same place, regardless of how much the view is moved and scaled. Note that <code>setPosition</code> requires an <code>sf::Vector2f</code> (which is what <code>mapPixelToCoords</code> returns) and not an <code>sf::Vector2i</code> (which is what <code>mapPixelToCoords</code> takes).</p>
+
+<p>Lastly in the <code>Resized</code> event we have a <code>setScale</code> function called on the <code>background</code>. This just makes sure that the <code>background</code> takes up the entire window like we said before. The scale factor that we use will be different for each dimension (since the window is not necessarily scaled evenly) and is equal to the size of the window in that dimension divided by the size of the image in that dimension. Or to use SFML speak, the size of the background's texture. We'll discuss exactly what textures are soon.</p>
+
+<pre class="prettyprint"><code>GameStateStart::GameStateStart(Game* game)
+{
+    this-&gt;game = game;
+    sf::Vector2f pos = sf::Vector2f(this-&gt;game-&gt;window.getSize());
+    this-&gt;view.setSize(pos);
+    pos *= 0.5f;
+    this-&gt;view.setCenter(pos);
+}</code></pre>
+
+<p>Lastly we have the constructor, which mostly sets up the view by setting its size to that of the window (awkwardly <code>view.setSize</code> takes an <code>sf::Vector2f</code> as an argument but <code>window.getSize</code> returns an <code>sf::Vector2i</code>, hence the typecasts). We then center the view on the, well, <em>center</em> of the window. <code>sf::Vector2f</code> and <code>sf::Vector2i</code> work just like mathematical vectors, and so we can multiply them by a scalar (<code>int</code>, <code>float</code>, <code>double</code>, and so on), and we can add and subtract them together.</p>
+
+<p>If you aren't familiar with vectors, addition and subtraction is done component-wise, so <code>(a,b) + (c,d) = (a+c,b+d)</code>, and scalar multiplication is <code>a * (b, c) = (a*b, a*c)</code>. Since the middle is just halfway along both sides of the window, we multiply the size of the window by 0.5 to get the coordinates of the center. Why multiply by 0.5 instead of dividing by 2? No reason, I just prefer multiplication!</p>
+
+<p>Before we move on, we have an important change to make in <code>main.cpp</code></p>
+
+<pre class="prettyprint"><code>#include &quot;game.hpp&quot;
+#include &quot;game_state_start.hpp&quot;
+
+int main()
+{
+    Game game;
+
+    game.pushState(new GameStateStart(&amp;game));
+    game.gameLoop();
+
+    return 0;
+}</code></pre>
+
+<p>First we include <code>game_state_start.hpp</code> so we can create a new state, and then once we've created the <code>game</code> we create a new <code>GameStateStart</code> state and push it to the stack, changing the state the <code>game</code> is in to the start state. Remember that we have to use <code>new</code> here, and don't fret about cleaning up the memory, <code>Game</code> does that for us. Next let's create <code>GameStateEditor</code>, or at least some of it. We've already created the header file, so all that's left is to write the source file. Until we create all of the game logic there isn't too much that we can do. Regardless, in <code>game_state_editor.cpp</code> add</p>
+
+<pre class="prettyprint"><code>#include &lt;SFML/Graphics.hpp&gt;
+
+#include &quot;game_state.hpp&quot;
+#include &quot;game_state_editor.hpp&quot;
+
+void GameStateEditor::draw(const float dt)
+{
+    this-&gt;game-&gt;window.clear(sf::Color::Black);
+    this-&gt;game-&gt;window.draw(this-&gt;game-&gt;background);
+
+    return;
+}
+
+void GameStateEditor::update(const float dt)
+{
+    return;
+}
+
+void GameStateEditor::handleInput()
+{
+    sf::Event event;
+
+    while(this-&gt;game-&gt;window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+            /* Close the window */
+            case sf::Event::Closed:
+            {
+                this-&gt;game-&gt;window.close();
+                break;
+            }
+            /* Resize the window */
+            case sf::Event::Resized:
+            {
+                gameView.setSize(event.size.width, event.size.height);
+                guiView.setSize(event.size.width, event.size.height);
+                this-&gt;game-&gt;background.setPosition(this-&gt;game-&gt;window.mapPixelToCoords(sf::Vector2i(0, 0), this-&gt;guiView));
+                this-&gt;game-&gt;background.setScale(
+                    float(event.size.width) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().x), 
+                    float(event.size.height) / float(this-&gt;game-&gt;background.getTexture()-&gt;getSize().y));
+                break;
+            }
+            default: break;
+        }
+    }
+
+    return;
+}
+
+GameStateEditor::GameStateEditor(Game* game)
+{
+    this-&gt;game = game;
+    sf::Vector2f pos = sf::Vector2f(this-&gt;game-&gt;window.getSize());
+    this-&gt;guiView.setSize(pos);
+    this-&gt;gameView.setSize(pos);
+    pos *= 0.5f;
+    this-&gt;guiView.setCenter(pos);
+    this-&gt;gameView.setCenter(pos);
+}</code></pre>
+
+<p>As you can see this is almost identical to <code>game_state_start.cpp</code>, the only difference being that <code>GameStateEditor</code> handles two different views, and not one. Why does it have two if they're identical? Well we're going to draw our game world and move around it in this state, but we'll also want to display information about the city; a HUD, essentially. We'll want those to stay in the same position regardless of where we've moved the game camera, and so we'll need two views.
+Moving back to <code>GameStateStart</code> we need to add the code to transition from that state to this one. Declare a private <code>loadgame</code> function in the class definition</p>
+
+<pre class="prettyprint"><code>class GameStateStart : public GameState
+{
+    private:
+
+    sf::View view;
+
+    void loadgame();
+
+    public:</code></pre>
+
+<p>And then define the function in <code>game_state_start.cpp</code></p>
+
+<pre class="prettyprint"><code>void GameStateStart::loadgame()
+{
+    this-&gt;game-&gt;pushState(new GameStateEditor(this-&gt;game));
+
+    return;
+}</code></pre>
+
+<p>This is identical code to how we started the game in <code>main</code>, but this time we're creating a new <code>GameStateEditor</code> and not a new <code>GameStateStart</code>. Finally, we need some way to call the <code>loadgame</code> function. We could do this with a simple spacebar keypress event, exactly like we did with the escape keypress event</p>
+
+<pre class="prettyprint"><code>case sf::Event::KeyPressed:
+{
+    if(event.key.code == sf::Keyboard::Escape) this-&gt;game-&gt;window.close();
+    else if(event.key.code == sf::Keyboard::Space) this-&gt;loadgame();
+    break;
+}
+default: break;</code></pre>
+
+<p>Sadly the code won't compile just yet, as we haven't defined <code>background</code>, but if you were to comment out those lines then compiling the program and pressing space should take you to the second state! It'll be rather hard to tell of course, the only real difference is that the escape key won't close <code>GameStateEditor</code>.</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-3-textures-and-animations/125"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 3: Textures and Animations</em>
+								<small>5 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-1-state-manager/123"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 1: State Manager</em>
+								<small>2 comments</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="124" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124&t=Creating+a+City+Building+Game+with+SFML+Part+2%3A+The+First+State+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+2%3A+The+First+State+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124&title=Creating+a+City+Building+Game+with+SFML+Part+2%3A+The+First+StateTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-2-the-first-state%2F124"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>4 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124" />
+			<input type="hidden" name="tutorial_id" value="124" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-2-the-first-state/124">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="c78823" value="849814" /> <input type="text" name="b4076c" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			
+		<ul class="comments inline" data-action="tutorials/savecomment">
+		<li id="comment300">
+	<a name="comment300"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="300" />
+				<a name="comment300"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/24a6a6ec4d67e063b2965cdbb22f9ae3?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>IS</span></span>		<span class="author">inyeol sohn</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">i had too add change resize event as following for the resize to work correctly
+
+case sf::Event::Resized:
+		{
+			//some more codes
+
+			this->view.setCenter(event.size.width / 2, event.size.height / 2);
+
+			//rest of the codes
+		}</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/300">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment301">
+	<a name="comment301"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="301" />
+				<input type="hidden" name="parent_id" value="300" />
+				<a name="comment301"></a>
+				<span class="avatar small color2"><img src="https://www.gravatar.com/avatar/24a6a6ec4d67e063b2965cdbb22f9ae3?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>IS</span></span>		<span class="author">inyeol sohn</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>4 months ago</span>
+				<blockquote class="comment">i had to add another line*
+
+just woke up and didn't realize what i was writing</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/301/parent/300">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li><li id="comment217">
+	<a name="comment217"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="217" />
+				<a name="comment217"></a>
+				<span class="avatar small color7"><img src="https://www.gravatar.com/avatar/20f8b66aa55f81f9fb61b341406261ce?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>J</span></span>		<span class="author">Jananton</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">Hmm, although one only finds this out after adding the background sprite in the next lesson the window resizing doesn't work as advertised, at least in SFML 2.2 and VC++ Express 2010. I keep getting black borders when enlarging or shrinking the window.
+I've checked the code here as well as in the master.zip and there's no difference at all, so, any advice?</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/217">Flag</a>
+			</span>
+		</div>
+	</div>
+		
+	<ul class="replies">
+		
+			<li id="comment218">
+	<a name="comment218"></a>
+	<div class="wrapper">
+			
+		
+		<input type="hidden" name="comment_id" value="218" />
+				<input type="hidden" name="parent_id" value="217" />
+				<a name="comment218"></a>
+				<span class="avatar small color1"><img src="https://www.gravatar.com/avatar/5069df690074f4c051cfb7a7465180c8?s=48&amp;d=https://www.binpress.com/images/avatars/default-empty.gif" alt="" /><span>G</span></span>		<span class="author">Gurvan</span>
+			
+		
+		<span class="time"><i class="icon-clock"></i>1 year ago</span>
+				<blockquote class="comment">I solved it a this->view in mapPixelToCoords in game_state_start.cpp in the method handleInput().
+The line is 
+this->game->background.setPosition(this->game->window.mapPixelToCoords(sf::Vector2i(0, 0), this->view));
+
+It was 
+this->game->background.setPosition(this->game->window.mapPixelToCoords(sf::Vector2i(0, 0))); 
+in the original code.
+</blockquote>
+		
+		
+		<div class="actions">
+						<a class="small-button grey-button reply icon-reply">Reply</a>
+							
+			<span class="right">
+				<a class="icon-flag" rel="nofollow" href="app/flagcomment/id/218/parent/217">Flag</a>
+			</span>
+		</div>
+	</div>
+	</li>		</ul>
+	</li>		</ul>		
+		
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,121,new Date().getTime(),"","","","",""]);</script></body>
+</html>

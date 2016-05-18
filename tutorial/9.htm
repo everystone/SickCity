@@ -1,0 +1,577 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+			<meta charset="utf-8">
+	<meta name="google-site-verification" content="XzhxEv9n6_QIITfsjN1nNssRwvQ2stqTz70CuXeu-94">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1.0; user-scalable=yes;">
+	<meta name="p:domain_verify" content="4fcf9878caa9f2ce8dbe0b8162fcb9c5"/>
+	<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><base href="https://www.binpress.com/" />
+	<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		<link href="/min/?b=styles&amp;f=fonts/css/binpress.css,reset.css,main.css,handheld.css,form.css,markdown.css,site/main.css,site/content.css,site/components.css&amp;v=f319ecf" rel="stylesheet" type="text/css" /><link href="/min/?b=styles&amp;f=site/comments.css,site/tutorials.css,prettify.css&amp;v=f319ecf" rel="stylesheet" type="text/css" />	<!--[if IE 7 ]>
+	<link rel="stylesheet" href="styles/fonts/css/binpress-ie7.css" type="text/css" media="all" />
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	    <meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131" />
+<meta property="og:image" content="http://www.binpress.com/images/logo/open-graph.png" />
+<meta property="og:site_name" content="Binpress" />
+<meta property="fb:admins" content="617568869,537023091" />
+<meta property="fb:app_id" content="172491746142461" />
+<meta name="description" content="[Part 9] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:description" content="[Part 9] Make a city sim game from scratch with this open source code and ten part tutorial series. Build houses and shops, lay roads, and more!" />
+<meta property="og:title" content="Creating a City Building Game with SFML Part 9: A Complete City | C/C++" />		<script type="text/javascript">var baseUrl ='';</script>
+		<script type="text/javascript">
+	  var _gaq = _gaq || [];
+var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	  _gaq.push(['_setAccount', 'UA-2024380-7']);
+	  _gaq.push(['_setDomainName', '.binpress.com']);
+	  _gaq.push(['_setSiteSpeedSampleRate', 100]);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setCustomVar', 1, 'User-type','Visitor', 2]);
+	  setTimeout('_gaq.push([\'_trackEvent\', \'NonBounced\', \'Over 20 seconds\'])',20000);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Oxygen:300,400,700|Lato:300,400,700,900|Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+	
+	<link href="https://plus.google.com/115913168422804876359" rel="publisher" />
+	<link rel="shortcut icon" href="https://www.binpress.com/images/favicon.ico" type="image/x-icon">	<title>Creating a City Building Game with SFML Part 9: A Complete City - Tutorial - Binpress</title></head>
+<body>
+	<div id="container">
+		<div id="header">
+	<div class="width">
+
+		<div class="nav">
+			<div class="links-wrap">
+				<div class="links">
+					<a href="blog"><span>Blog</span></a>
+					<a href="browse"><span>Marketplace</span></a>
+										<a href="features/store"><span>Features</span></a>
+					<a href="pricing"><span>Pricing</span></a>
+					<a href="contact"><span>Contact</span></a>
+															<a href="login"><span>Login</span></a>
+									</div>
+			</div>
+						
+								<a class="button" href="register">Create your store</a>
+										<a class="show-menu icon-menu button"></a>
+		</div>
+		<a id="logo" href="/" title="Homepage - Binpress"><img src="images/homepage/logo.png" alt="Binpress" />
+			<br /><small>Your own digital store</small></a>
+	</div>
+</div>
+		<div id="body" class="width">
+			<div class="tutorial">
+	<ul class="tutorials-nav">
+	<li>
+		<span class="title"><i class="icon-code"></i>Languages</span>
+		<ul>
+						<li><a href="tutorials?language=c" class="selected"><small>(12)</small>C/C++</a></li>
+						<li><a href="tutorials?language=csharp"><small>(4)</small>C#</a></li>
+						<li><a href="tutorials?language=go"><small>(1)</small>Go</a></li>
+						<li><a href="tutorials?language=java"><small>(10)</small>Java</a></li>
+						<li><a href="tutorials?language=javascript"><small>(14)</small>JavaScript</a></li>
+						<li><a href="tutorials?language=lua"><small>(1)</small>Lua</a></li>
+						<li><a href="tutorials?language=objective-c"><small>(77)</small>Objective-C</a></li>
+						<li><a href="tutorials?language=php"><small>(8)</small>PHP</a></li>
+						<li><a href="tutorials?language=python"><small>(10)</small>Python</a></li>
+						<li><a href="tutorials?language=ruby"><small>(1)</small>Ruby</a></li>
+						<li><a href="tutorials?language=swift"><small>(3)</small>Swift</a></li>
+					</ul>
+	</li>
+
+	<li>
+		<span class="title"><i class="icon-list-bullet"></i>Tags</span>
+		<ul>
+						<li><a href="tutorials?tag=ios"><small>(77)</small>ios</a></li>
+						<li><a href="tutorials?tag=objective-c"><small>(71)</small>objective-c</a></li>
+						<li><a href="tutorials?tag=os+x"><small>(65)</small>os x</a></li>
+						<li><a href="tutorials?tag=game+development"><small>(16)</small>game development</a></li>
+						<li><a href="tutorials?tag=games"><small>(13)</small>games</a></li>
+						<li><a href="tutorials?tag=iPhone"><small>(13)</small>iPhone</a></li>
+						<li><a href="tutorials?tag=c%2B%2B"><small>(11)</small>c++</a></li>
+						<li><a href="tutorials?tag=video+games"><small>(11)</small>video games</a></li>
+						<li><a href="tutorials?tag=gaming"><small>(11)</small>gaming</a></li>
+						<li><a href="tutorials?tag=android"><small>(11)</small>android</a></li>
+					</ul>
+	</li>
+</ul>	<div class="one-col">
+		<h1>Creating a City Building Game with SFML Part 9: A Complete City</h1>
+		<div class="meta">
+			<a href="tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131#comments" class="grey-button icon-comment-1 addcomment">
+								Add comment
+							</a>
+			<span class="avatar tiniest"><img src="developers/35620/phpc4y1lY-tiniest.jpg" alt="" /></span>			<a href="profile/daniel-mansfield/35620">Daniel Mansfield</a>
+				
+							<span class="time">Aug 12, 2014</span>
+									
+		</div>
+		
+		
+		<div class="tags">
+			<a href="tutorials?language=c"><i class="icon-code"></i>C/C++</a><a href="tutorials?framework=sfml"><i class="icon-code"></i>SFML</a><a href="tutorials?category=gamedev"><i class="icon-code"></i>Game Development</a><a href="tutorials?tag=c%2B%2B"><i class="icon-list-bullet"></i>c++</a><a href="tutorials?tag=game+development"><i class="icon-list-bullet"></i>game development</a><a href="tutorials?tag=games"><i class="icon-list-bullet"></i>games</a><a href="tutorials?tag=gaming"><i class="icon-list-bullet"></i>gaming</a><a href="tutorials?tag=sfml"><i class="icon-list-bullet"></i>sfml</a><a href="tutorials?tag=video+games"><i class="icon-list-bullet"></i>video games</a>		</div>
+		<div class="markdown">
+			<p><em>Get started with this tutorial series <a href="https://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml/137">here</a>!</em></p>
+
+<p>Before we can add a <code>Gui</code> to <code>GameStateEditor</code>, we'll need to create our final class; <code>City</code>. The <code>City</code> class will contain a <code>Map</code>, and will manage the actual gameplay. Yes, finally we'll have an actual playable game! This goes in <code>city.hpp</code>, as the header guard says.</p>
+
+<pre class="prettyprint"><code>#ifndef CITY_HPP
+#define CITY_HPP
+
+#include &lt;vector&gt;
+#include &lt;map&gt;
+
+#include &quot;map.hpp&quot;
+
+class City
+{
+    private:
+
+    float currentTime;
+    float timePerDay;
+
+    std::vector&lt;int&gt; shuffledTiles;
+
+    /* Number of residents who are not in a residential zone. */
+    double populationPool;
+
+    /* Number of residents who are not currently employed but can work. */
+    double employmentPool;
+
+    /* Proportion of citizens who can work. */
+    float propCanWork;
+
+    /* Proportion of residents who die/give birth each day.
+     * Estimate for death rate = 1 / (life expectancy * 360)
+     * Current world values are 0.000055 and 0.000023, respectively */
+    double birthRate;
+    double deathRate;
+
+    double distributePool(double&amp; pool, Tile&amp; tile, double rate);
+
+    public:
+
+    Map map;
+
+    double population;
+    double employable;
+
+    double residentialTax;
+    double commercialTax;
+    double industrialTax;
+
+    /* Running total of city earnings (from tax etc) this month. */
+    double earnings;
+    double funds;
+
+    int day;
+
+    City()
+    {
+        this-&gt;birthRate = 0.00055;
+        this-&gt;deathRate = 0.00023;
+        this-&gt;propCanWork = 0.50;
+        this-&gt;populationPool = 0;
+        this-&gt;population = populationPool;
+        this-&gt;employmentPool = 0;
+        this-&gt;employable = employmentPool;
+        this-&gt;residentialTax = 0.05;
+        this-&gt;commercialTax = 0.05;
+        this-&gt;industrialTax = 0.05;
+        this-&gt;earnings = 0;
+        this-&gt;funds = 0;
+        this-&gt;currentTime = 0.0;
+        this-&gt;timePerDay = 1.0;
+        this-&gt;day = 0;
+    }
+
+    City(std::string cityName, int tileSize, std::map&lt;std::string, Tile&gt;&amp; tileAtlas) : City()
+    {
+        this-&gt;map.tileSize = tileSize;
+        load(cityName, tileAtlas);
+    }
+
+    void load(std::string cityName, std::map&lt;std::string, Tile&gt;&amp; tileAtlas);
+    void save(std::string cityName);
+
+    void update(float dt);
+    void bulldoze(const Tile&amp; tile);
+    void shuffleTiles();
+    void tileChanged();
+
+    double getHomeless() { return this-&gt;populationPool; }
+    double getUnemployed() { return this-&gt;employmentPool; }
+};
+
+#endif /* CITY_HPP */</code></pre>
+
+<p>Quite a big class, although it is mostly declarations. <code>currentTime</code> is the real world time (in seconds) since the day updated, and <code>timePerDay</code> is the amount of real world time each day should last. We've set this to 1.0 in the constructor to get a 1:1 correspondence of seconds to days. The game world will update at the end of each day, so the lower this value the faster the game will go. We then have <code>shuffledTiles</code>, which has an interesting use; if we were to update the tiles by iterating over them they would update from left to right and top to bottom on the map.</p>
+
+<p>As you'll see when we program the <code>update</code> function this means that citizens will move into houses in the top left before they move into those in the bottom right. To fix this we use  <code>shuffledTiles</code>, which is filled with array indices corresponding to <code>Tile</code>s in the <code>map</code>. The indices are stored in a random order and instead of iterating through the <code>Tile</code>s in <code>map</code> we iterate over <code>shuffledTiles</code> and use the indices to choose the <code>Tile</code>s in a &quot;random&quot; order. The order will be the same each day, but we'll have fixed the problem!</p>
+
+<p>Now for a brief explanation on how population will work. The <code>City</code> has a <code>populationPool</code>, which stores the number of citizens who do not have a home. Each <code>Tile</code> has a <code>population</code> value (as we've seen) that stores the number of citizens living within. So to move people into houses we decrease <code>populationPool</code> and increase <code>population</code>. The total population of the <code>City</code> is calculated as the sum of all the <code>Tile</code>s' populations and the <code>populationPool</code>. The same applies for <code>employable</code> and <code>employmentPool</code>, but those are for commercial and industrial zones and not residential ones.</p>
+
+<p>We then have <code>propCanWork</code>, which is the proportion of the population that can work and thus can be employed. Thus <code>employable</code> is approximately equal to <code>propCanWork * population</code>. Next we have <code>birthRate</code> and <code>deathRate</code>, which are set to be 100 times the real world value in order to speed up gameplay. Or you could just make the days run faster and keep them the same, of course.</p>
+
+<p>We then have the three tax variables which store the proportion of income from each zone that is taxed by the <code>City</code>, and are all set to <code>5%</code> in the constructor. The calculations using them are entirely unrealistic, but they work well for the game. (We'll see them in <code>update</code>.) Finally there's the <code>City</code>'s funds which are used to build new <code>Tile</code>s, the <code>earnings</code> (due to tax) amassed since last month, and the number of days that have passed since the game was started. <code>earnings</code> is moved into <code>funds</code> after every 30 days.</p>
+
+<p>As for the functions, <code>load</code> and <code>save</code> will load and save the <code>City</code> from files respectively (loading and saving the <code>map</code> too), <code>update</code> will move people around, calculate income, move goods around and so on, <code>bulldoze</code> will replace the selected (and valid) area of <code>map</code> with <code>tile</code>, <code>shuffleTiles</code> will generate the <code>shuffledTiles</code> <code>std::vector</code>, <code>tileChanged</code> will update the regions and directions of tiles and should of course be called whenever a <code>Tile</code> is changed, and finally <code>distributePool</code> will be used in <code>update</code> to move citizens around. Now let's create these function in <code>city.cpp</code></p>
+
+<pre class="prettyprint"><code>#include &lt;cmath&gt;
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+
+#include &quot;city.hpp&quot;
+#include &quot;tile.hpp&quot;
+
+double City::distributePool(double&amp; pool, Tile&amp; tile, double rate = 0.0)
+{
+    const static int moveRate = 4;
+
+    unsigned int maxPop = tile.maxPopPerLevel * (tile.tileVariant+1);
+
+    /* If there is room in the zone, move up to 4 people from the
+     * pool into the zone */
+    if(pool &gt; 0)
+    {
+        int moving = maxPop - tile.population;
+        if(moving &gt; moveRate) moving = moveRate;
+        if(pool - moving &lt; 0) moving = pool;
+        pool -= moving;
+        tile.population += moving;
+    }
+
+    /* Adjust the tile population for births and deaths */
+    tile.population += tile.population * rate;
+
+    /* Move population that cannot be sustained by the tile into
+     * the pool */
+    if(tile.population &gt; maxPop)
+    {
+        pool += tile.population - maxPop;
+        tile.population = maxPop;
+    }
+
+    return tile.population;
+}</code></pre>
+
+<p><code>distributePool</code> works by moving up to 4 people from the <code>pool</code> into the <code>tile</code>, and then adjusts the <code>tile.population</code> according to the <code>rate</code> passed as an argument. <code>rate</code> will be a birth rate if it's positive and a death rate if it's negative. Most of the code in this function is just to ensure that the right amount of people move and the overall <code>population</code> remains the same.</p>
+
+<p>Next let's look at the <code>bulldoze</code>, <code>shuffleTiles</code>, and <code>tileChanged</code> functions.</p>
+
+<pre class="prettyprint"><code>void City::bulldoze(const Tile&amp; tile)
+{
+    /* Replace the selected tiles on the map with the tile and
+     * update populations etc accordingly */
+    for(int pos = 0; pos &lt; this-&gt;map.width * this-&gt;map.height; ++pos)
+    {
+        if(this-&gt;map.selected[pos] == 1)
+        {
+            if(this-&gt;map.tiles[pos].tileType == TileType::RESIDENTIAL)
+            {
+                this-&gt;populationPool += this-&gt;map.tiles[pos].population;
+            }
+            else if(this-&gt;map.tiles[pos].tileType == TileType::COMMERCIAL)
+            {
+                this-&gt;employmentPool += this-&gt;map.tiles[pos].population;
+            }
+            else if(this-&gt;map.tiles[pos].tileType == TileType::INDUSTRIAL)
+            {
+                this-&gt;employmentPool += this-&gt;map.tiles[pos].population;
+            }
+            this-&gt;map.tiles[pos] = tile;
+        }
+    }
+
+    return;
+}
+
+void City::shuffleTiles()
+{
+    while(this-&gt;shuffledTiles.size() &lt; this-&gt;map.tiles.size())
+    {
+        this-&gt;shuffledTiles.push_back(0);
+    }
+    std::iota(shuffledTiles.begin(), shuffledTiles.end(), 1);
+    std::random_shuffle(shuffledTiles.begin(), shuffledTiles.end());
+
+    return;
+}
+
+void City::tileChanged()
+{
+    this-&gt;map.updateDirection(TileType::ROAD);
+    this-&gt;map.findConnectedRegions(
+    {
+        TileType::ROAD, TileType::RESIDENTIAL,
+        TileType::COMMERCIAL, TileType::INDUSTRIAL
+    }, 0);
+
+    return;
+}</code></pre>
+
+<p>In the <code>bulldoze</code> function we iterate over every tile in the <code>map</code>. If the tile is selected then we replace it with the given tile and adjust the <code>populationPoo</code>l if the tile that was destroyed had a population. <code>shuffleTiles</code> is simple but without the aid of <code>std::iota</code> and <code>std::random_shuffle</code> it would be more complicated; first <code>shuffledTiles</code> is created to have the same number of tiles as the map, then <code>std::iota</code> is used to fill <code>shuffledTiles</code> from start to finish with increasing values (starting at 0) before <code>std::random_shuffle</code> is used to randomly move the values about. Finally <code>tileChanged</code> first updates all of the roads to face the correct way, before creating regions where roads and zones are connected. Excellent!</p>
+
+<p>There are but two functions left to examine (other than <code>update</code>), <code>save</code> and <code>load</code>. Unlike <code>Map</code>, which is stored as binary, the <code>City</code> will be saved as a text file with syntax like </p>
+
+<pre class="prettyprint"><code>void City::load(std::string cityName, std::map&lt;std::string, Tile&gt;&amp; tileAtlas)
+{
+    int width = 0;
+    int height = 0;
+
+    std::ifstream inputFile(cityName + &quot;_cfg.dat&quot;, std::ios::in);
+
+    std::string line;
+
+    while(std::getline(inputFile, line))
+    {
+        std::istringstream lineStream(line);
+        std::string key;
+        if(std::getline(lineStream, key, '='))
+        {
+            std::string value;
+            if(std::getline(lineStream, value))
+            {
+                if(key == &quot;width&quot;)                  width                   = std::stoi(value);
+                else if(key == &quot;height&quot;)            height                  = std::stoi(value);
+                else if(key == &quot;day&quot;)               this-&gt;day               = std::stoi(value);
+                else if(key == &quot;populationPool&quot;)    this-&gt;populationPool    = std::stod(value);
+                else if(key == &quot;employmentPool&quot;)    this-&gt;employmentPool    = std::stod(value);
+                else if(key == &quot;population&quot;)        this-&gt;population        = std::stod(value);
+                else if(key == &quot;employable&quot;)        this-&gt;employable        = std::stod(value);
+                else if(key == &quot;birthRate&quot;)         this-&gt;birthRate         = std::stod(value);
+                else if(key == &quot;deathRate&quot;)         this-&gt;deathRate         = std::stod(value);
+                else if(key == &quot;residentialTax&quot;)    this-&gt;residentialTax    = std::stod(value);
+                else if(key == &quot;commercialTax&quot;)     this-&gt;commercialTax     = std::stod(value);
+                else if(key == &quot;industrialTax&quot;)     this-&gt;industrialTax     = std::stod(value);
+                else if(key == &quot;funds&quot;)             this-&gt;funds             = std::stod(value);
+                else if(key == &quot;earnings&quot;)          this-&gt;earnings          = std::stod(value);
+            }
+            else
+            {
+                std::cerr &lt;&lt; &quot;Error, no value for key &quot; &lt;&lt; key &lt;&lt; std::endl;
+            }
+        }
+    }
+
+    inputFile.close();
+
+    this-&gt;map.load(cityName + &quot;_map.dat&quot;, width, height, tileAtlas);
+    tileChanged();
+
+    return;
+}
+
+void City::save(std::string cityName)
+{
+    std::ofstream outputFile(cityName + &quot;_cfg.dat&quot;, std::ios::out);
+
+    outputFile &lt;&lt; &quot;width=&quot;              &lt;&lt; this-&gt;map.width          &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;height=&quot;             &lt;&lt; this-&gt;map.height         &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;day=&quot;                &lt;&lt; this-&gt;day                &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;populationPool=&quot;     &lt;&lt; this-&gt;populationPool     &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;employmentPool=&quot;     &lt;&lt; this-&gt;employmentPool     &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;population=&quot;         &lt;&lt; this-&gt;population         &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;employable=&quot;         &lt;&lt; this-&gt;employable         &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;birthRate=&quot;          &lt;&lt; this-&gt;birthRate          &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;deathRate=&quot;          &lt;&lt; this-&gt;deathRate          &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;residentialTax=&quot;     &lt;&lt; this-&gt;residentialTax     &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;commercialTax=&quot;      &lt;&lt; this-&gt;commercialTax      &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;industrialTax=&quot;      &lt;&lt; this-&gt;industrialTax      &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;funds=&quot;              &lt;&lt; this-&gt;funds              &lt;&lt; std::endl;
+    outputFile &lt;&lt; &quot;earnings=&quot;           &lt;&lt; this-&gt;earnings           &lt;&lt; std::endl;
+
+    outputFile.close();
+
+    this-&gt;map.save(cityName + &quot;_map.dat&quot;);
+
+    return;
+}</code></pre>
+
+<p>In <code>load</code>, we first open an input file stream like we did with <code>Map::load</code>, but this time we don't mark it as a binary file. We then iterate over every line in the file, and create an <code>std::istringstream</code> from the <code>line</code>. This allows us to easily extract data from it. (<code>std::istringstream</code> is like <code>std::ifstream</code>, but for strings and not files.) The file will look like:</p>
+
+<pre class="prettyprint"><code>width=64
+height=64
+population=101234</code></pre>
+
+<p>We need to split each line up into two parts; one before the <code>'='</code>, and one after. To do this we use the <code>std::getline</code> function again but we pass an extra argument called a delimiter. A delimiter is the character that marks the end of a line, and by default that is just the newline character <code>'\n'</code>. If we set it to <code>'='</code> however then <code>std::getline</code> will put the first section into the <code>key</code> variable. By calling <code>std::getline</code> once more (with the default delimiter again) we store the second section in <code>value</code>.</p>
+
+<p>All that's left is to check <code>key</code> against the possible values and convert the <code>value</code> (which is currently an <code>std::string</code>) into the correct type using <code>std::stod</code> (string to <code>double</code>) and <code>std::stoi</code> (string to <code>int</code>). Once every line has been read we close the file and then load the map. See the <code>&quot;+_map.dat&quot;</code> and <code>&quot;+_cfg.dat&quot;</code>? <code>load</code> should take the name of the <code>City</code> we want to load, say <code>london</code>, and will load the files <code>london_map.dat</code> and <code>london_cfg.dat</code>. <code>save</code> is far simpler and just outputs the correct <code>key</code> and <code>value</code> before saving the <code>map</code>.</p>
+
+<p>In the next tutorial we'll examine the most complicated function in <code>City</code>, the <code>update</code> function.</p>
+
+<p><a href="https://github.com/Piepenguin1995/citybuilder/">Source code for this section</a></p>
+		</div>
+				<div class="related">
+			<h2>Was this tutorial useful? Check out Action RPG Engine and Tutorial for iOS:</h2>
+			<a class="thumb-link" href="app/action-rpg-engine-and-tutorial-for-ios/798"><img class="thumb" src="images/products/798/action-rpg-engine-and-tutorial-for-ios--thumb.png" alt="" /></a>
+			<div class="summary"><p>Create your own RPG, RTS or action-adventure game. Includes a flexible RPG engine, complete example game project, a helpful ebook tutorial and a gigantic royalty-free art package.</p>
+				<div class="rating"><span class="value-title" title="5"></span><ul title="Rating 5 out of 5"><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li><li class="icon-star"></li></ul></div>			</div>
+			<a class="button" href="app/action-rpg-engine-and-tutorial-for-ios/798">More <i class="icon-angle-right"></i></a>
+		</div>
+				<div class="series">
+					<a class="next" href="tutorial/creating-a-city-building-game-with-sfml-part-10-putting-it-all-together/132"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 10: Putting it All Together</em>
+								<small>10 comments</small>
+							</a>
+						<a class="prev" href="tutorial/creating-a-city-building-game-with-sfml-part-8-gui-system/130"><span class="book"></span> 
+				<em>Creating a City Building Game with SFML Part 8: GUI System</em>
+								<small>1 comment</small>
+							</a>
+						
+		</div>			
+				<form class="subscribe-form" method="post" action="newsletter/signup">
+			<img class="subscribe-icon" src="images/icons/subscribe-big.png" />
+			<h3>Get new tutorials delivered to your Inbox</h3>
+			<p>New tutorials will be sent to your Inbox once a week. You can unsubscribe at any time.</p>
+			
+			<input name="name" placeholder="Full name" type="text" class="text" /><input name="email" placeholder="Email" type="text" class="text" />			<input type="hidden" name="tutorial_id" value="131" />
+			<button type="submit" class="red-button icon-plane">Subscribe</button>
+			
+		</form>
+		<div class="eoa-links">
+			<a class="button floater" href="content/write-for-us"><i class="icon-pencil"></i>Write for us!</a>
+			<a class="red-button" href="tutorials"><i class="icon-book-open"></i>More Tutorials</a>
+		</div>
+		<div class="social-buttons">
+	<span class="share-link socialb"><a rel="nofollow" href="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131?slk"><em class="icon-link-1"></em><span class="counter">Link</span></a>
+		<input type="text" value="http://www.binpress.com/tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131" readonly="readonly" class="text" />
+	</span>
+	<a rel="nofollow" class="socialb facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131&t=Creating+a+City+Building+Game+with+SFML+Part+9%3A+A+Complete+City+-+Tutorial+-+" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131" target="_blank"><em class="icon-facebook"></em><span class="counter">Share</span></a>
+	<a rel="nofollow" class="socialb twitter" href="https://twitter.com/intent/tweet?text=Creating+a+City+Building+Game+with+SFML+Part+9%3A+A+Complete+City+-+Tutorial+-+&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131"><em class="icon-twitter"></em><span class="counter">Tweet</span></a>
+	
+	<a rel="nofollow" class="socialb linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131&title=Creating+a+City+Building+Game+with+SFML+Part+9%3A+A+Complete+CityTutorial&source=Binpress" count-url="https%3A%2F%2Fwww.binpress.com%2Ftutorial%2Fcreating-a-city-building-game-with-sfml-part-9-a-complete-city%2F131"><em class="icon-linkedin"></em><span class="counter">Share</span></a>
+
+</div>		<div class="tutorial-comments">
+	<a name="comments"></a>
+	<h2>0 comments</h2>
+	
+		<div class="comment-form">
+	
+		<span class="avatar small"><img src="images/avatars/default-small.png" alt="" /></span>		
+		<form method="post" action="tutorials/comment">
+			<input type="hidden" name="return" value="tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131" />
+			<input type="hidden" name="tutorial_id" value="131" />
+			<input type="hidden" name="parent_id" />
+			<input type="hidden" name="reply_to" />
+			<textarea cols="50" rows="4" name="content"></textarea>
+			<br />
+			<div class="login">
+	<small>Sign-in now</small>
+	<a rel="nofollow" class="grey-button login-button" href="login?return=tutorial/creating-a-city-building-game-with-sfml-part-9-a-complete-city/131">Sign-in</a>
+</div>
+<div class="register">
+	<small>Or enter your name and Email</small>
+	<input name="name" placeholder="Full name" type="text" class="text" />
+	<input name="email" placeholder="Email" type="email" class="text" />	
+	<span class="cld"><input type="text" name="18fb76" value="7171d8" /> <input type="text" name="63fec1" /></span></div>
+<button type="submit">Send</button>
+			
+		</form>
+
+	</div>
+
+			<div class="placeholder">No comments have been posted yet.</div>
+	</div>
+	</div>	
+		
+</div>			<div class="clear" style="clear:both;"></div>
+		</div>
+		<div id="footer-push"></div>
+	</div>
+	<div id="footer">
+	<div class="footer-top">
+		<div class="width">
+			<a href="content/about">About us</a>
+			<a href="contact">Contact Us</a>
+			<a href="page/terms">Terms & Conditions</a>
+			<a href="page/privacy">Privacy Policy</a>
+		</div>
+	</div>
+	<div class="width">
+
+		<div class="col">
+			<h3>Selling Digital Products</h3>
+			<a href="features/store">Your Online Store</a>
+			<a href="content/sell-software-online">Business Software</a>
+			<a href="content/sell-games-online">Computer Games</a>
+			<a href="content/sell-code-libraries">Source-Code Libraries</a>
+			<a href="content/eu-vat-2015">EU VAT collection</a>
+		</div>
+		<div class="col">
+			<h3>The Binpress Marketplace</h3>
+			<a href="browse">Browse the marketplace</a>
+			<a href="features/marketplace">Publish your products</a>
+			<a href="content/guidelines">Publishing Guidelines</a>
+			<a href="tutorials">Software Development Tutorials</a>
+		</div>
+		<div class="col">
+			<h3>Learn More</h3>
+			<a href="guides">Binpress Guides</a>
+			<a href="blog">Blog</a>
+			<a href="forum">Forum</a>
+			<a href="content/faq">Frequently Asked Questions</a>
+			<a href="dfp/start">Digital Fulfillment on your site</a>
+		</div>
+
+		<div class="social-profiles">
+			<a class="icon-facebook social" href="https://www.facebook.com/binpress"></a>
+			<a class="icon-twitter social" href="https://www.twitter.com/binpress"></a>
+			<a class="icon-gplus social" href="https://plus.google.com/u/0/+Binpress/posts"></a>
+			<a class="logo" href="/" title="Homepage - Binpress">Your own digital store</a>
+		</div>
+
+	</div>
+</div>	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jq/jquery.min.js"><\/script>')</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="js/jq/jquery-ui.min.js"><\/script>')</script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=binpress.js,media.js"></script>
+<script type="text/javascript" src="/min/?b=js&amp;v=f319ecf&amp;f=prettify/prettify.js,site/tutorials.js,site/comments.js"></script>
+		<!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+		window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+			/* custom configuration goes here (www.olark.com/documentation) */
+			olark.identify('3407-350-10-2744');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/3407-350-10-2744/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code --><script type="text/javascript">olark('api.visitor.updateCustomFields',{"visit_id":"6541776"});</script><script type="text/javascript">
+adroll_adv_id = "2RIEOSPSWNCFZOUITXIIM7";
+adroll_pix_id = "X4QCHJ7ZUBFSTP7ACJ34TI";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  maxmind_user_id = "62188";
+  (function() {
+    var mt = document.createElement('script'); mt.type = 'text/javascript'; mt.async = true;
+    mt.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'device.maxmind.com/js/device.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mt, s);
+  })();
+</script>
+<script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","bam.nr-data.net","7d8608a34f","3053298","YFdVYEsAVxdYAhAICVkddldNCFYKFhINFQMYRkJAVhNQBVUSSxMDVlY=",0,114,new Date().getTime(),"","","","",""]);</script></body>
+</html>
