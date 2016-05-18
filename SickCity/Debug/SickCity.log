@@ -1,2 +1,6 @@
-﻿  SickCity.cpp
+﻿  GameStateStart.cpp
+c:\code\sickcity\sickcity\gamestatestart.cpp(30): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  SickCity.cpp
   SickCity.vcxproj -> C:\code\SickCity\Debug\SickCity.exe

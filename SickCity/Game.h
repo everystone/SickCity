@@ -9,6 +9,7 @@ class Game
 public:
 	std::stack<GameState*> states;
 	sf::RenderWindow window;
+	sf::Sprite background;
 
 	void pushState(GameState* state);
 	void popState();
