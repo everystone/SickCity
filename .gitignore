@@ -1,11 +1,14 @@
 SickCity/SFML-2.3.2
 
 .vscode
-
+ipch
 #gtags
 GTAGS
 GRTAGS
 GPATH
+*.pdb
+*.log
+*.idb
 
 #visual c++ cache files
 *.aps

@@ -1,8 +1,5 @@
+#include "stdafx.h"
 #include <SFML/Graphics.hpp>
-#include <string>
-#include <map>
-#include <vector>
-#include <fstream>
 
 #include "Map.h"
 #include "Tile.h"

@@ -1,15 +1,39 @@
-﻿  Game.cpp
-c:\code\sickcity\sickcity\tile.h(42): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Generating Code...
-  Compiling...
+﻿  stdafx.cpp
+  Tile.cpp
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\tile.cpp(30): warning C4018: '<': signed/unsigned mismatch
+  TextureManager.cpp
   SickCity.cpp
-c:\code\sickcity\sickcity\tile.h(42): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Map.cpp
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\map.cpp(17): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(82): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(84): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(88): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\map.cpp(89): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\code\sickcity\sickcity\map.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(102): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(115): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(119): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(121): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(123): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(168): warning C4018: '>=': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(169): warning C4018: '>=': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(198): warning C4018: '<': signed/unsigned mismatch
+c:\code\sickcity\sickcity\map.cpp(200): warning C4018: '<': signed/unsigned mismatch
   GameStateStart.cpp
-c:\code\sickcity\sickcity\tile.h(42): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 c:\code\sickcity\sickcity\gamestatestart.cpp(30): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   GameStateEditor.cpp
-c:\code\sickcity\sickcity\tile.h(42): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-c:\code\sickcity\sickcity\gamestateeditor.cpp(26): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-c:\code\sickcity\sickcity\gamestateeditor.cpp(27): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\gamestateeditor.cpp(33): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\code\sickcity\sickcity\gamestateeditor.cpp(112): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\code\sickcity\sickcity\gamestateeditor.cpp(112): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Game.cpp
+c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  AnimationHandler.cpp
+c:\code\sickcity\sickcity\animationhandler.cpp(7): warning C4018: '>=': signed/unsigned mismatch
   Generating Code...
   SickCity.vcxproj -> C:\code\SickCity\Debug\SickCity.exe
