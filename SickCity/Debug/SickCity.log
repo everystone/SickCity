@@ -1,5 +1,0 @@
-﻿  TextureManager.cpp
-  Game.cpp
-c:\code\sickcity\sickcity\tile.h(53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Generating Code...
-  SickCity.vcxproj -> C:\code\SickCity\Debug\SickCity.exe

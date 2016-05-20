@@ -17,6 +17,7 @@ void Map::load(const std::string& filename, unsigned int width, unsigned int hei
     for(int pos = 0; pos < this->width * this->height; ++pos)
     {
         this->resources.push_back(255);
+		this->selected.push_back(0);
 
         TileType tileType;
         inputFile.read((char*)&tileType, sizeof(int));
@@ -88,6 +89,12 @@ void Map::draw(sf::RenderWindow& window, float dt)
             pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
             pos.y = (x + y) * this->tileSize * 0.5;
             this->tiles[y*this->width+x].sprite.setPosition(pos);
+
+			/* Change color if tile is selected */
+			if(this->selected[y*this->width+x])
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x7d, 0x7d, 0x7d));
+			else
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
 
             /* Draw the tile */
             this->tiles[y*this->width+x].draw(window, dt);
@@ -187,6 +194,50 @@ void Map::depthfirstsearch(std::vector<TileType>& whitelist,
     depthfirstsearch(whitelist, pos + sf::Vector2i(0 , -1), label, regionType);
 
     return;
+}
+
+void Map::select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> blacklist)
+{
+	// Swap coordinates if necessary
+	// if we started from low to high
+	if (end.y < start.y) std::swap(start.y, end.y);
+	if (end.x < start.x) std::swap(start.x, end.x);
+
+	/* Clamp in range */
+	if (end.x >= this->width)      end.x = this->width - 1;
+	else if (end.x < 0)               end.x = 0;
+	if (end.y >= this->height)         end.y = this->height - 1;
+	else if (end.y < 0)               end.y = 0;
+	if (start.x >= this->width)        start.x = this->width - 1;
+	else if (start.x < 0)             start.x = 0;
+	if (start.y >= this->height)  start.y = this->height - 1;
+	else if (start.y < 0)             start.y = 0;
+
+	for (int y = start.y; y <= end.y; ++y)
+	{
+		for (int x = start.x; x <= end.x; ++x)
+		{
+			/* Check if the tile type is in the blacklist. If it is, mark it as
+			* invalid, otherwise select it */
+			this->selected[y*this->width + x] = 1;
+			++this->numSelected;
+			for (auto type : blacklist)
+			{
+				if (this->tiles[y*this->width + x].tileType == type)
+				{
+					this->selected[y*this->width + x] = 2;
+					--this->numSelected;
+					break;
+				}
+			}
+		}
+	}
+}
+
+/* Clear Tile Selection */
+void Map::clearSelected()
+{
+	for (auto& tile : this->selected) tile = 0;
 }
 
 void Map::findConnectedRegions(std::vector<TileType> whitelist, int regionType=0)

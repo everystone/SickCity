@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 #include "GameStateEditor.h"
+#include <iostream>
 
 void GameStateEditor::draw(const float dt) {
    this->game->window.clear(sf::Color::Black);
@@ -21,8 +22,8 @@ void GameStateEditor::update(const float dt) {
 void GameStateEditor::handleInput()
 {
 	sf::Event event;
-	while (this->game->window.pollEvent(event))
-	{
+	//while (this->game->window.pollEvent(event)) {
+	this->game->window.pollEvent(event);
 		switch (event.type)
 		{
 		case sf::Event::Closed:
@@ -48,6 +49,28 @@ void GameStateEditor::handleInput()
 				gameView.move(-1.0f * pos * this->zoomLevel);
 				panningAnchor = sf::Mouse::getPosition(this->game->window);
 			}
+			/* Select TIles*/
+			else if (this->actionState == ActionState::SELECTING)
+			{
+				sf::Vector2f pos = this->game->window.mapPixelToCoords(sf::Mouse::getPosition(this->game->window), this->gameView);
+				selectionEnd.x = pos.y / (this->map.tileSize) + pos.x / (2 * this->map.tileSize) - this->map.width * 0.5 - 0.5;
+				selectionEnd.y = pos.y / (this->map.tileSize) - pos.x / (2 * this->map.tileSize) + this->map.width * 0.5 + 0.5;
+				
+				this->map.clearSelected();
+				if (this->currentTile->tileType == TileType::GRASS)
+				{
+					this->map.select(selectionStart, selectionEnd, { this->currentTile->tileType, TileType::WATER });
+				}
+				else {
+					this->map.select(selectionStart, selectionEnd,
+					{
+						this->currentTile->tileType,    TileType::FOREST,
+						TileType::WATER,                TileType::ROAD,
+						TileType::RESIDENTIAL,          TileType::COMMERCIAL,
+						TileType::INDUSTRIAL
+					});
+				}
+			}
 			break;
 		}
 		case sf::Event::MouseButtonPressed:
@@ -61,6 +84,27 @@ void GameStateEditor::handleInput()
 					this->panningAnchor = sf::Mouse::getPosition(this->game->window);
 				}
 			}
+			else if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				/* select map tile */
+				if (this->actionState != ActionState::SELECTING)
+				{
+					std::cout << "Selecting\n";
+					this->actionState = ActionState::SELECTING;
+					sf::Vector2f pos = this->game->window.mapPixelToCoords(sf::Mouse::getPosition(this->game->window), this->gameView);
+					selectionStart.x = pos.y / (this->map.tileSize) + pos.x / (2 * this->map.tileSize) - this->map.width * 0.5 - 0.5;
+					selectionStart.y = pos.y / (this->map.tileSize) - pos.x / (2 * this->map.tileSize) + this->map.width * 0.5 + 0.5;
+				}
+			}
+			else if (event.mouseButton.button == sf::Mouse::Right)
+			{
+				/* Stop selecting */
+				if (this->actionState == ActionState::SELECTING)
+				{
+					this->actionState = ActionState::NONE;
+					this->map.clearSelected();
+				}
+			}
 			break;
 		}
 		case sf::Event::MouseButtonReleased:
@@ -69,6 +113,15 @@ void GameStateEditor::handleInput()
 			if(event.mouseButton.button == sf::Mouse::Middle)
 			{
 				this->actionState = ActionState::NONE;
+			}
+			else if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				if (this->actionState == ActionState::SELECTING)
+				{
+					std::cout << "Deselected.";
+					this->actionState = ActionState::NONE;
+					this->map.clearSelected();
+				}
 			}
 			break;
 		}
@@ -89,8 +142,7 @@ void GameStateEditor::handleInput()
 		}
 		default:
 			break;
-		}
-	}
+		}		
 	return;
 }
 
@@ -113,5 +165,8 @@ GameStateEditor::GameStateEditor(Game* game)
 	centre *= float(this->map.tileSize);
 	gameView.setCenter(centre);
 
+	this->selectionStart = sf::Vector2i(0, 0);
+	this->selectionEnd = sf::Vector2i(0, 0);
+	this->currentTile = &this->game->tileAtlas.at("grass");	
 	this->actionState = ActionState::NONE;
 }

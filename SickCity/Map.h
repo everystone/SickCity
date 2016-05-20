@@ -16,6 +16,11 @@ class Map
     unsigned int width;
     unsigned int height;
     std::vector<Tile> tiles;
+	// Tile Selection
+	std::vector<char> selected;
+
+	void select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> blacklist);
+	void clearSelected();
 
     /* Resource map */
     std::vector<int> resources;
@@ -49,11 +54,13 @@ class Map
         this->width = 0;
         this->height = 0;
         this->numRegions[0] = 1;
+		this->numSelected = 0;
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,
         std::map<std::string, Tile>& tileAtlas)
     {
+		this->numSelected = 0;
         this->tileSize = 8;
         load(filename, width, height, tileAtlas);
     }
