@@ -80,5 +80,5 @@ public:
 	void tileChanged();
 
 	double getHomeless() { return this->populationPool; }
-	double getUnemployed();
+	double getUnemployed() { return this->employmentPool; }
 };

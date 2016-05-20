@@ -237,6 +237,7 @@ void Map::select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> bla
 /* Clear Tile Selection */
 void Map::clearSelected()
 {
+	this->numSelected = 0;
 	for (auto& tile : this->selected) tile = 0;
 }
 
