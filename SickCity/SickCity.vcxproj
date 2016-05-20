@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationHandler.h" />
+    <ClInclude Include="City.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateEditor.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationHandler.cpp" />
+    <ClCompile Include="City.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateEditor.cpp" />
     <ClCompile Include="GameStateStart.cpp" />
