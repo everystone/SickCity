@@ -1,9 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
+#include "Gui.h"
 
 class GameStateStart : public GameState
 {
+private:
+	sf::View view;
+	std::map<std::string, Gui> guiSystem;
+	void loadGame();
 public:
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
@@ -11,7 +16,4 @@ public:
 
 	// Constructor
 	GameStateStart(Game* game);
-private:
-	sf::View view;
-	void loadGame();
 };
