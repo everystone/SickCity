@@ -24,7 +24,7 @@ double City::distributePool(double& pool, Tile& tile, double rate)
 		tile.population += moving;
 	}
 
-	// ADjust tile population for births and deaths
+	// Adjust tile population for births and deaths
 	tile.population += tile.population * rate;
 
 	// Move population that cannot be sutained by the tile back into the pool
@@ -214,59 +214,10 @@ void City::update(float dt)
 			if (rand() % 100 < 15 * (1.0 - this->commercialTax))
 				this->distributePool(this->employmentPool, tile, 0.00);
 			numTiles[1]++;
-		}
-		else if (tile.tileType == TileType::INDUSTRIAL) {
-			// Extract resources from the ground
-			// If population is > 100, 100% success chance.
-			// chance should increase by how many people working at tile?
-			if (this->map.resources[i] > 0 && rand() % 100 < this->population) {
-				++tile.production;
-				--this->map.resources[i];
-			}
-			// Hire people
-			if (rand() % 100 < 15 * (1.0 - this->industrialTax))
-				this->distributePool(this->employmentPool, tile, 0.0);
-			numTiles[2]++;
-		}
-		else if (tile.tileType == TileType::FIRE) {
-			// Spread Fire ! Pyroman 4 Life
 
-		}
-
-		tile.update();
-
-
-	/* Second pass, handles goods manufactoring */
-
-		if (tile.tileType == TileType::INDUSTRIAL)
-		{
-			int receivedResources = 0;
-
-			// 100 Industrial = 21ms! down from 210
-			// 100 industrial = 14ms
-			if (tile.regions[0] != 0) {
-				// lookup all tiles in same zone as tile
-				for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
-					Tile& tileInZone = this->map.tiles[tileIndex];
-					if (tileInZone.tileType == TileType::INDUSTRIAL && tileInZone.production > 0) {
-						++receivedResources;
-						--tileInZone.production;
-					}
-					if (receivedResources >= tile.tileVariant + 1) break;
-				}
-			}
-
-			// Turn resources into goods
-			tile.storedGoods += (receivedResources + tile.production)*(tile.tileVariant + 1);
-		}
-				
-	/* Third pass, Handles goods distribution */
-
-		if (tile.tileType == TileType::COMMERCIAL)
-		{
+			// Handle goods distribution
 			int receivedGoods = 0;
 			double maxCustomers = 0.0;
-			
 
 			for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
 				Tile& tile2 = this->map.tiles[tileIndex];
@@ -287,7 +238,45 @@ void City::update(float dt)
 			tile.production = (receivedGoods*100.0 + rand() % 20) * (1.0 - this->commercialTax);
 			double revenue = tile.production * maxCustomers * tile.population / 100.0;
 			commercialRevenue += revenue;
+
 		}
+		else if (tile.tileType == TileType::INDUSTRIAL) {
+			// Extract resources from the ground
+			// If population is > 100, 100% success chance.
+			// chance should increase by how many people working at tile?
+			if (this->map.resources[i] > 0 && rand() % 100 < this->population) {
+				++tile.production;
+				--this->map.resources[i];
+			}
+			// Hire people
+			if (rand() % 100 < 15 * (1.0 - this->industrialTax))
+				this->distributePool(this->employmentPool, tile, 0.0);
+			numTiles[2]++;
+
+			int receivedResources = 0;
+
+			// Extract resources form the ground
+			if (tile.regions[0] != 0) {
+				// lookup all tiles in same zone as tile
+				for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
+					Tile& tileInZone = this->map.tiles[tileIndex];
+					if (tileInZone.tileType == TileType::INDUSTRIAL && tileInZone.production > 0) {
+						++receivedResources;
+						--tileInZone.production;
+					}
+					if (receivedResources >= tile.tileVariant + 1) break;
+				}
+			}
+
+			// Turn resources into goods
+			tile.storedGoods += (receivedResources + tile.production)*(tile.tileVariant + 1);
+		}
+		else if (tile.tileType == TileType::FIRE) {
+			// Spread Fire ! Pyroman 4 Life
+
+		}
+
+		tile.update();			
 	}
 
 	/* Adjust population pool for births and deaths */
