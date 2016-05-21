@@ -127,7 +127,7 @@ void GameStateEditor::handleInput()
 						this->guiSystem.at("tileInfo").setPosition(guiPos + sf::Vector2f(32, -16));
 						this->guiSystem.at("tileInfo").setEntryText(0, tileTypeToStr(hoveredTile.tileType));
 						this->guiSystem.at("tileInfo").setEntryText(1, "Lvl: " + std::to_string(hoveredTile.tileVariant));
-						this->guiSystem.at("tileInfo").setEntryText(2, "Pop: " + std::to_string(hoveredTile.population));
+						this->guiSystem.at("tileInfo").setEntryText(2, "Pop: " + std::to_string((int)hoveredTile.population));
 						this->guiSystem.at("tileInfo").show();
 						//std::cout << "Tile: " << tileTypeToStr(hovered.tileType) << "(" << index << ")" << std::endl;
 				}
@@ -164,6 +164,7 @@ void GameStateEditor::handleInput()
 					if (msg != "null") this->currentTile = &this->game->tileAtlas.at(msg);
 
 					this->guiSystem.at("rightClickMenu").hide();
+					this->actionState = ActionState::NONE;
 					return;
 				}
 				/* select map tile */
@@ -309,7 +310,7 @@ GameStateEditor::GameStateEditor(Game* game)
 	this->guiSystem.at("infoBar").setPosition(sf::Vector2f(0, this->game->window.getSize().y - 16));
 	this->guiSystem.at("infoBar").show();
 	
-	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(196, 16), 0, false, this->game->stylesheets.at("text"),
+	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(100, 16), 0, false, this->game->stylesheets.at("tileInfo"),
 	{ 
 		std::make_pair("", ""),
 		std::make_pair("", ""),

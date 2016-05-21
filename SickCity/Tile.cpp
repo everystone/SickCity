@@ -47,6 +47,8 @@ std::string tileTypeToStr(TileType type)
 	case TileType::GRASS:           return "Flatten";
 	case TileType::FOREST:          return "Forest";
 	case TileType::WATER:           return "Water";
+	case TileType::ROAD:			return "Road";
+	case TileType::FIRE:			return "Fire";
 	case TileType::RESIDENTIAL:     return "Residential Zone";
 	case TileType::COMMERCIAL:      return "Commercial Zone";
 	case TileType::INDUSTRIAL:      return "Industrial Zone";
