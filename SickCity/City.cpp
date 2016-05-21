@@ -275,20 +275,21 @@ void City::update(float dt)
 			// Spread Fire ! Pyroman 4 Life
 
 			// 20% chance to spread in random direction
-			//if (rand() % 5 == 0) {
-				// how do I find tiles connected to this one?
+			if (rand() % 5 == 0) {
 				int index = this->shuffledTiles[i];
-				std::cout << "fire index: " << index << std::endl;
 				int dir = rand() % 4;
-				if(dir == 0) { }
-
 				// spread upwards
-				if (index > this->map.width)
-					index -= this->map.width;
+				if(dir == 0 && index > this->map.width) { index -= this->map.width; }
+				// spread right
+				if (dir == 1 && index < this->map.tiles.size()+1) { index++; }
+				// spread left
+				if (dir == 2 && index > 1) { index--; }
+				// spread down
+				if (dir == 3 && index > this->map.height) { index += this->map.height; }
 
-				this->map.tiles[index] = this->ptr_tileAtlas->at("grass");
-				//bulldoze(this->map.tiles[index]);
-			//}
+				if(index != this->shuffledTiles[i] && this->map.tiles[index].tileType != TileType::FIRE && this->map.tiles[index].tileType != TileType::WATER)
+				this->map.tiles[index] = this->ptr_tileAtlas->at("fire");
+			}
 		}
 
 		tile.update();			
