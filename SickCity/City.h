@@ -26,6 +26,7 @@ private:
 	* Current world values are 0.000055 and 0.000023, respectively */
 	double birthRate;
 	double deathRate;
+	std::map<std::string, Tile>* ptr_tileAtlas; // pointer to Game's tileAtlas.
 
 	double distributePool(double& pool, Tile& tile, double rate);
 
@@ -65,9 +66,10 @@ public:
 		this->day = 0;
 	}
 
-	City(std::string cityName, int tileSize, std::map<std::string, Tile>& tileAtlas) : City()
+	City(std::string cityName, int tileSize, std::map<std::string, Tile> &tileAtlas) : City()
 	{
 		this->map.tileSize = tileSize;
+		this->ptr_tileAtlas = &tileAtlas; // & av en & ?
 		load(cityName, tileAtlas);
 	}
 

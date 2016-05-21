@@ -28,7 +28,6 @@ public:
 	std::map<std::string, GuiStyle> stylesheets;
 	std::map<std::string, sf::Font> fonts;
 
-
 	void pushState(GameState* state);
 	void popState();
 	void changeState(GameState* state);
