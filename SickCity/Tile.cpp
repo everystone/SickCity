@@ -29,7 +29,10 @@ void Tile::update()
 		this->population == this->maxPopPerLevel * (this->tileVariant + 1) &&
 		this->tileVariant < this->maxLevels)
 	{
-		if (rand() % int(1e4) < 1e2 / (this->tileVariant + 1))++this->tileVariant;
+		if (rand() % int(1e4) < 1e2 / (this->tileVariant + 1)) {
+			++this->tileVariant;
+			std::cout << "Tile leveled up: " << tileTypeToStr(this->tileType);
+		}
 	}
 
 	return;

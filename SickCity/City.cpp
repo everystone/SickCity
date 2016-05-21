@@ -14,7 +14,7 @@ double City::distributePool(double & pool, Tile & tile, double rate)
 	const static int moveRate = 4;
 	unsigned int maxPop = tile.maxPopPerLevel * (tile.tileVariant + 1);
 
-	/* If there is room in the zone, move up to 4 people fro mthe pool into the zone */
+	/* If there is room in the tile, move up to 4 people fro mthe pool into the zone */
 	if (pool > 0)
 	{
 		int moving = maxPop - tile.population;
@@ -177,6 +177,7 @@ void City::update(float dt)
 	if (day % 30 == 0) 	// End of month
 	{
 		this->funds += this->earnings;
+		std::cout << "Padyday! earned " << this->earnings << " at day " << this->day << std::endl;
 		this->earnings = 0;
 	}
 
@@ -198,7 +199,7 @@ void City::update(float dt)
 		if (tile.tileType == TileType::RESIDENTIAL) {
 			// Redistribute the pool and increase the population total by the tile's population
 			this->distributePool(this->populationPool, tile, this->birthRate - this->deathRate);
-			population += tile.population;
+			popTotal += tile.population;
 		}
 		else if (tile.tileType == TileType::COMMERCIAL) {
 			// Hire people

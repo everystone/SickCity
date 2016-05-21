@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameState.h"
 #include "GameStateEditor.h"
-#include <iostream>
 #include <map>
 
 #include "Gui.h"
@@ -28,9 +27,9 @@ void GameStateEditor::update(const float dt) {
 	/* Update info bar at the bottom of the screen */
 	this->guiSystem.at("infoBar").setEntryText(0, "Day: " + std::to_string(this->city.day));
 	this->guiSystem.at("infoBar").setEntryText(1, "$" + std::to_string(this->city.funds));
-	this->guiSystem.at("infoBar").setEntryText(2, std::to_string(long(this->city.population)) + " ( " + std::to_string(long(this->city.getHomeless())) + ")");
-	this->guiSystem.at("infoBar").setEntryText(3, std::to_string(long(this->city.employable)) + " ( " + std::to_string(long(this->city.getUnemployed())) + ")");
-	this->guiSystem.at("infoBar").setEntryText(4, tileTypeToStr(currentTile->tileType));
+	this->guiSystem.at("infoBar").setEntryText(2, "Pop: " +std::to_string(long(this->city.population)) + " ( " + std::to_string(long(this->city.getHomeless())) + ")");
+	this->guiSystem.at("infoBar").setEntryText(3, "Emp:: " + std::to_string(long(this->city.employable)) + " ( " + std::to_string(long(this->city.getUnemployed())) + ")");
+	this->guiSystem.at("infoBar").setEntryText(4, "Tile: " +tileTypeToStr(currentTile->tileType));
 	
 	/* Highlight entries of the right click context menu */
 	this->guiSystem.at("rightClickMenu").
@@ -120,7 +119,7 @@ void GameStateEditor::handleInput()
 		case sf::Event::MouseButtonPressed:
 		{
 			/* Start panning */
-			if(event.mouseButton.button == sf::Mouse::Middle)
+			if(event.mouseButton.button == sf::Mouse::Right)
 			{
 				this->guiSystem.at("rightClickMenu").hide();
 				this->guiSystem.at("selectionCostText").hide();
@@ -144,13 +143,13 @@ void GameStateEditor::handleInput()
 				/* select map tile */
 				if (this->actionState != ActionState::SELECTING)
 				{
-					std::cout << "Selecting\n";
+
 					this->actionState = ActionState::SELECTING;					
 					selectionStart.x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - this->city.map.width * 0.5 - 0.5;
 					selectionStart.y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + this->city.map.width * 0.5 + 0.5;
 				}
 			}
-			else if (event.mouseButton.button == sf::Mouse::Right)
+			else if (event.mouseButton.button == sf::Mouse::Middle)
 			{
 				/* Stop selecting */
 				if (this->actionState == ActionState::SELECTING)
@@ -179,7 +178,7 @@ void GameStateEditor::handleInput()
 		case sf::Event::MouseButtonReleased:
 		{
 			/* Stop panning */
-			if(event.mouseButton.button == sf::Mouse::Middle)
+			if(event.mouseButton.button == sf::Mouse::Right)
 			{
 				this->actionState = ActionState::NONE;
 			}
@@ -197,7 +196,7 @@ void GameStateEditor::handleInput()
 							this->city.tileChanged();
 						}
 						else {
-							std::cout << "Not enough funds";
+							std::cout << "Not enough funds\n";
 						}
 					}
 					this->guiSystem.at("selectionCostText").hide();					
@@ -212,14 +211,15 @@ void GameStateEditor::handleInput()
 		{
 			if(event.mouseWheel.delta < 0)
 			{
-				gameView.zoom(2.0f);
-				zoomLevel *= 2.0f;
+				gameView.zoom(1.1f);
+				zoomLevel *= 1.1f;
 			}
 			else
 			{
-				gameView.zoom(0.5f);
-				zoomLevel *= 0.5f;
+				gameView.zoom(0.9f);
+				zoomLevel *= 0.9f;
 			}
+			//std::cout << "zoomLevel: " << zoomLevel;
 			break;
 		}
 		default:

@@ -5,7 +5,6 @@ void TextureManager::loadTexture(const std::string & name, const std::string & f
 {
 	// Load texture
 	sf::Texture text;
-	//text.setSmooth(false);
 	if(!text.loadFromFile(filename)){
     return;
 		//throw new std::exception("file was not found in call to TextureManager::loadTexture");

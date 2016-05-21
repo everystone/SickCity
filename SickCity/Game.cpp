@@ -35,16 +35,16 @@ void Game::loadTiles()
 		Tile(this->tileSize, 2, texmgr.getRef("residential"),
 		{ staticAnim, staticAnim, staticAnim,
 			staticAnim, staticAnim, staticAnim },
-			TileType::RESIDENTIAL, 300, 50, 6);
+			TileType::RESIDENTIAL, 300, 25, 6);
 	tileAtlas["commercial"] =
 		Tile(this->tileSize, 2, texmgr.getRef("commercial"),
 		{ staticAnim, staticAnim, staticAnim, staticAnim },
-			TileType::COMMERCIAL, 300, 50, 4);
+			TileType::COMMERCIAL, 300, 30, 4);
 	tileAtlas["industrial"] =
 		Tile(this->tileSize, 2, texmgr.getRef("industrial"),
 		{ staticAnim, staticAnim, staticAnim,
 			staticAnim },
-			TileType::INDUSTRIAL, 300, 50, 4);
+			TileType::INDUSTRIAL, 300, 30, 4);
 	tileAtlas["road"] =
 		Tile(this->tileSize, 1, texmgr.getRef("road"),
 		{ staticAnim, staticAnim, staticAnim,
@@ -123,7 +123,8 @@ Game::Game()
 	this->loadStylesheets();
 
 	this->window.create(sf::VideoMode(800, 600), "Sick City");
-	this->window.setFramerateLimit(60);
+	//this->window.setFramerateLimit(60);
+	this->window.setVerticalSyncEnabled(true);
 	this->background.setTexture(this->texmgr.getRef("background"));
 }
 

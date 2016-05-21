@@ -18,7 +18,7 @@ void AnimationHandler::update(const float dt)
 		// set sprite to new frame
 		sf::IntRect rect = this->frameSize;
 		rect.left = rect.width * frame;
-		rect.top = (rect.height * this->currentAnim);
+		rect.top = (rect.height * this->currentAnim); // -1?
 		this->bounds = rect;
 	}
 
@@ -43,7 +43,7 @@ void AnimationHandler::changeAnim(unsigned int animId)
 	this->currentAnim = animId;
 	// update bounds
 	sf::IntRect rect = this->frameSize;
-	rect.top = rect.height * animId;
+	rect.top = (rect.height * animId);
 	this->bounds = rect;
 	this->t = 0.0f;
 	return;
