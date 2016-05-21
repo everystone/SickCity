@@ -3,7 +3,7 @@
 #include "GameState.h"
 #include "City.h"
 
-enum class ActionState { NONE, PANNING, SELECTING };
+enum class ActionState { NONE, PANNING, SELECTING, MENU };
 class GameStateEditor : public GameState
 {
 private:

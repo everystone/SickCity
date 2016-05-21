@@ -96,6 +96,10 @@ void Map::draw(sf::RenderWindow& window, float dt)
 			else
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
 
+			/* Change color if tile is hovered */
+			if(y*this->width+x == this->hovered)
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(40, 40, 40));
+
             /* Draw the tile */
             this->tiles[y*this->width+x].draw(window, dt);
         }
