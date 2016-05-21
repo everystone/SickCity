@@ -191,6 +191,10 @@ void Map::depthfirstsearch(std::vector<TileType>& whitelist,
     if(!found) return;
 
     this->tiles[pos.y*this->width+pos.x].regions[regionType] = label;
+	
+	// add this tileIndex to zonemap, with regionId ( label ) as key
+	zones[label].push_back(pos.y*this->width + pos.x);
+	
 
     depthfirstsearch(whitelist, pos + sf::Vector2i(-1,  0), label, regionType);
     depthfirstsearch(whitelist, pos + sf::Vector2i(0 ,  1), label, regionType);
@@ -246,9 +250,12 @@ void Map::clearSelected()
 }
 
 
+// RegionType is currently 0 for everything.
+// 
 void Map::findConnectedRegions(std::vector<TileType> whitelist, int regionType=0)
 {
     int regions = 1;
+	zones.clear(); // do I need to manually delete the Vector values?
 
     for(auto& tile : this->tiles) tile.regions[regionType] = 0;
 

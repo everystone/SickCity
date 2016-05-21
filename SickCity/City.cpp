@@ -172,6 +172,10 @@ void City::update(float dt)
 	if (this->currentTime < this->timePerDay) return;
 
 	/* New Day */
+	sf::Clock timer;
+	timer.restart();
+	int numTiles[3] = { 0, 0, 0 }; // res, com, ind
+
 	++day;
 	this->currentTime = 0.0;
 	if (day % 30 == 0) 	// End of month
@@ -196,15 +200,20 @@ void City::update(float dt)
 	{
 		Tile& tile = this->map.tiles[this->shuffledTiles[i]];
 
+		if (tile.tileType == TileType::GRASS || tile.tileType == TileType::WATER)
+			continue;
+
 		if (tile.tileType == TileType::RESIDENTIAL) {
 			// Redistribute the pool and increase the population total by the tile's population
 			this->distributePool(this->populationPool, tile, this->birthRate - this->deathRate);
 			popTotal += tile.population;
+			numTiles[0]++;
 		}
 		else if (tile.tileType == TileType::COMMERCIAL) {
 			// Hire people
 			if (rand() % 100 < 15 * (1.0 - this->commercialTax))
 				this->distributePool(this->employmentPool, tile, 0.00);
+			numTiles[1]++;
 		}
 		else if (tile.tileType == TileType::INDUSTRIAL) {
 			// Extract resources from the ground
@@ -217,6 +226,7 @@ void City::update(float dt)
 			// Hire people
 			if (rand() % 100 < 15 * (1.0 - this->industrialTax))
 				this->distributePool(this->employmentPool, tile, 0.0);
+			numTiles[2]++;
 		}
 		else if (tile.tileType == TileType::FIRE) {
 			// Spread Fire ! Pyroman 4 Life
@@ -234,7 +244,11 @@ void City::update(float dt)
 		{
 			int receivedResources = 0;
 			// Receive resources from smaller and connected zones
-			for (auto& tile2 : this->map.tiles)
+			// Region data should be cached in a Hashmap.
+			// Currently 100 Industrial tiles takes 200ms to process in update().
+
+			// lookup all tiles in same region ( and same tileType ).
+			/*for (auto& tile2 : this->map.tiles)
 			{
 				if (tile2.regions[0] == tile.regions[0] && tile2.tileType == TileType::INDUSTRIAL)
 				{
@@ -245,7 +259,21 @@ void City::update(float dt)
 
 					if (receivedResources >= tile.tileVariant + 1) break;
 				}
+			}*/
+
+			// 100 Industrial = 21ms! down from 210
+			if (tile.regions[0] != 0) {
+				// lookup all tiles in same zone as tile
+				for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
+					Tile& tileInZone = this->map.tiles[tileIndex];
+					if (tileInZone.tileType == TileType::INDUSTRIAL && tileInZone.production > 0) {
+						++receivedResources;
+						--tileInZone.production;
+					}
+					if (receivedResources >= tile.tileVariant + 1) break;
+				}
 			}
+
 			// Turn resources into goods
 			tile.storedGoods += (receivedResources + tile.production)*(tile.tileVariant + 1);
 		}
@@ -260,7 +288,8 @@ void City::update(float dt)
 		{
 			int receivedGoods = 0;
 			double maxCustomers = 0.0;
-			for (auto& tile2 : this->map.tiles)
+			
+			/*for (auto& tile2 : this->map.tiles)
 			{
 				if (tile2.regions[0] == tile.regions[0] &&
 					tile2.tileType == TileType::INDUSTRIAL &&
@@ -277,7 +306,22 @@ void City::update(float dt)
 					maxCustomers += tile2.population;
 				}
 				if (receivedGoods == tile.tileVariant + 1) break;
+			}*/			
+			for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
+				Tile& tile2 = this->map.tiles[tileIndex];
+				if (tile2.tileType == TileType::INDUSTRIAL && tile2.storedGoods > 0) {
+					while (tile2.storedGoods > 0 && receivedGoods != tile.tileVariant + 1) {
+						--tile2.storedGoods;
+						++receivedGoods;
+						industrialRevenue += 100 * (1.0 - industrialTax);
+					}
+				}
+				else if (tile2.tileType == TileType::RESIDENTIAL) {
+					maxCustomers += tile2.population;
+				}
+				if (receivedGoods == tile.tileVariant + 1) break;
 			}
+
 			// Calculate overall revenue for the tile
 			tile.production = (receivedGoods*100.0 + rand() % 20) * (1.0 - this->commercialTax);
 			double revenue = tile.production * maxCustomers * tile.population / 100.0;
@@ -305,5 +349,7 @@ void City::update(float dt)
 	this->earnings += commercialRevenue * this->commercialTax;
 	this->earnings += industrialRevenue * this->industrialTax;
 
+	float timeSpent = timer.getElapsedTime().asMilliseconds();
+	std::cout << "Day " << day << " done in " << timeSpent << "ms (" << numTiles[0] << "R, " << numTiles[1] << "C, " << numTiles[2] << "I)" <<std::endl;
 	return;
 }

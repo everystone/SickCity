@@ -131,6 +131,7 @@ void GameStateEditor::handleInput()
 						this->guiSystem.at("tileInfo").setEntryText(3, "Prod: " + std::to_string((int)hoveredTile.production));
 						this->guiSystem.at("tileInfo").setEntryText(4, "Stored: " + std::to_string((int)hoveredTile.storedGoods));
 						//this->guiSystem.at("tileInfo").setEntryText(5, "Res: " + std::to_string(this->city.map.resources[index]));
+						this->guiSystem.at("tileInfo").setEntryText(5, "Region: " + std::to_string(hoveredTile.regions[0]));
 						this->guiSystem.at("tileInfo").show();
 						//std::cout << "Tile: " << tileTypeToStr(hovered.tileType) << "(" << index << ")" << std::endl;
 				}
@@ -315,6 +316,7 @@ GameStateEditor::GameStateEditor(Game* game)
 	
 	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(100, 16), 0, false, this->game->stylesheets.at("tileInfo"),
 	{ 
+		std::make_pair("", ""),
 		std::make_pair("", ""),
 		std::make_pair("", ""),
 		std::make_pair("", ""),

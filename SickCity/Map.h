@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "Tile.h"
+#include <unordered_map>
 
 
 class Map
@@ -19,7 +20,8 @@ class Map
 	// Tile Selection
 	std::vector<char> selected;
 	unsigned int hovered;
-
+	std::unordered_map<char, std::vector<std::size_t>> zones; // region data.
+	//std::vector<std::vector<std::size_t>> zones;
 	void select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> blacklist);
 	void clearSelected();
 
