@@ -127,7 +127,6 @@ Game::Game()
 	this->loadTiles();
 	this->loadFonts();
 	this->loadStylesheets();
-
 	this->window.create(sf::VideoMode(800, 600), "Sick City");
 	//this->window.setFramerateLimit(60);
 	this->window.setVerticalSyncEnabled(true);
