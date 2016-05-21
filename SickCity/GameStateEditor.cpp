@@ -113,23 +113,23 @@ void GameStateEditor::handleInput()
 			}
 			else if(this->actionState == ActionState::NONE) {
 				// Show overlay of TileInfo if mouse hovers over tile, other than grass.
-
-				// Get tile at current mousePos
 				selectionEnd.x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - this->city.map.width * 0.5 - 0.5;
 				selectionEnd.y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + this->city.map.width * 0.5 + 0.5;
 				//std::cout << "selection: " << selectionEnd.x << ", " << selectionEnd.y << std::endl;
 				if (selectionEnd.x > 0 && selectionEnd.x < this->city.map.width && selectionEnd.y > 0 && selectionEnd.y < this->city.map.height) {
 					// check if index is lower than vector size
 					int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
-					//if (index < this->city.map.tiles.size()) {
-						Tile& hovered = this->city.map.tiles[index];
-						this->guiSystem.at("tileInfo").setPosition(guiPos + sf::Vector2f(16, -16));
-						this->guiSystem.at("tileInfo").setEntryText(0, tileTypeToStr(hovered.tileType));
-						this->guiSystem.at("tileInfo").setEntryText(1, "Lvl: " + hovered.tileVariant);
-						this->guiSystem.at("tileInfo").setEntryText(2, "Pop: " + (int)hovered.population);
+					//if (index < this->city.map.tiles.size())
+						// Set map.hovered to index, for tile to be drawn in other color
+						this->city.map.hovered = index;
+
+						Tile& hoveredTile = this->city.map.tiles[index];
+						this->guiSystem.at("tileInfo").setPosition(guiPos + sf::Vector2f(32, -16));
+						this->guiSystem.at("tileInfo").setEntryText(0, tileTypeToStr(hoveredTile.tileType));
+						this->guiSystem.at("tileInfo").setEntryText(1, "Lvl: " + std::to_string(hoveredTile.tileVariant));
+						this->guiSystem.at("tileInfo").setEntryText(2, "Pop: " + std::to_string(hoveredTile.population));
 						this->guiSystem.at("tileInfo").show();
 						//std::cout << "Tile: " << tileTypeToStr(hovered.tileType) << "(" << index << ")" << std::endl;
-					//}
 				}
 				else {
 					this->guiSystem.at("tileInfo").hide();
@@ -309,7 +309,7 @@ GameStateEditor::GameStateEditor(Game* game)
 	this->guiSystem.at("infoBar").setPosition(sf::Vector2f(0, this->game->window.getSize().y - 16));
 	this->guiSystem.at("infoBar").show();
 	
-	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(196, 32), 0, false, this->game->stylesheets.at("text"),
+	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(196, 16), 0, false, this->game->stylesheets.at("text"),
 	{ 
 		std::make_pair("", ""),
 		std::make_pair("", ""),

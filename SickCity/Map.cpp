@@ -96,6 +96,10 @@ void Map::draw(sf::RenderWindow& window, float dt)
 			else
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
 
+			/* Change color if tile is hovered */
+			if(y*this->width+x == this->hovered)
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x7d, 0x7d, 0x7d));
+
             /* Draw the tile */
             this->tiles[y*this->width+x].draw(window, dt);
         }
@@ -167,11 +171,6 @@ void Map::updateDirection(TileType tileType)
     }
 
     return;
-}
-
-Tile Map::getTileAt(sf::Vector2i pos)
-{
-	return this->tiles[pos.y*this->width + pos.x];
 }
 
 void Map::depthfirstsearch(std::vector<TileType>& whitelist,

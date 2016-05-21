@@ -18,6 +18,7 @@ class Map
     std::vector<Tile> tiles;
 	// Tile Selection
 	std::vector<char> selected;
+	unsigned int hovered;
 
 	void select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> blacklist);
 	void clearSelected();
@@ -47,7 +48,6 @@ class Map
      * way. Used to orient roads, pylons, rivers etc */
     void updateDirection(TileType tileType);
 
-	Tile getTileAt(sf::Vector2i pos);
     /* Blank map constructor */
     Map()
     {
@@ -56,12 +56,14 @@ class Map
         this->height = 0;
         this->numRegions[0] = 1;
 		this->numSelected = 0;
+		this->hovered = 0;
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,
         std::map<std::string, Tile>& tileAtlas)
     {
 		this->numSelected = 0;
+		this->hovered = 0;
         this->tileSize = 8;
         load(filename, width, height, tileAtlas);
     }
