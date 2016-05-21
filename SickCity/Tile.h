@@ -4,7 +4,7 @@
 #include "AnimationHandler.h"
 #include <sstream>
 
-enum class TileType { VOID, GRASS, FOREST, WATER, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, ROAD };
+enum class TileType { VOID, GRASS, FOREST, WATER, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, ROAD, FIRE };
 std::string tileTypeToStr(TileType type);
 
 namespace patch

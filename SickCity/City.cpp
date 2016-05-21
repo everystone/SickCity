@@ -9,7 +9,7 @@
 #include "Tile.h"
 
 // Used to move people around
-double City::distributePool(double & pool, Tile & tile, double rate)
+double City::distributePool(double& pool, Tile& tile, double rate)
 {
 	const static int moveRate = 4;
 	unsigned int maxPop = tile.maxPopPerLevel * (tile.tileVariant + 1);
@@ -24,7 +24,7 @@ double City::distributePool(double & pool, Tile & tile, double rate)
 		tile.population += moving;
 	}
 
-	// ADjuist tile population for births and deaths
+	// ADjust tile population for births and deaths
 	tile.population += tile.population * rate;
 
 	// Move population that cannot be sutained by the tile back into the pool
@@ -208,6 +208,8 @@ void City::update(float dt)
 		}
 		else if (tile.tileType == TileType::INDUSTRIAL) {
 			// Extract resources from the ground
+			// If population is > 100, 100% success chance.
+			// chance should increase by how many people working at tile?
 			if (this->map.resources[i] > 0 && rand() % 100 < this->population) {
 				++tile.production;
 				--this->map.resources[i];
@@ -215,6 +217,10 @@ void City::update(float dt)
 			// Hire people
 			if (rand() % 100 < 15 * (1.0 - this->industrialTax))
 				this->distributePool(this->employmentPool, tile, 0.0);
+		}
+		else if (tile.tileType == TileType::FIRE) {
+			// Spread Fire ! Pyroman 4 Life
+
 		}
 
 		tile.update();

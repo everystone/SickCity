@@ -241,6 +241,7 @@ void Map::clearSelected()
 	for (auto& tile : this->selected) tile = 0;
 }
 
+
 void Map::findConnectedRegions(std::vector<TileType> whitelist, int regionType=0)
 {
     int regions = 1;

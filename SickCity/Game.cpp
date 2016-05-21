@@ -7,6 +7,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("grass", "media/grass.png");
 	texmgr.loadTexture("forest", "media/forest.png");
 	texmgr.loadTexture("water", "media/water.png");
+	texmgr.loadTexture("fire", "media/fire.png");
 	texmgr.loadTexture("residential", "media/residential.png");
 	texmgr.loadTexture("commercial", "media/commercial.png");
 	texmgr.loadTexture("industrial", "media/industrial.png");
@@ -31,6 +32,9 @@ void Game::loadTiles()
 			Animation(0, 3, 0.5f),
 			Animation(0, 3, 0.5f) },
 			TileType::WATER, 0, 0, 1);
+	tileAtlas["fire"] =
+		Tile(this->tileSize, 1, texmgr.getRef("fire"),
+		{ Animation(0, 3, 0.5f) }, TileType::FIRE, 5, 0, 1);
 	tileAtlas["residential"] =
 		Tile(this->tileSize, 2, texmgr.getRef("residential"),
 		{ staticAnim, staticAnim, staticAnim,

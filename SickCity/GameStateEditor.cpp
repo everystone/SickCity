@@ -87,7 +87,7 @@ void GameStateEditor::handleInput()
 				this->city.map.clearSelected();
 				if (this->currentTile->tileType == TileType::GRASS)
 				{
-					this->city.map.select(selectionStart, selectionEnd, { this->currentTile->tileType, TileType::WATER });
+					this->city.map.select(selectionStart, selectionEnd, { this->currentTile->tileType, TileType::WATER, TileType::FIRE });
 				}
 				else {
 					this->city.map.select(selectionStart, selectionEnd,
@@ -262,7 +262,8 @@ GameStateEditor::GameStateEditor(Game* game)
 		std::make_pair("Residential Zone $" + this->game->tileAtlas["residential"].getCost(), "residential"),
 		std::make_pair("Commercial Zone $" + this->game->tileAtlas["commercial"].getCost(), "commercial"),
 		std::make_pair("Industrial Zone $" + this->game->tileAtlas["industrial"].getCost(), "industrial"),
-		std::make_pair("Road $" + this->game->tileAtlas["road"].getCost(), "road")
+		std::make_pair("Road $" + this->game->tileAtlas["road"].getCost(), "road"),
+		std::make_pair("Fire!", "fire")
 	}));
 
 	this->guiSystem.emplace("selectionCostText", Gui(sf::Vector2f(196, 16), 0, false, this->game->stylesheets.at("text"),
