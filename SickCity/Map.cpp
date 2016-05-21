@@ -169,6 +169,11 @@ void Map::updateDirection(TileType tileType)
     return;
 }
 
+Tile Map::getTileAt(sf::Vector2i pos)
+{
+	return this->tiles[pos.y*this->width + pos.x];
+}
+
 void Map::depthfirstsearch(std::vector<TileType>& whitelist,
     sf::Vector2i pos, int label, int regionType=0)
 {

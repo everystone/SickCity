@@ -111,6 +111,30 @@ void GameStateEditor::handleInput()
 				this->guiSystem.at("selectionCostText").setPosition(guiPos + sf::Vector2f(16, -16));
 				this->guiSystem.at("selectionCostText").show();
 			}
+			else if(this->actionState == ActionState::NONE) {
+				// Show overlay of TileInfo if mouse hovers over tile, other than grass.
+
+				// Get tile at current mousePos
+				selectionEnd.x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - this->city.map.width * 0.5 - 0.5;
+				selectionEnd.y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + this->city.map.width * 0.5 + 0.5;
+				//std::cout << "selection: " << selectionEnd.x << ", " << selectionEnd.y << std::endl;
+				if (selectionEnd.x > 0 && selectionEnd.x < this->city.map.width && selectionEnd.y > 0 && selectionEnd.y < this->city.map.height) {
+					// check if index is lower than vector size
+					int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
+					//if (index < this->city.map.tiles.size()) {
+						Tile& hovered = this->city.map.tiles[index];
+						this->guiSystem.at("tileInfo").setPosition(guiPos + sf::Vector2f(16, -16));
+						this->guiSystem.at("tileInfo").setEntryText(0, tileTypeToStr(hovered.tileType));
+						this->guiSystem.at("tileInfo").setEntryText(1, "Lvl: " + hovered.tileVariant);
+						this->guiSystem.at("tileInfo").setEntryText(2, "Pop: " + (int)hovered.population);
+						this->guiSystem.at("tileInfo").show();
+						//std::cout << "Tile: " << tileTypeToStr(hovered.tileType) << "(" << index << ")" << std::endl;
+					//}
+				}
+				else {
+					this->guiSystem.at("tileInfo").hide();
+				}
+			}
 			// highlight entries of right click context menu
 			this->guiSystem.at("rightClickMenu").highlight(this->guiSystem.at("rightClickMenu").getEntry(guiPos));
 
@@ -123,6 +147,7 @@ void GameStateEditor::handleInput()
 			{
 				this->guiSystem.at("rightClickMenu").hide();
 				this->guiSystem.at("selectionCostText").hide();
+				this->guiSystem.at("tileInfo").hide();
 				if(this->actionState != ActionState::PANNING)
 				{
 					this->actionState = ActionState::PANNING;
@@ -131,6 +156,7 @@ void GameStateEditor::handleInput()
 			}
 			else if (event.mouseButton.button == sf::Mouse::Left)
 			{
+				this->guiSystem.at("tileInfo").hide();
 				/* Select a context menu entry */
 				if (this->guiSystem.at("rightClickMenu").visible == true)
 				{
@@ -152,10 +178,12 @@ void GameStateEditor::handleInput()
 			else if (event.mouseButton.button == sf::Mouse::Middle)
 			{
 				/* Stop selecting */
+				this->guiSystem.at("tileInfo").hide();
 				if (this->actionState == ActionState::SELECTING)
 				{
-					this->actionState = ActionState::NONE;
+					//this->actionState = ActionState::MENU;;
 					this->guiSystem.at("selectionCostText").hide();
+
 					this->city.map.clearSelected();
 				}
 				else {
@@ -172,6 +200,7 @@ void GameStateEditor::handleInput()
 					this->guiSystem.at("rightClickMenu").setPosition(pos);
 					this->guiSystem.at("rightClickMenu").show();
 				}
+				this->actionState = ActionState::MENU;
 			}
 			break;
 		}
@@ -280,4 +309,10 @@ GameStateEditor::GameStateEditor(Game* game)
 	this->guiSystem.at("infoBar").setPosition(sf::Vector2f(0, this->game->window.getSize().y - 16));
 	this->guiSystem.at("infoBar").show();
 	
+	this->guiSystem.emplace("tileInfo", Gui(sf::Vector2f(196, 32), 0, false, this->game->stylesheets.at("text"),
+	{ 
+		std::make_pair("", ""),
+		std::make_pair("", ""),
+		std::make_pair("", "")
+	}));
 }

@@ -31,7 +31,7 @@ void Tile::update()
 	{
 		if (rand() % int(1e4) < 1e2 / (this->tileVariant + 1)) {
 			++this->tileVariant;
-			std::cout << "Tile leveled up: " << tileTypeToStr(this->tileType);
+			std::cout << "Tile leveled up: " << tileTypeToStr(this->tileType) << std::endl;
 		}
 	}
 

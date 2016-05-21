@@ -47,6 +47,7 @@ class Map
      * way. Used to orient roads, pylons, rivers etc */
     void updateDirection(TileType tileType);
 
+	Tile getTileAt(sf::Vector2i pos);
     /* Blank map constructor */
     Map()
     {
