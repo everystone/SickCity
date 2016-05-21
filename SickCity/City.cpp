@@ -200,8 +200,8 @@ void City::update(float dt)
 	{
 		Tile& tile = this->map.tiles[this->shuffledTiles[i]];
 
-		if (tile.tileType == TileType::GRASS || tile.tileType == TileType::WATER)
-			continue;
+		//if (tile.tileType == TileType::GRASS || tile.tileType == TileType::WATER)
+		//	continue;
 
 		if (tile.tileType == TileType::RESIDENTIAL) {
 			// Redistribute the pool and increase the population total by the tile's population
@@ -234,34 +234,16 @@ void City::update(float dt)
 		}
 
 		tile.update();
-	}
+
 
 	/* Second pass, handles goods manufactoring */
-	for (int i = 0; i < this->map.tiles.size(); i++)
-	{
-		Tile& tile = this->map.tiles[this->shuffledTiles[i]];
+
 		if (tile.tileType == TileType::INDUSTRIAL)
 		{
 			int receivedResources = 0;
-			// Receive resources from smaller and connected zones
-			// Region data should be cached in a Hashmap.
-			// Currently 100 Industrial tiles takes 200ms to process in update().
-
-			// lookup all tiles in same region ( and same tileType ).
-			/*for (auto& tile2 : this->map.tiles)
-			{
-				if (tile2.regions[0] == tile.regions[0] && tile2.tileType == TileType::INDUSTRIAL)
-				{
-					if (tile2.production > 0) {
-						++receivedResources;
-						--tile2.production;
-					}
-
-					if (receivedResources >= tile.tileVariant + 1) break;
-				}
-			}*/
 
 			// 100 Industrial = 21ms! down from 210
+			// 100 industrial = 14ms
 			if (tile.regions[0] != 0) {
 				// lookup all tiles in same zone as tile
 				for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
@@ -278,35 +260,14 @@ void City::update(float dt)
 			tile.storedGoods += (receivedResources + tile.production)*(tile.tileVariant + 1);
 		}
 				
-	}
-
 	/* Third pass, Handles goods distribution */
-	for (int i = 0; i < this->map.tiles.size(); i++)
-	{
-		Tile& tile = this->map.tiles[this->shuffledTiles[i]];
+
 		if (tile.tileType == TileType::COMMERCIAL)
 		{
 			int receivedGoods = 0;
 			double maxCustomers = 0.0;
 			
-			/*for (auto& tile2 : this->map.tiles)
-			{
-				if (tile2.regions[0] == tile.regions[0] &&
-					tile2.tileType == TileType::INDUSTRIAL &&
-					tile2.storedGoods > 0)
-				{
-					while (tile2.storedGoods > 0 && receivedGoods != tile.tileVariant + 1) {
-						--tile2.storedGoods;
-						++receivedGoods;
-						industrialRevenue += 100 * (1.0 - industrialTax);
-					}
-				}
-				else if (tile2.regions[0] == tile.regions[0] &&
-					tile2.tileType == TileType::RESIDENTIAL) {
-					maxCustomers += tile2.population;
-				}
-				if (receivedGoods == tile.tileVariant + 1) break;
-			}*/			
+
 			for (auto& tileIndex : this->map.zones[tile.regions[0]]) {
 				Tile& tile2 = this->map.tiles[tileIndex];
 				if (tile2.tileType == TileType::INDUSTRIAL && tile2.storedGoods > 0) {
