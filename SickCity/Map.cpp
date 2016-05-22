@@ -86,9 +86,33 @@ void Map::draw(sf::RenderWindow& window, float dt)
         {
             /* Set the position of the tile in the 2d world */
             sf::Vector2f pos;
-            pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
-            pos.y = (x + y) * this->tileSize * 0.5;
-            this->tiles[y*this->width+x].sprite.setPosition(pos);
+			// Bend the outer tiles downwards, to create the look of a 3d Cube. ( Is it even possible? )
+			if (x > this->width - 5 || y > this->height - 5) {
+				this->tiles[y*this->width + x].sprite.setScale(1, 2);
+				//this->tiles[y*this->width + x].sprite.setRotation(90);
+				
+				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
+				pos.y = (x + y-1) * this->tileSize * 0.5;												
+			}
+			/*if (y > this->height - 5 || x > this->width-5) {
+				this->tiles[y*this->width + x].sprite.setRotation(90);
+				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
+				pos.y = (x + y) * this->tileSize * 0.5;
+				pos.y -= 2;
+
+				//closest:
+				//pos.x = (x - y) * this->tileSize * 0.5;
+				//pos.y = (x + y) * this->tileSize * 0.5;
+			}*/
+
+			else {
+				// normal
+				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
+				pos.y = (x + y) * this->tileSize * 0.5;
+				
+			}
+
+			this->tiles[y*this->width + x].sprite.setPosition(pos);
 
 			/* Change color if tile is selected */
 			if(this->selected[y*this->width+x])
