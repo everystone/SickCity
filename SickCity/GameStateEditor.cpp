@@ -13,6 +13,7 @@ void GameStateEditor::draw(const float dt) {
 
     this->game->window.setView(this->gameView);
     this->city.map.draw(this->game->window, dt);
+	this->game->window.draw(this->game->particleSystem);
 
 	this->game->window.setView(this->guiView);
 	for (auto gui : this->guiSystem) {
@@ -37,6 +38,9 @@ void GameStateEditor::update(const float dt) {
 		.getEntry(this->game->window.mapPixelToCoords(
 			sf::Mouse::getPosition(this->game->window), this->guiView))
 		);
+
+	/* Update Particle SYstem */
+	this->game->particleSystem.update(dt);
 	return;
 }
 
@@ -206,6 +210,11 @@ void GameStateEditor::handleInput()
 					this->guiSystem.at("rightClickMenu").show();
 				}
 				this->actionState = ActionState::MENU;
+			}
+			else if (event.mouseButton.button == sf::Mouse::XButton1) {
+				std::cout << "particles\n";
+				this->game->particleSystem.setPosition(gamePos);
+				this->game->particleSystem.fuel(50);
 			}
 			break;
 		}

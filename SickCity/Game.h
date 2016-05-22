@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
 #include "Tile.h"
+#include "Particle.h"
 #include <map>
 #include <string>
 #include "Gui.h"
@@ -21,6 +22,7 @@ public:
 	const static int tileSize = 8;
 	std::stack<GameState*> states;
 	TextureManager texmgr;
+	ParticleSystem particleSystem;
 	sf::RenderWindow window;
 	sf::Sprite background;
 

@@ -132,6 +132,7 @@ Game::Game()
 	this->window.setVerticalSyncEnabled(true);
 	this->background.setTexture(this->texmgr.getRef("background"));
 	this->background.setColor(sf::Color(150, 150, 150));
+	this->particleSystem = ParticleSystem(this->window.getSize());	
 }
 
 Game::~Game()

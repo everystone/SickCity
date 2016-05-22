@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include "Map.h"
+
 enum class MenuOption { NEW, LOAD };
 class City
 {
@@ -33,7 +34,6 @@ private:
 public:
 
 	Map map;
-
 	double population;
 	double employable;
 
