@@ -84,10 +84,10 @@ GameStateStart::GameStateStart(Game* game)
 	//Create GUI
 	this->guiSystem.emplace("menu", Gui(sf::Vector2f(192, 32), 4, false, game->stylesheets.at("button"),
 	{ 
-		std::make_pair("Load Game", "load_game"),
-		std::make_pair("New Game", "new_game")
+		std::make_pair("New Game", "new_game"),
+		std::make_pair("Load Game", "load_game")		
 	}));
-
+	
 	this->guiSystem.at("menu").setPosition(pos);
 	this->guiSystem.at("menu").setOrigin(96, 32 * 1 / 2);
 	this->guiSystem.at("menu").show();

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <SFML/Graphics.hpp>
-
+#include <noise\noise.h>
 #include "Map.h"
 #include "Tile.h"
 
@@ -79,14 +79,24 @@ void Map::save(const std::string& filename)
 }
 void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas)
 {
+	noise::module::Perlin myModule;
+
 	this->tiles.clear();
 	this->width = width;
 	this->height = height;
-	for (int pos = 0; pos < this->width * this->height; ++pos)
+	for (float y = 0; y < this->height; ++y)
 	{
-		this->resources.push_back(255);
-		this->selected.push_back(0);
-		this->tiles.push_back(tileAtlas.at("grass"));		
+		for (float x = 0; x < this->width; ++x)
+		{
+			this->resources.push_back(255);
+			this->selected.push_back(0);
+			double value = myModule.GetValue(x/16, y/16, 0.55); // x/16, y/16, 0.55 = waterworld
+			
+			//std::cout << value << std::endl;
+			if(value > 0 && value < 0.7) this->tiles.push_back(tileAtlas.at("grass"));
+			else if(value < 0) this->tiles.push_back(tileAtlas.at("water"));
+			else this->tiles.push_back(tileAtlas.at("forest"));
+		}
 	}
 }
 
