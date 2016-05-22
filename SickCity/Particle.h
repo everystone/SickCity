@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef PARTICLE_H
-#define PARTICLE_H
-
 #include <list>
 #include <memory>
 #include <random>
@@ -10,84 +7,85 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-/* Enum for particle distribution type */
-namespace Shape { enum { CIRCLE, SQUARE }; }
-
-/* Particle Structure */
-struct Particle : public sf::Drawable
-{
-	/* Data Members */
-
-	sf::Vertex drawVertex; /*< To replace pos */
-	sf::Vector2f vel; // Velocity
-
-					  /* Member Functions */
-
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const
-	{
-		target.draw(&drawVertex, 1, sf::Points, states);
-	}
-
-};
-
-/* Typedefs */
-typedef std::uniform_real_distribution<> UniRealDist;
-typedef std::uniform_int_distribution<> UniIntDist;
-typedef std::shared_ptr<Particle> ParticlePtr;
-
-class ParticleSystem : public sf::Drawable
+class ParticleSystem : public sf::Drawable, public sf::Transformable
 {
 public:
 
-	/* Constructors/Destructor */
-	ParticleSystem();
-	ParticleSystem(sf::Vector2u canvasSize);
-	~ParticleSystem(void);
+	ParticleSystem(unsigned int count) :
+		m_particles(count),
+		m_vertices(sf::Points, count),
+		m_lifetime(3.0),
+		m_emitter(0, 0)
+	{
+	}
 
-	/* Getters and Setters */
+	void setEmitter(sf::Vector2f position)
+	{
+		m_emitter = position;
+	}
 
-	const int getDissolutionRate(void) const { return m_dissolutionRate; }
-	const int getNumberOfParticles(void) const { return m_particles.size(); }
-	const float getParticleSpeed(void) const { return m_particleSpeed; }
-	const std::string getNumberOfParticlesString(void) const;
+	void update(float elapsed)
+	{
+		for (std::size_t i = 0; i < m_particles.size(); ++i)
+		{
+			// update the particle lifetime
+			Particle& p = m_particles[i];
+			p.lifetime -= elapsed;
 
-	void setCanvasSize(sf::Vector2u newSize) { m_canvasSize = newSize; }
-	void setDissolutionRate(sf::Uint8 rate) { m_dissolutionRate = rate; }
-	void setDissolve(void) { m_dissolve = !m_dissolve; }
-	void setDistribution(void) { m_shape = (m_shape + 1) % 2; }
-	void setGravity(float x, float y) { m_gravity.x = x; m_gravity.y = y; }
-	void setGravity(sf::Vector2f gravity) { m_gravity = gravity; }
-	void setParticleSpeed(float speed) { m_particleSpeed = speed; }
-	void setPosition(float x, float y) { m_startPos.x = x; m_startPos.y = y; }
-	void setPosition(sf::Vector2f position) { m_startPos = position; }
-	void setShape(sf::Uint8 shape) { m_shape = shape; }
+			// if the particle is dead, respawn it
+			if (p.lifetime <= 0)
+				resetParticle(i);
 
-	/* Member Functions */
+			// update the position of the corresponding vertex
+			m_vertices[i].position += p.velocity * elapsed;
 
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-
-	void fuel(int particles);     /*< Adds new particles */
-	void update(float deltaTime); /*< Updates particles */
+			// update the alpha (transparency) of the particle according to its lifetime
+			float ratio = m_lifetime / m_lifetime;
+			m_vertices[i].color.a = static_cast<sf::Uint8>(ratio * 255);			
+		}
+	}
 
 private:
 
-	/* Data Members */
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		// apply the transform
+		//states.transform *= getTransform();
 
-	bool        m_dissolve;       /*< Dissolution enabled? */
-	float       m_particleSpeed;  /*< Pixels per second (at most) */
+		// our particles don't use a texture
+		states.texture = NULL;;
 
-	sf::Color   m_transparent;    /*< sf::Color(0, 0, 0, 0) */
+		// draw the vertex array
+		target.draw(m_vertices, states);
+	}
 
-	sf::Uint8   m_dissolutionRate;/*< Rate particles disolve */
-	sf::Uint8   m_shape;          /*< Shape of distribution */
+private:
 
-	sf::Vector2f    m_gravity;    /*< Influences particle velocities */
-	sf::Vector2f    m_startPos;   /*< Particle origin */
-	sf::Vector2u    m_canvasSize;/*< Limits of particle travel */
+	struct Particle
+	{
+		sf::Vector2f velocity;
+		float lifetime;
+		float size;
+	};
 
-								 /* Container */
-	std::vector<ParticlePtr> m_particles;
+	void deleteParticle(std::size_t index) {
+		
+	}
 
+	void resetParticle(std::size_t index)
+	{
+		// give a random velocity and lifetime to the particle
+		float angle = (std::rand() % 360) * 3.14f / 180.f;
+		float speed = (std::rand() % 50) + 50.f;
+		m_particles[index].velocity = sf::Vector2f(std::cos(angle) * speed, std::sin(angle) * speed);
+		m_particles[index].lifetime = 2.0f;		
+
+		// reset the position of the corresponding vertex
+		m_vertices[index].position = m_emitter;
+	}
+
+	std::vector<Particle> m_particles;
+	sf::VertexArray m_vertices;
+	float m_lifetime;
+	sf::Vector2f m_emitter;
 };
-
-#endif

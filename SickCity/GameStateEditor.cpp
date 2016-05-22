@@ -40,7 +40,7 @@ void GameStateEditor::update(const float dt) {
 		);
 
 	/* Update Particle SYstem */
-	this->game->particleSystem.update(dt);
+	this->game->particleSystem.update(sf::seconds(dt));
 	return;
 }
 
@@ -212,9 +212,8 @@ void GameStateEditor::handleInput()
 				this->actionState = ActionState::MENU;
 			}
 			else if (event.mouseButton.button == sf::Mouse::XButton1) {
-				std::cout << "particles\n";
-				this->game->particleSystem.setPosition(gamePos);
-				this->game->particleSystem.fuel(50);
+				this->game->emitParticle(gamePos);
+
 			}
 			break;
 		}

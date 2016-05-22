@@ -13,6 +13,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("industrial", "media/industrial.png");
 	texmgr.loadTexture("road", "media/road.png");
 	texmgr.loadTexture("background", "media/background.png");
+	texmgr.loadTexture("particle", "media/particle.png");
 }
 
 void Game::loadTiles()
@@ -99,6 +100,24 @@ void Game::changeState(GameState* state)
 	}
 	pushState(state);
 }
+
+void Game::emitParticle(sf::Vector2f pos)
+{
+	//std::cout << "particles: " << gamePos.x << ", " << gamePos.y;
+	//this->game->emitter.setParticlePosition(gamePos);				
+	//this->game->emitter.setParticleVelocity(thor::Distributions::deflect({ 20,20 }, 6.0f));
+	thor::PolarVector2f velocity(thor::random(30.f, 70.f), thor::random(0.f, 360.f));
+	thor::Particle particle(sf::seconds(2));
+	particle.position = pos;
+	particle.velocity = velocity;
+	thor::UniversalEmitter emitter;
+	emitter.setParticlePosition(pos);
+	emitter.setParticleVelocity(thor::Distributions::deflect({ 20,20 }, 6.0f));
+	emitter.setEmissionRate(1);
+	this->particleSystem.addEmitter(emitter);
+	
+	
+}
 GameState* Game::peekState() {
 	if (this->states.empty()) {
 		return nullptr;
@@ -132,7 +151,13 @@ Game::Game()
 	this->window.setVerticalSyncEnabled(true);
 	this->background.setTexture(this->texmgr.getRef("background"));
 	this->background.setColor(sf::Color(150, 150, 150));
-	this->particleSystem = ParticleSystem(this->window.getSize());	
+
+	this->particleSystem.setTexture(this->texmgr.getRef("particle"));
+	//this->emitter.setEmissionRate(50);	
+	//this->emitter.setParticleLifetime(sf::seconds(3));
+	//this->particleSystem.addEmitter(this->emitter);
+	//this->particleSystem.addAffector(thor::ForceAffector(sf::Vector2f(0.f, 100.f)));
+	//this->particleSystem.addAffector(thor::TorqueAffector(100.f));
 }
 
 Game::~Game()
