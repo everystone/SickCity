@@ -279,13 +279,13 @@ void City::update(float dt)
 				int index = this->shuffledTiles[i];
 				int dir = rand() % 4;
 				// spread upwards
-				if(dir == 0 && index > this->map.width) { index -= this->map.width; }
+				if(dir == 0 && index > this->map.height) { index -= this->map.height; }
 				// spread right
 				if (dir == 1 && index < this->map.tiles.size()+1) { index++; }
 				// spread left
 				if (dir == 2 && index > 1) { index--; }
 				// spread down
-				if (dir == 3 && index > this->map.height) { index += this->map.height; }
+				if (dir == 3 && index < (this->map.tiles.size()-this->map.height)) { index += this->map.height; }
 
 				if(index != this->shuffledTiles[i] && this->map.tiles[index].tileType != TileType::FIRE && this->map.tiles[index].tileType != TileType::WATER)
 				this->map.tiles[index] = this->ptr_tileAtlas->at("fire");
