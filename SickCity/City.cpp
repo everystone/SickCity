@@ -65,6 +65,7 @@ void City::bulldoze(const Tile& tile)
 
 void City::shuffleTiles()
 {
+	this->shuffledTiles.clear();
 	while (this->shuffledTiles.size() < this->map.tiles.size())
 	{
 		this->shuffledTiles.push_back(0);

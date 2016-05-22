@@ -84,7 +84,7 @@ void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas
 	this->tiles.clear();
 	this->width = width;
 	this->height = height;
-	float seed = 0.3f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.8f - 0.3f)));
+	float seed = 0.1f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3.0f - 0.1f)));
 	for (float y = 0; y < this->height; ++y)
 	{
 		for (float x = 0; x < this->width; ++x)
@@ -99,6 +99,7 @@ void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas
 			else this->tiles.push_back(tileAtlas.at("forest"));
 		}
 	}
+	
 }
 
 void Map::draw(sf::RenderWindow& window, float dt)

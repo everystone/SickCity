@@ -18,7 +18,7 @@ class Map
     unsigned int height;
     std::vector<Tile> tiles;
 	// Tile Selection
-	std::vector<char> selected;
+	std::vector<int> selected;
 	unsigned int hovered;
 	std::unordered_map<char, std::vector<std::size_t>> zones; // region data.
 	//std::vector<std::vector<std::size_t>> zones;
@@ -62,6 +62,7 @@ class Map
         this->numRegions[0] = 1;
 		this->numSelected = 0;
 		this->hovered = 0;
+		srand(static_cast <unsigned> (time(0))); // seed random generator
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,
