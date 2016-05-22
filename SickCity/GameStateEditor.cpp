@@ -256,6 +256,10 @@ void GameStateEditor::handleInput()
 			//std::cout << "zoomLevel: " << zoomLevel;
 			break;
 		}
+		case sf::Event::KeyReleased:
+		{
+			if (event.key.code == sf::Keyboard::F1) this->city.map.generate(64, 64, this->game->tileAtlas);
+		}
 		default:
 			break;
 		}		

@@ -84,13 +84,14 @@ void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas
 	this->tiles.clear();
 	this->width = width;
 	this->height = height;
+	float seed = 0.3f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.8f - 0.3f)));
 	for (float y = 0; y < this->height; ++y)
 	{
 		for (float x = 0; x < this->width; ++x)
 		{
 			this->resources.push_back(255);
 			this->selected.push_back(0);
-			double value = myModule.GetValue(x/16, y/16, 0.55); // x/16, y/16, 0.55 = waterworld
+			double value = myModule.GetValue(x/16, y/16, seed); // x/16, y/16, 0.55 = waterworld
 			
 			//std::cout << value << std::endl;
 			if(value > 0 && value < 0.7) this->tiles.push_back(tileAtlas.at("grass"));
