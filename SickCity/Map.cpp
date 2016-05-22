@@ -90,9 +90,10 @@ void Map::draw(sf::RenderWindow& window, float dt)
 			if (x > this->width - 5 || y > this->height - 5) {
 				this->tiles[y*this->width + x].sprite.setScale(1, 2);
 				//this->tiles[y*this->width + x].sprite.setRotation(90);
-				
+				//int edge = (x - this->width)
 				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
-				pos.y = (x + y-1) * this->tileSize * 0.5;												
+				pos.y = (x + y-1) * this->tileSize * 0.5;
+				
 			}
 			/*if (y > this->height - 5 || x > this->width-5) {
 				this->tiles[y*this->width + x].sprite.setRotation(90);
