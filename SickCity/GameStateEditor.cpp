@@ -259,7 +259,7 @@ void GameStateEditor::handleInput()
 		case sf::Event::KeyReleased:
 		{
 			if (event.key.code == sf::Keyboard::F1) {
-				this->city.map.generate(64, 64, this->game->tileAtlas);
+				this->city.map.generate(128, 128, this->game->tileAtlas);
 				this->city.shuffleTiles();
 			}
 		}

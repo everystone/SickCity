@@ -59,7 +59,7 @@ void City::bulldoze(const Tile& tile)
 			this->map.tiles[pos] = tile;
 		}
 	}
-
+	this->map.setTilePositions();
 	return;
 }
 

@@ -55,6 +55,7 @@ void Map::load(const std::string& filename, unsigned int width, unsigned int hei
     }
 
     inputFile.close();
+	setTilePositions();
     return;
 }
 
@@ -99,7 +100,34 @@ void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas
 			else this->tiles.push_back(tileAtlas.at("forest"));
 		}
 	}
-	
+	setTilePositions();
+}
+
+void Map::setTilePositions()
+{
+	// moved positioning logic from map.draw, to here.
+	for (int y = 0; y < this->height; ++y)
+	{
+		for (int x = 0; x < this->width; ++x)
+		{
+			/* Set the position of the tile in the 2d world */
+			sf::Vector2f pos;
+			// Bend the outer tiles downwards, to create the look of a 3d Cube. ( Is it even possible? )
+			if (x > this->width - 5 || y > this->height - 5) {
+				this->tiles[y*this->width + x].sprite.setScale(1, 2);
+				//this->tiles[y*this->width + x].sprite.setRotation(90);
+				//int edge = (x - this->width)
+				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
+				pos.y = (x + y - 1) * this->tileSize * 0.5;
+			}
+			else {
+				// normal
+				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
+				pos.y = (x + y) * this->tileSize * 0.5;
+			}
+			this->tiles[y*this->width + x].sprite.setPosition(pos);
+		}
+	}
 }
 
 void Map::draw(sf::RenderWindow& window, float dt)
@@ -108,45 +136,14 @@ void Map::draw(sf::RenderWindow& window, float dt)
     {
         for(int x = 0; x < this->width; ++x)
         {
-            /* Set the position of the tile in the 2d world */
-            sf::Vector2f pos;
-			// Bend the outer tiles downwards, to create the look of a 3d Cube. ( Is it even possible? )
-			if (x > this->width - 5 || y > this->height - 5) {
-				this->tiles[y*this->width + x].sprite.setScale(1, 2);
-				//this->tiles[y*this->width + x].sprite.setRotation(90);
-				//int edge = (x - this->width)
-				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
-				pos.y = (x + y-1) * this->tileSize * 0.5;
-				
-			}
-			/*if (y > this->height - 5 || x > this->width-5) {
-				this->tiles[y*this->width + x].sprite.setRotation(90);
-				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
-				pos.y = (x + y) * this->tileSize * 0.5;
-				pos.y -= 2;
-
-				//closest:
-				//pos.x = (x - y) * this->tileSize * 0.5;
-				//pos.y = (x + y) * this->tileSize * 0.5;
-			}*/
-
-			else {
-				// normal
-				pos.x = (x - y) * this->tileSize + this->width * this->tileSize;
-				pos.y = (x + y) * this->tileSize * 0.5;
-				
-			}
-
-			this->tiles[y*this->width + x].sprite.setPosition(pos);
-
 			/* Change color if tile is selected */
-			if(this->selected[y*this->width+x])
+			if (this->selected[y*this->width + x])
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x7d, 0x7d, 0x7d));
 			else
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
 
 			/* Change color if tile is hovered */
-			if(y*this->width+x == this->hovered)
+			if (y*this->width + x == this->hovered)
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(40, 40, 40));
 
             /* Draw the tile */

@@ -45,6 +45,9 @@ class Map
 	/* Generate the map */
 	void generate(int width, int height, std::map<std::string, Tile>& tileAtlas);
 
+	/* Set sprite positions */
+	void setTilePositions();
+
     /* Checks if one position in the map is connected to another by
      * only traversing tiles in the whitelist */
     void findConnectedRegions(std::vector<TileType> whitelist, int type);
