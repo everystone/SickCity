@@ -116,7 +116,7 @@ void GameStateEditor::handleInput()
 				selectionEnd.x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - this->city.map.width * 0.5 - 0.5;
 				selectionEnd.y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + this->city.map.width * 0.5 + 0.5;
 				//std::cout << "selection: " << selectionEnd.x << ", " << selectionEnd.y << std::endl;
-				if (selectionEnd.x > 0 && selectionEnd.x < this->city.map.width && selectionEnd.y > 0 && selectionEnd.y < this->city.map.height) {
+				if (selectionEnd.x >= 0 && selectionEnd.x < this->city.map.width && selectionEnd.y >= 0 && selectionEnd.y < this->city.map.height) {
 					// check if index is lower than vector size
 					int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
 					//if (index < this->city.map.tiles.size())
