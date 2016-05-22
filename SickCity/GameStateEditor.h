@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "City.h"
-
 enum class ActionState { NONE, PANNING, SELECTING, MENU };
 class GameStateEditor : public GameState
 {
@@ -24,6 +23,6 @@ public:
 	virtual void handleInput();
 
 	// Constructor
-	GameStateEditor(Game* game);
+	GameStateEditor(Game* game, MenuOption choice, std::string name = "");
 
 };

@@ -6,8 +6,7 @@ void TextureManager::loadTexture(const std::string & name, const std::string & f
 	// Load texture
 	sf::Texture text;
 	if(!text.loadFromFile(filename)){
-    return;
-		//throw new std::exception("file was not found in call to TextureManager::loadTexture");
+		throw new std::exception("file was not found in call to TextureManager::loadTexture");
 	}
 	// Add to list of textures
 	this->textures[name] = text;

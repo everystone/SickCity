@@ -11,7 +11,6 @@
 //#include <tchar.h>
 
 
-
 // TODO: reference additional headers your program requires here
 #include <stack>
 #include <SFML/Graphics.hpp>

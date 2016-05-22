@@ -34,7 +34,7 @@ void Game::loadTiles()
 			TileType::WATER, 0, 0, 1);
 	tileAtlas["fire"] =
 		Tile(this->tileSize, 1, texmgr.getRef("fire"),
-		{ Animation(0, 3, 0.5f) }, TileType::FIRE, 5, 0, 1);
+		{ Animation(0, 3, 0.2f) }, TileType::FIRE, 5, 0, 1);
 	tileAtlas["residential"] =
 		Tile(this->tileSize, 2, texmgr.getRef("residential"),
 		{ staticAnim, staticAnim, staticAnim,

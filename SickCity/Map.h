@@ -18,7 +18,7 @@ class Map
     unsigned int height;
     std::vector<Tile> tiles;
 	// Tile Selection
-	std::vector<char> selected;
+	std::vector<int> selected;
 	unsigned int hovered;
 	std::unordered_map<char, std::vector<std::size_t>> zones; // region data.
 	//std::vector<std::vector<std::size_t>> zones;
@@ -42,6 +42,12 @@ class Map
     /* Draw the map */  
     void draw(sf::RenderWindow& window, float dt);
 
+	/* Generate the map */
+	void generate(int width, int height, std::map<std::string, Tile>& tileAtlas);
+
+	/* Set sprite positions */
+	void setTilePositions();
+
     /* Checks if one position in the map is connected to another by
      * only traversing tiles in the whitelist */
     void findConnectedRegions(std::vector<TileType> whitelist, int type);
@@ -59,6 +65,7 @@ class Map
         this->numRegions[0] = 1;
 		this->numSelected = 0;
 		this->hovered = 0;
+		srand(static_cast <unsigned> (time(0))); // seed random generator
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,

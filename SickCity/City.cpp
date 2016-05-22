@@ -59,12 +59,13 @@ void City::bulldoze(const Tile& tile)
 			this->map.tiles[pos] = tile;
 		}
 	}
-
+	this->map.setTilePositions();
 	return;
 }
 
 void City::shuffleTiles()
 {
+	this->shuffledTiles.clear();
 	while (this->shuffledTiles.size() < this->map.tiles.size())
 	{
 		this->shuffledTiles.push_back(0);
