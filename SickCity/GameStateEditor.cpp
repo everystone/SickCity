@@ -262,7 +262,7 @@ void GameStateEditor::handleInput()
 	return;
 }
 
-GameStateEditor::GameStateEditor(Game* game)
+GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name)
 {
 	this->game = game;
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
@@ -273,7 +273,8 @@ GameStateEditor::GameStateEditor(Game* game)
 	this->gameView.setCenter(pos);
 	
 	//map = Map("city_map.dat", 64, 64, game->tileAtlas);
-	this->city = City("city", this->game->tileSize, this->game->tileAtlas);
+
+	this->city = City("city", this->game->tileSize, this->game->tileAtlas, choice);
 	this->city.shuffleTiles();
 
 	this->zoomLevel = 1.0f;

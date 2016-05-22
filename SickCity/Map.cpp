@@ -77,6 +77,18 @@ void Map::save(const std::string& filename)
     return;
   
 }
+void Map::generate(int width, int height, std::map<std::string, Tile>& tileAtlas)
+{
+	this->tiles.clear();
+	this->width = width;
+	this->height = height;
+	for (int pos = 0; pos < this->width * this->height; ++pos)
+	{
+		this->resources.push_back(255);
+		this->selected.push_back(0);
+		this->tiles.push_back(tileAtlas.at("grass"));		
+	}
+}
 
 void Map::draw(sf::RenderWindow& window, float dt)
 {
@@ -131,6 +143,7 @@ void Map::draw(sf::RenderWindow& window, float dt)
     }
     return;
 }
+
 void Map::updateDirection(TileType tileType)
 {
     for(int y = 0; y < this->height; ++y)

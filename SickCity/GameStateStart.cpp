@@ -51,7 +51,6 @@ void GameStateStart::handleInput()
 			case sf::Event::KeyPressed:
 			{
 				if (event.key.code == sf::Keyboard::Escape) this->game->window.close();
-				else if (event.key.code == sf::Keyboard::Space) this->loadGame();
 				break;
 			}
 			case sf::Event::MouseButtonPressed:
@@ -62,6 +61,10 @@ void GameStateStart::handleInput()
 					if (msg == "load_game")
 					{
 						this->loadGame();
+					}
+					else if (msg == "new_game")
+					{
+						this->newGame("test");
 					}
 				}
 				break;
@@ -80,7 +83,10 @@ GameStateStart::GameStateStart(Game* game)
 
 	//Create GUI
 	this->guiSystem.emplace("menu", Gui(sf::Vector2f(192, 32), 4, false, game->stylesheets.at("button"),
-	{ std::make_pair("Load Game", "load_game") }));
+	{ 
+		std::make_pair("Load Game", "load_game"),
+		std::make_pair("New Game", "new_game")
+	}));
 
 	this->guiSystem.at("menu").setPosition(pos);
 	this->guiSystem.at("menu").setOrigin(96, 32 * 1 / 2);
@@ -89,5 +95,8 @@ GameStateStart::GameStateStart(Game* game)
 
 void GameStateStart::loadGame()
 {
-	this->game->pushState(new GameStateEditor(this->game));
+	this->game->pushState(new GameStateEditor(this->game, MenuOption::LOAD));
+}
+void GameStateStart::newGame(std::string name) {
+	this->game->pushState(new GameStateEditor(this->game, MenuOption::NEW));
 }

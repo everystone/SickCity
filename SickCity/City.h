@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include "Map.h"
-
+enum class MenuOption { NEW, LOAD };
 class City
 {
 private:
@@ -66,11 +66,33 @@ public:
 		this->day = 0;
 	}
 
-	City(std::string cityName, int tileSize, std::map<std::string, Tile> &tileAtlas) : City()
+	City(std::string cityName, int tileSize, std::map<std::string, Tile> &tileAtlas, MenuOption choice) : City()
 	{
 		this->map.tileSize = tileSize;
 		this->ptr_tileAtlas = &tileAtlas; // & av en & ?
-		load(cityName, tileAtlas);
+		if (choice == MenuOption::LOAD) {
+			load(cityName, tileAtlas);
+		}
+		if (choice == MenuOption::NEW) {
+		
+			int width = 64;
+			int height = 64;
+			this->day = 0;
+			this->populationPool = 50;
+			this->employmentPool = 25;
+			this->population = 50;
+			this->employable = 25;
+			this->birthRate = 0.0055;
+			this->deathRate = 0.0023;
+			this->residentialTax = 0.05;
+			this->commercialTax = 0.05;
+			this->industrialTax = 0.05;
+			this->funds = 30000;
+			this->earnings = 0;
+			this->map.generate(width, height, tileAtlas);
+			tileChanged();
+		}
+		
 	}
 
 	void load(std::string cityName, std::map<std::string, Tile>& tileAtlas);
