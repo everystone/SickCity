@@ -131,6 +131,7 @@ Game::Game()
 	//this->window.setFramerateLimit(60);
 	this->window.setVerticalSyncEnabled(true);
 	this->background.setTexture(this->texmgr.getRef("background"));
+	this->background.setColor(sf::Color(150, 150, 150));
 }
 
 Game::~Game()
