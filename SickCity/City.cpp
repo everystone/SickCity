@@ -241,14 +241,14 @@ void City::update(float dt)
 			commercialRevenue += revenue;
 
 			// Emit dollar particle at tile
-			// I need to find tile's position.
 			//int x = (i / this->map.height);
 			//int y = (i % this->map.width);
-			
-			//std::cout << "i: " << i << " x: " << x << ", y: " << y << std::endl;
-			//sf::Vector2i point = game->window.mapCoordsToPixel(tile.sprite.getPosition());
-			//this->game->emitParticle((sf::Vector2f)point);
-			this->game->emitParticle(0, tile.sprite.getPosition(), revenue);
+			if (revenue > 0) {
+				std::cout << "revenue: " << revenue << std::endl;
+				//int clamped = std::max(0.1f, std::min((float)revenue, 2.0f));
+				int scale = 1 + (revenue / 100 * 0.5f);
+				this->game->emitParticle(0, tile.sprite.getPosition(), scale);
+			}
 		}
 		else if (tile.tileType == TileType::INDUSTRIAL) {
 			// Extract resources from the ground

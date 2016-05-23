@@ -107,8 +107,10 @@ void Game::emitParticle(unsigned int index, sf::Vector2f pos, float scale)
 	thor::UniversalEmitter emitter;
 	
 	emitter.setParticlePosition(pos);
-	emitter.setParticleVelocity(thor::Distributions::deflect({ 0,-25 }, 6.0f));
-	//emitter.setEmissionRate(0.5f);
+	thor::PolarVector2f velocity(thor::random(5.0f, 20.0f), thor::random(230.0f, 320.0f));
+	//emitter.setParticleVelocity(thor::Distributions::deflect({ 0,-25 }, 10.0f));
+	emitter.setParticleVelocity(velocity);
+	//emitter.setEmissionRate();
 	emitter.setParticleScale(sf::Vector2f(scale, scale));
 	//emitter.setParticleTextureInde(2);
 	emitter.setParticleColor(sf::Color(100, 255, 135));
@@ -152,7 +154,7 @@ Game::Game()
 	this->background.setTexture(this->texmgr.getRef("background"));
 	this->background.setColor(sf::Color(150, 150, 150));
 	
-	thor::FadeAnimation fader(0.1f, 0.1f);
+	thor::FadeAnimation fader(.0f, 0.5f);
 
 	this->particleSystem.setTexture(this->texmgr.getRef("dollar"));
 	particleSystem.addAffector(thor::AnimationAffector(fader));
