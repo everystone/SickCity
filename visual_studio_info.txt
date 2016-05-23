@@ -1,3 +1,10 @@
+Cryptic Errors:
+Error	C2672	'std::invoke': no matching overloaded function found	SickCity	d:\programmer\visual studio\vc\include\type_traits	1441	
+
+- occurs when passing wrong type to Thor functions,
+like passign a float to emitter.setParticleScale(scale), instead of thor::Distributions etc
+
+
 Configuring VS Project
 
 Properties -> C/C++ additional include dirs:

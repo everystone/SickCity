@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationHandler.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="DollarEmitter.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateEditor.h" />

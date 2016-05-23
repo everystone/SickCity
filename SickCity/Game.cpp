@@ -14,6 +14,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("road", "media/road.png");
 	texmgr.loadTexture("background", "media/background.png");
 	texmgr.loadTexture("particle", "media/particle.png");
+	texmgr.loadTexture("dollar", "media/dollar.png");
 }
 
 void Game::loadTiles()
@@ -101,20 +102,19 @@ void Game::changeState(GameState* state)
 	pushState(state);
 }
 
-void Game::emitParticle(sf::Vector2f pos)
+void Game::emitParticle(unsigned int index, sf::Vector2f pos, float scale)
 {
-	//std::cout << "particles: " << gamePos.x << ", " << gamePos.y;
-	//this->game->emitter.setParticlePosition(gamePos);				
-	//this->game->emitter.setParticleVelocity(thor::Distributions::deflect({ 20,20 }, 6.0f));
-	thor::PolarVector2f velocity(thor::random(30.f, 70.f), thor::random(0.f, 360.f));
-	thor::Particle particle(sf::seconds(2));
-	particle.position = pos;
-	particle.velocity = velocity;
 	thor::UniversalEmitter emitter;
+	
 	emitter.setParticlePosition(pos);
-	emitter.setParticleVelocity(thor::Distributions::deflect({ 20,20 }, 6.0f));
-	emitter.setEmissionRate(1);
-	this->particleSystem.addEmitter(emitter);
+	emitter.setParticleVelocity(thor::Distributions::deflect({ 0,-25 }, 6.0f));
+	//emitter.setEmissionRate(0.5f);
+	emitter.setParticleScale(sf::Vector2f(scale, scale));
+	//emitter.setParticleTextureInde(2);
+	emitter.setParticleColor(sf::Color(100, 255, 135));
+	this->particleSystem.addEmitter(emitter, sf::seconds(1));
+
+	//this->particleSystem.addEmitter(DollarEmitter(pos));
 	
 	
 }
@@ -151,8 +151,15 @@ Game::Game()
 	this->window.setVerticalSyncEnabled(true);
 	this->background.setTexture(this->texmgr.getRef("background"));
 	this->background.setColor(sf::Color(150, 150, 150));
+	
+	thor::FadeAnimation fader(0.1f, 0.1f);
 
-	this->particleSystem.setTexture(this->texmgr.getRef("particle"));
+	this->particleSystem.setTexture(this->texmgr.getRef("dollar"));
+	particleSystem.addAffector(thor::AnimationAffector(fader));
+	
+	//thor::UniversalEmitter emitter;
+	//this->particleSystem.addEmitter(thor::refEmitter(emitter));
+	
 	//this->emitter.setEmissionRate(50);	
 	//this->emitter.setParticleLifetime(sf::seconds(3));
 	//this->particleSystem.addEmitter(this->emitter);

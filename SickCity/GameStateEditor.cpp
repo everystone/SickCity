@@ -212,7 +212,8 @@ void GameStateEditor::handleInput()
 				this->actionState = ActionState::MENU;
 			}
 			else if (event.mouseButton.button == sf::Mouse::XButton1) {
-				this->game->emitParticle(gamePos);
+				this->game->emitParticle(0, gamePos, 1);
+				//this->game->particleSystem.addEmitter(DollarEmitter(gamePos), sf::seconds(1));
 
 			}
 			break;
@@ -289,7 +290,7 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 	
 	//map = Map("city_map.dat", 64, 64, game->tileAtlas);
 
-	this->city = City("city", this->game->tileSize, this->game->tileAtlas, choice);
+	this->city = City("city", *this->game, this->game->tileSize, this->game->tileAtlas, choice);
 	this->city.shuffleTiles();
 
 	this->zoomLevel = 1.0f;

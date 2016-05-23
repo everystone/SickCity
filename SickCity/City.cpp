@@ -240,6 +240,15 @@ void City::update(float dt)
 			double revenue = tile.production * maxCustomers * tile.population / 100.0;
 			commercialRevenue += revenue;
 
+			// Emit dollar particle at tile
+			// I need to find tile's position.
+			//int x = (i / this->map.height);
+			//int y = (i % this->map.width);
+			
+			//std::cout << "i: " << i << " x: " << x << ", y: " << y << std::endl;
+			//sf::Vector2i point = game->window.mapCoordsToPixel(tile.sprite.getPosition());
+			//this->game->emitParticle((sf::Vector2f)point);
+			this->game->emitParticle(0, tile.sprite.getPosition(), revenue);
 		}
 		else if (tile.tileType == TileType::INDUSTRIAL) {
 			// Extract resources from the ground
@@ -289,7 +298,7 @@ void City::update(float dt)
 				if (dir == 3 && index < (this->map.tiles.size()-this->map.height)) { index += this->map.height; }
 
 				if(index != this->shuffledTiles[i] && this->map.tiles[index].tileType != TileType::FIRE && this->map.tiles[index].tileType != TileType::WATER)
-				this->map.tiles[index] = this->ptr_tileAtlas->at("fire");
+				this->map.tiles[index] = this->game->tileAtlas.at("fire");
 			}
 		}
 
