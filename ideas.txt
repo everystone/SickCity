@@ -1,0 +1,36 @@
+Weather effects ( Rain, Snow? )
+Day / Night.
+Citylights
+
+Tile Ideas: 
+Power lines, water lines?
+Train tracks?
+Bridges
+
+Residential : Passive income ( tax )
+Commercial  : Sells goods to residential
+Industrial  : Extracts resources
+
+Forest	    : 
+Grass       : 
+Water       :  
+Fire        : Spreads in random direction every tick
+Bridge	    : Can be built on water. connects zones
+
+Enemies:
+
+
+Biomes:
+Desert    : Hard to get water?
+Jungle    : 
+Snowy     : colder, requires more heat
+Mountains : has iron/coal
+
+
+Mutliplayer ( or AI )
+---------------------------
+Both starts out with a command center, that they must protect.
+Player with enough money after X days wins
+Last one alive wins.
+
+

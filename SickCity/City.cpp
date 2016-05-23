@@ -79,10 +79,11 @@ void City::shuffleTiles()
 void City::tileChanged()
 {
 	this->map.updateDirection(TileType::ROAD);
+	this->map.updateDirection(TileType::BRIDGE);
 	this->map.findConnectedRegions(
 	{
 		TileType::ROAD, TileType::RESIDENTIAL,
-		TileType::COMMERCIAL, TileType::INDUSTRIAL
+		TileType::COMMERCIAL, TileType::INDUSTRIAL, TileType::BRIDGE
 	}, 0);
 
 	return;

@@ -12,6 +12,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("commercial", "media/commercial.png");
 	texmgr.loadTexture("industrial", "media/industrial.png");
 	texmgr.loadTexture("road", "media/road.png");
+	texmgr.loadTexture("bridge", "media/bridge.png");
 	texmgr.loadTexture("background", "media/background.png");
 	texmgr.loadTexture("particle", "media/particle.png");
 	texmgr.loadTexture("dollar", "media/dollar.png");
@@ -58,6 +59,13 @@ void Game::loadTiles()
 			staticAnim, staticAnim, staticAnim,
 			staticAnim, staticAnim },
 			TileType::ROAD, 100, 0, 1);
+	tileAtlas["bridge"] =
+		Tile(this->tileSize, 1, texmgr.getRef("bridge"),
+		{ staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim },
+			TileType::BRIDGE, 300, 0, 1);
 
 	return;
 }
@@ -107,10 +115,11 @@ void Game::emitParticle(unsigned int index, sf::Vector2f pos, float scale)
 	thor::UniversalEmitter emitter;
 	
 	emitter.setParticlePosition(pos);
-	thor::PolarVector2f velocity(thor::random(5.0f, 20.0f), thor::random(230.0f, 320.0f));
+	thor::PolarVector2f velocity(thor::random(5.0f, 20.0f), 245.0f); // thor::random(230.0f, 320.0f)
 	//emitter.setParticleVelocity(thor::Distributions::deflect({ 0,-25 }, 10.0f));
 	emitter.setParticleVelocity(velocity);
 	//emitter.setEmissionRate();
+	emitter.setParticleLifetime(sf::seconds(thor::random(1.0f, 1.5f)));
 	emitter.setParticleScale(sf::Vector2f(scale, scale));
 	//emitter.setParticleTextureInde(2);
 	emitter.setParticleColor(sf::Color(100, 255, 135));
@@ -163,7 +172,6 @@ Game::Game()
 	//this->weatherSystem.addAffector(thor::TorqueAffector(50.f));
 	//this->weatherSystem.addAffector(thor::ForceAffector(sf::Vector2f(10.f, 10.f)));
 	this->weatherSystem.addAffector(thor::AnimationAffector(fader));
-
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 3; x++) {

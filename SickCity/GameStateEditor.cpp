@@ -29,7 +29,7 @@ void GameStateEditor::update(const float dt) {
 
 	/* Update info bar at the bottom of the screen */
 	this->guiSystem.at("infoBar").setEntryText(0, "Day: " + std::to_string(this->city.day));
-	this->guiSystem.at("infoBar").setEntryText(1, "$" + std::to_string(this->city.funds));
+	this->guiSystem.at("infoBar").setEntryText(1, "$" + std::to_string(int(this->city.funds)));
 	this->guiSystem.at("infoBar").setEntryText(2, "Pop: " +std::to_string(long(this->city.population)) + " ( " + std::to_string(long(this->city.getHomeless())) + ")");
 	this->guiSystem.at("infoBar").setEntryText(3, "Emp:: " + std::to_string(long(this->city.employable)) + " ( " + std::to_string(long(this->city.getUnemployed())) + ")");
 	this->guiSystem.at("infoBar").setEntryText(4, "Tile: " +tileTypeToStr(currentTile->tileType));
@@ -96,6 +96,12 @@ void GameStateEditor::handleInput()
 				if (this->currentTile->tileType == TileType::GRASS)
 				{
 					this->city.map.select(selectionStart, selectionEnd, { this->currentTile->tileType, TileType::WATER, TileType::FIRE });
+				}
+				else if (this->currentTile->tileType == TileType::BRIDGE)
+				{
+					this->city.map.select(selectionStart, selectionEnd, {
+						this->currentTile->tileType, TileType::COMMERCIAL, TileType::FIRE, TileType::FOREST, TileType::GRASS, TileType::INDUSTRIAL, TileType::RESIDENTIAL, TileType::ROAD
+					});
 				}
 				else {
 					this->city.map.select(selectionStart, selectionEnd,
@@ -318,6 +324,7 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 		std::make_pair("Commercial Zone $" + this->game->tileAtlas["commercial"].getCost(), "commercial"),
 		std::make_pair("Industrial Zone $" + this->game->tileAtlas["industrial"].getCost(), "industrial"),
 		std::make_pair("Road $" + this->game->tileAtlas["road"].getCost(), "road"),
+		std::make_pair("Bridge $" + this->game->tileAtlas["bridge"].getCost(), "bridge"),
 		std::make_pair("Fire!", "fire")
 	}));
 
