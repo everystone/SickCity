@@ -13,7 +13,9 @@ void GameStateEditor::draw(const float dt) {
 
     this->game->window.setView(this->gameView);
     this->city.map.draw(this->game->window, dt);
+
 	this->game->window.draw(this->game->particleSystem);
+	this->game->window.draw(this->game->weatherSystem);
 
 	this->game->window.setView(this->guiView);
 	for (auto gui : this->guiSystem) {
@@ -41,6 +43,8 @@ void GameStateEditor::update(const float dt) {
 
 	/* Update Particle SYstem */
 	this->game->particleSystem.update(sf::seconds(dt));
+	this->game->weatherSystem.update(sf::seconds(dt));
+
 	return;
 }
 

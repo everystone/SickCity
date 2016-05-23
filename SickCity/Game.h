@@ -33,7 +33,7 @@ public:
 	sf::Sprite background;
 
 	thor::ParticleSystem particleSystem;
-	//DollarEmitter* emitter;
+	thor::ParticleSystem weatherSystem;
 
 	std::map<std::string, Tile> tileAtlas;
 	std::map<std::string, GuiStyle> stylesheets;

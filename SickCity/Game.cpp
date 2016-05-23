@@ -114,9 +114,7 @@ void Game::emitParticle(unsigned int index, sf::Vector2f pos, float scale)
 	emitter.setParticleScale(sf::Vector2f(scale, scale));
 	//emitter.setParticleTextureInde(2);
 	emitter.setParticleColor(sf::Color(100, 255, 135));
-	this->particleSystem.addEmitter(emitter, sf::seconds(1));
-
-	//this->particleSystem.addEmitter(DollarEmitter(pos));
+	this->particleSystem.addEmitter(emitter, sf::seconds(1));	
 	
 	
 }
@@ -154,19 +152,35 @@ Game::Game()
 	this->background.setTexture(this->texmgr.getRef("background"));
 	this->background.setColor(sf::Color(150, 150, 150));
 	
+	// Setup Particle Systems
 	thor::FadeAnimation fader(.0f, 0.5f);
-
 	this->particleSystem.setTexture(this->texmgr.getRef("dollar"));
 	particleSystem.addAffector(thor::AnimationAffector(fader));
 	
-	//thor::UniversalEmitter emitter;
-	//this->particleSystem.addEmitter(thor::refEmitter(emitter));
 	
-	//this->emitter.setEmissionRate(50);	
-	//this->emitter.setParticleLifetime(sf::seconds(3));
-	//this->particleSystem.addEmitter(this->emitter);
-	//this->particleSystem.addAffector(thor::ForceAffector(sf::Vector2f(0.f, 100.f)));
-	//this->particleSystem.addAffector(thor::TorqueAffector(100.f));
+	// Weather
+	this->weatherSystem.setTexture(this->texmgr.getRef("particle"));
+	//this->weatherSystem.addAffector(thor::TorqueAffector(50.f));
+	this->weatherSystem.addAffector(thor::ForceAffector(sf::Vector2f(10.f, 20.f)));
+	this->weatherSystem.addAffector(thor::AnimationAffector(fader));
+
+	for (int y = 0; y < 5; y++)
+	{
+		for (int x = 0; x < 10; x++) {
+			thor::UniversalEmitter rainEmitter;
+
+			rainEmitter.setParticleColor(sf::Color(0, 0, 150));
+			rainEmitter.setParticleScale(sf::Vector2f(.4f, .4f));
+			//rainEmitter.setParticlePosition();
+			rainEmitter.setEmissionRate(1);
+			rainEmitter.setParticleLifetime(sf::seconds(5));
+			rainEmitter.setParticlePosition(sf::Vector2f(x*this->tileSize*10, y*this->tileSize*10));
+			this->weatherSystem.addEmitter(rainEmitter);
+		}
+
+	}
+
+
 }
 
 Game::~Game()
