@@ -3,6 +3,9 @@
 #include <vector>
 #include <map>
 #include "Map.h"
+#include <Thor\Particles.hpp>
+#include "Game.h"
+
 enum class MenuOption { NEW, LOAD };
 class City
 {
@@ -26,14 +29,12 @@ private:
 	* Current world values are 0.000055 and 0.000023, respectively */
 	double birthRate;
 	double deathRate;
-	std::map<std::string, Tile>* ptr_tileAtlas; // pointer to Game's tileAtlas.
-
+	//std::map<std::string, Tile>* ptr_tileAtlas; // pointer to Game's tileAtlas.
+	Game* game; // city needs access to game to create particles in update(). ( because texMgr is in game)
 	double distributePool(double& pool, Tile& tile, double rate);
-
 public:
 
 	Map map;
-
 	double population;
 	double employable;
 
@@ -47,6 +48,7 @@ public:
 
 	int day;
 
+	
 	City()
 	{
 		this->birthRate = 0.00055;
@@ -66,10 +68,11 @@ public:
 		this->day = 0;
 	}
 
-	City(std::string cityName, int tileSize, std::map<std::string, Tile> &tileAtlas, MenuOption choice) : City()
+	City(std::string cityName, Game &game, int tileSize, std::map<std::string, Tile> &tileAtlas, MenuOption choice) : City()
 	{
 		this->map.tileSize = tileSize;
-		this->ptr_tileAtlas = &tileAtlas; // & av en & ?
+		//this->ptr_tileAtlas = &tileAtlas; // & av en & ?	
+		this->game = &game;
 		if (choice == MenuOption::LOAD) {
 			load(cityName, tileAtlas);
 		}

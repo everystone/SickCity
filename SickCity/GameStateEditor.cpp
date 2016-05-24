@@ -14,6 +14,9 @@ void GameStateEditor::draw(const float dt) {
     this->game->window.setView(this->gameView);
     this->city.map.draw(this->game->window, dt);
 
+	this->game->window.draw(this->game->particleSystem);
+	this->game->window.draw(this->game->weatherSystem);
+
 	this->game->window.setView(this->guiView);
 	for (auto gui : this->guiSystem) {
 		this->game->window.draw(gui.second);
@@ -26,7 +29,7 @@ void GameStateEditor::update(const float dt) {
 
 	/* Update info bar at the bottom of the screen */
 	this->guiSystem.at("infoBar").setEntryText(0, "Day: " + std::to_string(this->city.day));
-	this->guiSystem.at("infoBar").setEntryText(1, "$" + std::to_string(this->city.funds));
+	this->guiSystem.at("infoBar").setEntryText(1, "$" + std::to_string(int(this->city.funds)));
 	this->guiSystem.at("infoBar").setEntryText(2, "Pop: " +std::to_string(long(this->city.population)) + " ( " + std::to_string(long(this->city.getHomeless())) + ")");
 	this->guiSystem.at("infoBar").setEntryText(3, "Emp:: " + std::to_string(long(this->city.employable)) + " ( " + std::to_string(long(this->city.getUnemployed())) + ")");
 	this->guiSystem.at("infoBar").setEntryText(4, "Tile: " +tileTypeToStr(currentTile->tileType));
@@ -37,6 +40,11 @@ void GameStateEditor::update(const float dt) {
 		.getEntry(this->game->window.mapPixelToCoords(
 			sf::Mouse::getPosition(this->game->window), this->guiView))
 		);
+
+	/* Update Particle SYstem */
+	this->game->particleSystem.update(sf::seconds(dt));
+	this->game->weatherSystem.update(sf::seconds(dt));
+
 	return;
 }
 
@@ -88,6 +96,12 @@ void GameStateEditor::handleInput()
 				if (this->currentTile->tileType == TileType::GRASS)
 				{
 					this->city.map.select(selectionStart, selectionEnd, { this->currentTile->tileType, TileType::WATER, TileType::FIRE });
+				}
+				else if (this->currentTile->tileType == TileType::BRIDGE)
+				{
+					this->city.map.select(selectionStart, selectionEnd, {
+						this->currentTile->tileType, TileType::COMMERCIAL, TileType::FIRE, TileType::FOREST, TileType::GRASS, TileType::INDUSTRIAL, TileType::RESIDENTIAL, TileType::ROAD
+					});
 				}
 				else {
 					this->city.map.select(selectionStart, selectionEnd,
@@ -207,6 +221,11 @@ void GameStateEditor::handleInput()
 				}
 				this->actionState = ActionState::MENU;
 			}
+			else if (event.mouseButton.button == sf::Mouse::XButton1) {
+				this->game->emitParticle(0, gamePos, 1);
+				//this->game->particleSystem.addEmitter(DollarEmitter(gamePos), sf::seconds(1));
+
+			}
 			break;
 		}
 		case sf::Event::MouseButtonReleased:
@@ -281,7 +300,7 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 	
 	//map = Map("city_map.dat", 64, 64, game->tileAtlas);
 
-	this->city = City("city", this->game->tileSize, this->game->tileAtlas, choice);
+	this->city = City("city", *this->game, this->game->tileSize, this->game->tileAtlas, choice);
 	this->city.shuffleTiles();
 
 	this->zoomLevel = 1.0f;
@@ -305,6 +324,8 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 		std::make_pair("Commercial Zone $" + this->game->tileAtlas["commercial"].getCost(), "commercial"),
 		std::make_pair("Industrial Zone $" + this->game->tileAtlas["industrial"].getCost(), "industrial"),
 		std::make_pair("Road $" + this->game->tileAtlas["road"].getCost(), "road"),
+		std::make_pair("Bridge $" + this->game->tileAtlas["bridge"].getCost(), "bridge"),
+		std::make_pair("Fence $" + this->game->tileAtlas["woodfence"].getCost(), "woodfence"),
 		std::make_pair("Fire!", "fire")
 	}));
 

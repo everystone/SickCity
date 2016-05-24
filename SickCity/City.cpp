@@ -79,10 +79,12 @@ void City::shuffleTiles()
 void City::tileChanged()
 {
 	this->map.updateDirection(TileType::ROAD);
+	this->map.updateDirection(TileType::BRIDGE);
+	this->map.updateDirection(TileType::FENCE);
 	this->map.findConnectedRegions(
 	{
 		TileType::ROAD, TileType::RESIDENTIAL,
-		TileType::COMMERCIAL, TileType::INDUSTRIAL
+		TileType::COMMERCIAL, TileType::INDUSTRIAL, TileType::BRIDGE
 	}, 0);
 
 	return;
@@ -226,10 +228,12 @@ void City::update(float dt)
 					while (tile2.storedGoods > 0 && receivedGoods != tile.tileVariant + 1) {
 						--tile2.storedGoods;
 						++receivedGoods;
+						// commercial buys goods from industrial, we earn taxes.
 						industrialRevenue += 100 * (1.0 - industrialTax);
 					}
 				}
 				else if (tile2.tileType == TileType::RESIDENTIAL) {
+					// residential population are customers
 					maxCustomers += tile2.population;
 				}
 				if (receivedGoods == tile.tileVariant + 1) break;
@@ -240,6 +244,14 @@ void City::update(float dt)
 			double revenue = tile.production * maxCustomers * tile.population / 100.0;
 			commercialRevenue += revenue;
 
+			// Emit dollar particle at tile
+			//int x = (i / this->map.height);
+			//int y = (i % this->map.width);
+			if (revenue > 0) {
+				//int clamped = std::max(0.1f, std::min((float)revenue, 2.0f));
+				int scale = 1 + (revenue / 100 * 0.5f);
+				//this->game->emitParticle(0, tile.sprite.getPosition(), scale);
+			}
 		}
 		else if (tile.tileType == TileType::INDUSTRIAL) {
 			// Extract resources from the ground
@@ -289,7 +301,9 @@ void City::update(float dt)
 				if (dir == 3 && index < (this->map.tiles.size()-this->map.height)) { index += this->map.height; }
 
 				if(index != this->shuffledTiles[i] && this->map.tiles[index].tileType != TileType::FIRE && this->map.tiles[index].tileType != TileType::WATER)
-				this->map.tiles[index] = this->ptr_tileAtlas->at("fire");
+				this->map.tiles[index] = this->game->tileAtlas.at("fire");
+				// add smoke particles to tilepos
+
 			}
 		}
 
