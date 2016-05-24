@@ -1,6 +1,28 @@
-Weather effects ( Rain, Snow? )
+Medieval SimCity meets Norwegian Mafia meets age of empires meets Heroes Of might and magic?
+
+Spike fences around base
+Tavern boost morale
+
+Resources: Wood, Iron, Water.
+Gather wood from forest tiles.
+
+Production buildings:
+Blacksmith, creates weapons from iron.
+Quarry, produces iron ( from iron tiles? )
+
+
+Traps:
+DeerTrap - If a deer moves to this tile, tile turns into a trapped-animal tile.
+
+Deers:
+Every day moves in random direction, afraid of humans, stays away from housing areas.
+
+
+Weather effects:
+( Rain, Snow? )
 Day / Night.
 Citylights
+Rain can cause floods
 
 Tile Ideas: 
 Power lines, water lines?
@@ -25,6 +47,14 @@ Desert    : Hard to get water?
 Jungle    : 
 Snowy     : colder, requires more heat
 Mountains : has iron/coal
+
+Bugs:
+Every commercial tile connsiders all residents in zone to be customers.
+
+Mechanics:
+homeless should have much higher death rate
+
+
 
 
 Mutliplayer ( or AI )

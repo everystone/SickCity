@@ -325,6 +325,7 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 		std::make_pair("Industrial Zone $" + this->game->tileAtlas["industrial"].getCost(), "industrial"),
 		std::make_pair("Road $" + this->game->tileAtlas["road"].getCost(), "road"),
 		std::make_pair("Bridge $" + this->game->tileAtlas["bridge"].getCost(), "bridge"),
+		std::make_pair("Fence $" + this->game->tileAtlas["woodfence"].getCost(), "woodfence"),
 		std::make_pair("Fire!", "fire")
 	}));
 

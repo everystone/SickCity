@@ -13,6 +13,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("industrial", "media/industrial.png");
 	texmgr.loadTexture("road", "media/road.png");
 	texmgr.loadTexture("bridge", "media/bridge.png");
+	texmgr.loadTexture("woodfence", "media/woodfence.png");
 	texmgr.loadTexture("background", "media/background.png");
 	texmgr.loadTexture("particle", "media/particle.png");
 	texmgr.loadTexture("dollar", "media/dollar.png");
@@ -66,6 +67,13 @@ void Game::loadTiles()
 			staticAnim, staticAnim, staticAnim,
 			staticAnim, staticAnim },
 			TileType::BRIDGE, 300, 0, 1);
+	tileAtlas["woodfence"] =
+		Tile(this->tileSize, 1, texmgr.getRef("woodfence"),
+		{ staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim, staticAnim,
+			staticAnim, staticAnim },
+			TileType::FENCE, 100, 0, 1);
 
 	return;
 }
