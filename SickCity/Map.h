@@ -59,7 +59,7 @@ class Map
     /* Blank map constructor */
     Map()
     {
-        this->tileSize = 8;
+        this->tileSize = 16;
         this->width = 0;
         this->height = 0;
         this->numRegions[0] = 1;
@@ -73,7 +73,7 @@ class Map
     {
 		this->numSelected = 0;
 		this->hovered = 0;
-        this->tileSize = 8;
+        this->tileSize = 16;
         load(filename, width, height, tileAtlas);
     }
 };

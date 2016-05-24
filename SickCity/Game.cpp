@@ -41,9 +41,8 @@ void Game::loadTiles()
 		{ Animation(0, 3, 0.2f) }, TileType::FIRE, 5, 0, 1);
 	tileAtlas["residential"] =
 		Tile(this->tileSize, 2, texmgr.getRef("residential"),
-		{ staticAnim, staticAnim, staticAnim,
-			staticAnim, staticAnim, staticAnim },
-			TileType::RESIDENTIAL, 300, 25, 6);
+		{ staticAnim },
+			TileType::RESIDENTIAL, 300, 25, 1);
 	tileAtlas["commercial"] =
 		Tile(this->tileSize, 2, texmgr.getRef("commercial"),
 		{ staticAnim, staticAnim, staticAnim, staticAnim },
@@ -120,7 +119,7 @@ void Game::changeState(GameState* state)
 
 void Game::emitParticle(unsigned int index, sf::Vector2f pos, float scale)
 {
-	thor::UniversalEmitter emitter;
+	thor::UniversalEmitter emitter;	
 	
 	emitter.setParticlePosition(pos);
 	thor::PolarVector2f velocity(thor::random(5.0f, 20.0f), 245.0f); // thor::random(230.0f, 320.0f)

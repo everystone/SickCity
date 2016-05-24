@@ -26,7 +26,7 @@ private:
 
 
 public:
-	const static int tileSize = 8;
+	const static int tileSize = 16;
 	std::stack<GameState*> states;
 	TextureManager texmgr;
 	sf::RenderWindow window;
