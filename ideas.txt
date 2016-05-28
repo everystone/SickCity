@@ -54,7 +54,8 @@ Every commercial tile connsiders all residents in zone to be customers.
 Mechanics:
 homeless should have much higher death rate
 
-
+NPC villagers, uncontrollable. Tamagochii feeling?
+villagers moves around, uses fishing boats to fish.
 
 
 Mutliplayer ( or AI )
@@ -62,5 +63,3 @@ Mutliplayer ( or AI )
 Both starts out with a command center, that they must protect.
 Player with enough money after X days wins
 Last one alive wins.
-
-
