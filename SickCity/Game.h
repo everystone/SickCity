@@ -1,16 +1,12 @@
 #pragma once
 #include <stack>
 #include <SFML/Graphics.hpp>
-#include <Thor/Particles.hpp>
-#include <Thor/Math/Distributions.hpp>
-#include <Thor/Vectors/PolarVector2.hpp>
-#include <Thor/Animations.hpp>
-#include <Thor/Math/Random.hpp>
 #include "TextureManager.h"
 #include "Tile.h"
 #include <map>
 #include <string>
 #include "Gui.h"
+#include "ParticleFX.h"
 
 
 class GameState;
@@ -31,18 +27,17 @@ public:
 	TextureManager texmgr;
 	sf::RenderWindow window;
 	sf::Sprite background;
-
+	// ParticleFX pfx;
+	
 	thor::ParticleSystem particleSystem;
-	thor::ParticleSystem weatherSystem;
-
 	std::map<std::string, Tile> tileAtlas;
 	std::map<std::string, GuiStyle> stylesheets;
 	std::map<std::string, sf::Font> fonts;
 
+	void emitParticle(unsigned int index, sf::Vector2f pos, float scale);
 	void pushState(GameState* state);
 	void popState();
 	void changeState(GameState* state);
-	void emitParticle(unsigned int index, sf::Vector2f pos, float scale);
 	GameState* peekState();
 
 	void gameLoop();

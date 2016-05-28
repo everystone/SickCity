@@ -15,7 +15,8 @@ void GameStateEditor::draw(const float dt) {
     this->city.map.draw(this->game->window, dt);
 
 	this->game->window.draw(this->game->particleSystem);
-	this->game->window.draw(this->game->weatherSystem);
+	//this->game->window.draw(this->game->pfx.particleSystem);
+	//this->game->window.draw(this->game->pfx.weatherSystem);
 
 	this->game->window.setView(this->guiView);
 	for (auto gui : this->guiSystem) {
@@ -43,7 +44,8 @@ void GameStateEditor::update(const float dt) {
 
 	/* Update Particle SYstem */
 	this->game->particleSystem.update(sf::seconds(dt));
-	this->game->weatherSystem.update(sf::seconds(dt));
+	//this->game->pfx.particleSystem.update(sf::seconds(dt));
+	//this->game->pfx.weatherSystem.update(sf::seconds(dt));
 
 	return;
 }
@@ -222,8 +224,8 @@ void GameStateEditor::handleInput()
 				this->actionState = ActionState::MENU;
 			}
 			else if (event.mouseButton.button == sf::Mouse::XButton1) {
+				//this->game->pfx.emitParticle(0, gamePos, 1);
 				this->game->emitParticle(0, gamePos, 1);
-				//this->game->particleSystem.addEmitter(DollarEmitter(gamePos), sf::seconds(1));
 
 			}
 			break;
