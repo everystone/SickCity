@@ -4,6 +4,7 @@
 #include "AnimationHandler.h"
 #include <sstream>
 
+
 enum class TileType { VOID, GRASS, FOREST, WATER, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, ROAD, BRIDGE, FENCE, FIRE };
 std::string tileTypeToStr(TileType type);
 
@@ -69,4 +70,3 @@ public:
 		return patch::to_string(this->cost);
 	}
 };
-

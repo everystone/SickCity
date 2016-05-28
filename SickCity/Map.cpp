@@ -4,6 +4,105 @@
 #include "Map.h"
 #include "Tile.h"
 
+
+/* MicroPather */
+// https://github.com/leethomason/MicroPather/blob/master/dungeon.cpp
+
+void Map::findPath(Tile& origin, Tile& destination)
+{
+	float totalCost;
+	//int result = pather->Solve(XYToTile(from.x, from.y), XYToNode(to.x, to.y), &path, &totalCost);
+	int result = pather->Solve(&origin, &destination, &path, &totalCost);
+	if (result == micropather::MicroPather::SOLVED) {
+		std::cout << "Found path: ";
+	}
+	else {
+		std::cout << "no path: ";
+	}
+}
+
+int Map::Passable(int x, int y)
+{
+	if (x >= 0 && x < width && y >= 0 && y < height) {
+		Tile tile = this->tiles[width*y + x];
+		switch (tile.tileType) {
+		case TileType::GRASS:
+		case TileType::FOREST:
+			return 1;
+			break;
+
+		default:
+			return 2;
+			break;
+		}
+	}
+
+	
+}
+
+void TileToXY(void* tile, int* x, int* y) {
+	Tile* tileRef = (Tile*)tile;
+
+	// Directly alters values of pointers? mindfuck
+	*x = tileRef->sprite.getPosition().x;
+	*y = tileRef->sprite.getPosition().y;
+}
+Tile* Map::XYToTile(int x, int y)
+{
+	return &tiles[y*height + x];
+}
+
+float Map::LeastCostEstimate(void * nodeStart, void * nodeEnd)
+{
+	int xStart, yStart, xEnd, yEnd;
+	TileToXY(nodeStart, &xStart, &yStart);
+	TileToXY(nodeEnd, &xEnd, &yEnd);
+
+	/* Compute the minimum path cost using distance measurement. It is possible
+	to compute the exact minimum path using the fact that you can move only
+	on a straight line or on a diagonal, and this will yield a better result.
+	*/
+	int dx = xStart - xEnd;
+	int dy = yStart - yEnd;
+	return (float)sqrt((double)(dx*dx) + (double)(dy*dy));
+}
+
+void Map::AdjacentCost(void * node, MP_VECTOR<micropather::StateCost>* neighbors)
+{
+	int x, y;
+	const int dx[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
+	const int dy[8] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+	const float cost[8] = { 1.0f, 1.41f, 1.0f, 1.41f, 1.0f, 1.41f, 1.0f, 1.41f };
+
+	TileToXY(node, &x, &y);
+
+	for (int i = 0; i<8; ++i) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+
+		int pass = Passable(nx, ny);
+		if (pass > 0) {
+			if (pass == 1)
+			{
+				// Normal floor
+				micropather::StateCost nodeCost = { XYToTile(nx, ny), cost[i] };
+				neighbors->push_back(nodeCost);
+			}
+			else
+			{
+				// Obstacle
+				micropather::StateCost nodeCost = { XYToTile(nx, ny), FLT_MAX };
+				neighbors->push_back(nodeCost);
+			}
+		}
+	}
+}
+
+void Map::PrintStateInfo(void * state)
+{
+}
+
+
 /* Load map from disk */
 void Map::load(const std::string& filename, unsigned int width, unsigned int height,
     std::map<std::string, Tile>& tileAtlas)
@@ -219,6 +318,7 @@ void Map::updateDirection(TileType tileType)
 
     return;
 }
+
 
 void Map::depthfirstsearch(std::vector<TileType>& whitelist,
     sf::Vector2i pos, int label, int regionType=0)

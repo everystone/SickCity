@@ -228,7 +228,10 @@ void GameStateEditor::handleInput()
 			else if (event.mouseButton.button == sf::Mouse::XButton1) {
 				//this->game->pfx.emitParticle(0, gamePos, 1);
 				this->game->emitParticle(0, gamePos, 1);
-
+			}
+			else if (event.mouseButton.button == sf::Mouse::XButton2)
+			{
+				this->city.map.findPath(this->city.map.tiles[0], this->city.map.tiles[this->city.map.hovered]);
 			}
 			break;
 		}
