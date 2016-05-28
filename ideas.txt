@@ -60,6 +60,8 @@ villagers moves around, uses fishing boats to fish.
 
 Player controlls 1 builder unit, tiles can only be placed in a radius of 5 meters around him?
 - to get to islands, player must build a boat, to transfer the builder out tot he island?
+- the builder can chop tree-tiles?
+- builer controlled by WASD, E brings up a wheel of options ( Gather, Build, etc)?
 
 Mutliplayer ( or AI )
 ---------------------------
