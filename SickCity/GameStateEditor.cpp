@@ -13,7 +13,7 @@ void GameStateEditor::draw(const float dt) {
 
     this->game->window.setView(this->gameView);
     this->city.map.draw(this->game->window, dt);
-
+	this->localPlayer.draw(this->game->window, dt);
 	this->game->window.draw(this->game->particleSystem);
 	//this->game->window.draw(this->game->pfx.particleSystem);
 	//this->game->window.draw(this->game->pfx.weatherSystem);
@@ -42,6 +42,8 @@ void GameStateEditor::update(const float dt) {
 			sf::Mouse::getPosition(this->game->window), this->guiView))
 		);
 
+	// update player
+	this->localPlayer.update(dt);
 	/* Update Particle SYstem */
 	this->game->particleSystem.update(sf::seconds(dt));
 	//this->game->pfx.particleSystem.update(sf::seconds(dt));
@@ -293,6 +295,7 @@ void GameStateEditor::handleInput()
 GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name)
 {
 	this->game = game;
+	// Setup GUI
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
 	this->guiView.setSize(pos);
 	this->gameView.setSize(pos);
@@ -300,17 +303,20 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 	this->guiView.setCenter(pos);
 	this->gameView.setCenter(pos);
 	
-	//map = Map("city_map.dat", 64, 64, game->tileAtlas);
-
 	this->city = City("city", *this->game, this->game->tileSize, this->game->tileAtlas, choice);
 	this->city.shuffleTiles();
-
 	this->zoomLevel = 1.0f;
 
 	/* Centre the camera on the map */
 	sf::Vector2f centre(this->city.map.width, this->city.map.height*0.5);
 	centre *= float(this->city.map.tileSize);
 	gameView.setCenter(centre);
+
+	// Setup Player
+	this->localPlayer.sprite.setTexture(this->game->texmgr.getRef("player"));
+	this->localPlayer.Spawn(centre);
+
+
 
 	this->selectionStart = sf::Vector2i(0, 0);
 	this->selectionEnd = sf::Vector2i(0, 0);

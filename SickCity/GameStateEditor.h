@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "City.h"
+#include "Player.h"
+
 enum class ActionState { NONE, PANNING, SELECTING, MENU };
 class GameStateEditor : public GameState
 {
@@ -10,7 +12,7 @@ private:
 	sf::View gameView;
 	sf::View guiView;
 	City city;
-
+	Player localPlayer;
 	sf::Vector2i panningAnchor;
 	float zoomLevel;
 	sf::Vector2i selectionStart;

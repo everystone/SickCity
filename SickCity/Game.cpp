@@ -17,6 +17,7 @@ void Game::loadTextures()
 	texmgr.loadTexture("background", "media/background.png");
 	texmgr.loadTexture("particle", "media/particle.png");
 	texmgr.loadTexture("dollar", "media/dollar.png");
+	texmgr.loadTexture("player", "media/player.png");
 }
 
 void Game::loadTiles()
