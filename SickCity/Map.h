@@ -26,7 +26,7 @@ class Map : public ::micropather::Graph
 	//std::vector<std::vector<std::size_t>> zones;
 	void select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> blacklist);
 	void clearSelected();
-
+	void initPather();
     /* Resource map */
     std::vector<int> resources;
 
@@ -67,8 +67,8 @@ class Map : public ::micropather::Graph
         this->numRegions[0] = 1;
 		this->numSelected = 0;
 		this->hovered = 0;
-		srand(static_cast <unsigned> (time(0))); // seed random generator
-		pather = new micropather::MicroPather(this); //64x64
+		srand(static_cast <unsigned> (time(0))); // seed random generator		
+		//std::cout << "Map initialized";
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,
@@ -84,6 +84,7 @@ class Map : public ::micropather::Graph
 
 	// Pathfinding related
 	void findPath(Tile& origin, Tile& destination);
+	void findPath(sf::Vector2i origin, sf::Vector2i destination);
 	int Passable(int x, int y);
 	Tile * XYToTile(int x, int y);
 	void TileToXY(void* tile, int* x, int* y);

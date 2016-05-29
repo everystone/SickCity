@@ -137,9 +137,9 @@ void GameStateEditor::handleInput()
 				if (selectionEnd.x >= 0 && selectionEnd.x < this->city.map.width && selectionEnd.y >= 0 && selectionEnd.y < this->city.map.height) {
 					// check if index is lower than vector size
 					int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
-					//if (index < this->city.map.tiles.size())
+
 						// Set map.hovered to index, for tile to be drawn in other color
-						this->city.map.hovered = index;
+						this->city.map.hovered = index; // hovered and XYToTile returns different tiles?
 
 						Tile& hoveredTile = this->city.map.tiles[index];
 						this->guiSystem.at("tileInfo").setPosition(guiPos + sf::Vector2f(32, -16));
@@ -234,13 +234,9 @@ void GameStateEditor::handleInput()
 				int x, y;
 				x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - (this->city.map.width * 0.5 - 0.5);
 				y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + (this->city.map.width * 0.5 + 0.5);
-				//int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
-				Tile *test = this->city.map.XYToTile(x, y);
-				std::cout << "gamePos: " << gamePos.x << ", " << gamePos.y << " SpritePos: " << test->sprite.getPosition().x << ", " << test->sprite.getPosition().y << " type: " << tileTypeToStr(test->tileType) << " arr pos: " << x << ", " << y <<  std::endl;
-				int x2, y2;
-				this->city.map.TileToXY(test, &x2, &y2);
-				std::cout << "debug2 " << x2 << ", " << y2 << std::endl;
-				
+				//Tile *test = this->city.map.XYToTile(x, y);
+				//this->city.map.findPath(*city.map.XYToTile(5, 5), *city.map.XYToTile(x, y));
+				this->city.map.findPath(sf::Vector2i(5, 5), sf::Vector2i(x, y));
 				//this->city.map.findPath(this->city.map.tiles[10], this->city.map.tiles[this->city.map.hovered]);
 			}
 			break;
@@ -329,7 +325,8 @@ GameStateEditor::GameStateEditor(Game* game, MenuOption choice, std::string name
 	this->localPlayer.sprite.setTexture(this->game->texmgr.getRef("player"));
 	this->localPlayer.Spawn(centre);
 
-
+	// setup pathfinding
+	this->city.map.initPather();
 
 	this->selectionStart = sf::Vector2i(0, 0);
 	this->selectionEnd = sf::Vector2i(0, 0);

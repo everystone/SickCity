@@ -20,6 +20,25 @@ void Map::findPath(Tile& origin, Tile& destination)
 		std::cout << "no path: ";
 	}
 }
+void Map::findPath(sf::Vector2i origin, sf::Vector2i destination)
+{
+	float totalCost;
+	this->clearSelected();
+	//int result = pather->Solve(XYToTile(from.x, from.y), XYToNode(to.x, to.y), &path, &totalCost);
+	int result = pather->Solve(XYToTile(origin.x, origin.y), XYToTile(destination.x, destination.y), &path, &totalCost);
+	if (result == micropather::MicroPather::SOLVED) {
+		std::cout << "Found path: ";
+		for (int i = 0; i < path.size(); i++) {
+			int x, y;
+			TileToXY(path[i], &x, &y);
+			Tile* test = (Tile*)path[i];
+			this->selected[y*width + x] = 1;
+		}
+	}
+	else {
+		std::cout << "no path: ";
+	}
+}
 
 int Map::Passable(int x, int y)
 {
@@ -32,7 +51,7 @@ int Map::Passable(int x, int y)
 			break;
 
 		default:
-			return 2;
+			return -1;
 			break;
 		}
 	}
@@ -45,13 +64,19 @@ void Map::TileToXY(void* tile, int* x, int* y) {
 
 	float sx = tileRef->sprite.getPosition().x;
 	float sy = tileRef->sprite.getPosition().y;
-	std::cout << "sprite pos " << sx << ", " << sy << std::endl;
+	//std::cout << "sprite pos " << sx << ", " << sy << std::endl;
 	*x = sy / (this->tileSize) + sx / (2 * this->tileSize) - this->width * 0.5;;
 	*y = sy / (this->tileSize) - sx / (2 * this->tileSize) + this->width * 0.5;
 }
 Tile* Map::XYToTile(int x, int y)
 {
-	return &tiles[y*height + x];
+	if (x >= 0 && x <= this->width && y >= 0 && y <= this->height) {
+		return &tiles[y*width + x];
+	}
+	else {
+		return nullptr;
+	}
+
 }
 
 float Map::LeastCostEstimate(void * nodeStart, void * nodeEnd)
@@ -89,6 +114,7 @@ void Map::AdjacentCost(void * node, MP_VECTOR<micropather::StateCost>* neighbors
 				// Normal floor
 				micropather::StateCost nodeCost = { XYToTile(nx, ny), cost[i] };
 				neighbors->push_back(nodeCost);
+				//this->selected[y*this->width + x] = 1;
 			}
 			else
 			{
@@ -396,6 +422,12 @@ void Map::clearSelected()
 {
 	this->numSelected = 0;
 	for (auto& tile : this->selected) tile = 0;
+}
+
+void Map::initPather()
+{
+	this->pather = new micropather::MicroPather(this); //64x64
+
 }
 
 
