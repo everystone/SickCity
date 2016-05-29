@@ -59,7 +59,7 @@ class Map : public ::micropather::Graph
     void updateDirection(TileType tileType);
 
     /* Blank map constructor */
-    Map() : pather(0)
+    Map()
     {
         this->tileSize = 16;
         this->width = 0;
@@ -68,7 +68,7 @@ class Map : public ::micropather::Graph
 		this->numSelected = 0;
 		this->hovered = 0;
 		srand(static_cast <unsigned> (time(0))); // seed random generator
-		pather = new micropather::MicroPather(this, 4096); //64x64
+		pather = new micropather::MicroPather(this); //64x64
     }
     /* Load map from file constructor */
     Map(const std::string& filename, unsigned int width, unsigned int height,
@@ -86,7 +86,7 @@ class Map : public ::micropather::Graph
 	void findPath(Tile& origin, Tile& destination);
 	int Passable(int x, int y);
 	Tile * XYToTile(int x, int y);
-
+	void TileToXY(void* tile, int* x, int* y);
 	/**
 	Return the least possible cost between 2 states. For example, if your pathfinding
 	is based on distance, this is simply the straight distance between 2 points on the

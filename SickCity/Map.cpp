@@ -40,12 +40,14 @@ int Map::Passable(int x, int y)
 	
 }
 
-void TileToXY(void* tile, int* x, int* y) {
+void Map::TileToXY(void* tile, int* x, int* y) {
 	Tile* tileRef = (Tile*)tile;
 
-	// Directly alters values of pointers? mindfuck
-	*x = tileRef->sprite.getPosition().x;
-	*y = tileRef->sprite.getPosition().y;
+	float sx = tileRef->sprite.getPosition().x;
+	float sy = tileRef->sprite.getPosition().y;
+	std::cout << "sprite pos " << sx << ", " << sy << std::endl;
+	*x = sy / (this->tileSize) + sx / (2 * this->tileSize) - this->width * 0.5;;
+	*y = sy / (this->tileSize) - sx / (2 * this->tileSize) + this->width * 0.5;
 }
 Tile* Map::XYToTile(int x, int y)
 {

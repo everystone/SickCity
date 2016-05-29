@@ -231,7 +231,17 @@ void GameStateEditor::handleInput()
 			}
 			else if (event.mouseButton.button == sf::Mouse::XButton2)
 			{
-				this->city.map.findPath(this->city.map.tiles[0], this->city.map.tiles[this->city.map.hovered]);
+				int x, y;
+				x = gamePos.y / (this->city.map.tileSize) + gamePos.x / (2 * this->city.map.tileSize) - (this->city.map.width * 0.5 - 0.5);
+				y = gamePos.y / (this->city.map.tileSize) - gamePos.x / (2 * this->city.map.tileSize) + (this->city.map.width * 0.5 + 0.5);
+				//int index = selectionEnd.y*this->city.map.width + selectionEnd.x;
+				Tile *test = this->city.map.XYToTile(x, y);
+				std::cout << "gamePos: " << gamePos.x << ", " << gamePos.y << " SpritePos: " << test->sprite.getPosition().x << ", " << test->sprite.getPosition().y << " type: " << tileTypeToStr(test->tileType) << " arr pos: " << x << ", " << y <<  std::endl;
+				int x2, y2;
+				this->city.map.TileToXY(test, &x2, &y2);
+				std::cout << "debug2 " << x2 << ", " << y2 << std::endl;
+				
+				//this->city.map.findPath(this->city.map.tiles[10], this->city.map.tiles[this->city.map.hovered]);
 			}
 			break;
 		}

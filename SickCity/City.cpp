@@ -184,7 +184,7 @@ void City::update(float dt)
 	if (day % 30 == 0) 	// End of month
 	{
 		this->funds += this->earnings;
-		std::cout << "Padyday! earned " << this->earnings << " at day " << this->day << std::endl;
+		//std::cout << "Padyday! earned " << this->earnings << " at day " << this->day << std::endl;
 		this->earnings = 0;
 	}
 
@@ -330,7 +330,7 @@ void City::update(float dt)
 	this->earnings += commercialRevenue * this->commercialTax;
 	this->earnings += industrialRevenue * this->industrialTax;
 
-	float timeSpent = timer.getElapsedTime().asMilliseconds();
-	std::cout << "Day " << day << " done in " << timeSpent << "ms (" << numTiles[0] << "R, " << numTiles[1] << "C, " << numTiles[2] << "I)" <<std::endl;
+	//float timeSpent = timer.getElapsedTime().asMilliseconds();
+	//std::cout << "Day " << day << " done in " << timeSpent << "ms (" << numTiles[0] << "R, " << numTiles[1] << "C, " << numTiles[2] << "I)" <<std::endl;
 	return;
 }
