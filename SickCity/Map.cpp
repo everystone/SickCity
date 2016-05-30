@@ -24,6 +24,7 @@ void Map::findPath(sf::Vector2i origin, sf::Vector2i destination)
 {
 	float totalCost;
 	this->clearSelected();
+	this->pather->Reset();
 	//int result = pather->Solve(XYToTile(from.x, from.y), XYToNode(to.x, to.y), &path, &totalCost);
 	int result = pather->Solve(XYToTile(origin.x, origin.y), XYToTile(destination.x, destination.y), &path, &totalCost);
 	if (result == micropather::MicroPather::SOLVED) {
@@ -40,6 +41,7 @@ void Map::findPath(sf::Vector2i origin, sf::Vector2i destination)
 	}
 }
 
+// Determines if tile at x,y can be navigated by player
 int Map::Passable(int x, int y)
 {
 	if (x >= 0 && x < width && y >= 0 && y < height) {
@@ -47,6 +49,8 @@ int Map::Passable(int x, int y)
 		switch (tile.tileType) {
 		case TileType::GRASS:
 		case TileType::FOREST:
+		case TileType::ROAD:
+		case TileType::BRIDGE:
 			return 1;
 			break;
 
@@ -55,8 +59,7 @@ int Map::Passable(int x, int y)
 			break;
 		}
 	}
-
-	
+	return -1;
 }
 
 void Map::TileToXY(void* tile, int* x, int* y) {
@@ -65,8 +68,9 @@ void Map::TileToXY(void* tile, int* x, int* y) {
 	float sx = tileRef->sprite.getPosition().x;
 	float sy = tileRef->sprite.getPosition().y;
 	//std::cout << "sprite pos " << sx << ", " << sy << std::endl;
-	*x = sy / (this->tileSize) + sx / (2 * this->tileSize) - this->width * 0.5;;
-	*y = sy / (this->tileSize) - sx / (2 * this->tileSize) + this->width * 0.5;
+	*x = sy / (this->tileSize) + sx / (2 * this->tileSize) - (this->width * 0.5 - 0.5f); // -0.5
+	*y = sy / (this->tileSize) - sx / (2 * this->tileSize) + (this->width * 0.5 + 0.5f);// +0.5
+	//*x -= 1;
 }
 Tile* Map::XYToTile(int x, int y)
 {
@@ -76,7 +80,12 @@ Tile* Map::XYToTile(int x, int y)
 	else {
 		return nullptr;
 	}
+}
+sf::Vector2i Map::getPlayerPos(Player& player) {
 
+	int x = player.sprite.getPosition().y / (this->tileSize) + player.sprite.getPosition().x / (2 * this->tileSize) - this->width * 0.5;;
+	int y = player.sprite.getPosition().y / (this->tileSize) - player.sprite.getPosition().x / (2 * this->tileSize) + this->width * 0.5;
+	return sf::Vector2i(x, y);
 }
 
 float Map::LeastCostEstimate(void * nodeStart, void * nodeEnd)

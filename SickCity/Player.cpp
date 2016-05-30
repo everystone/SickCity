@@ -17,10 +17,6 @@ void Player::moveTo(sf::Vector2f pos)
 {
 }
 
-sf::Vector2f Player::getPos()
-{
-	return this->sprite.getPosition();
-}
 
 Player::Player(sf::Texture& texture, sf::Vector2f pos)
 {

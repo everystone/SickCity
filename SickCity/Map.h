@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "Tile.h"
+#include "Player.h"
 #include <unordered_map>
 #include "micropather\micropather.h"
 
@@ -87,6 +88,7 @@ class Map : public ::micropather::Graph
 	void findPath(sf::Vector2i origin, sf::Vector2i destination);
 	int Passable(int x, int y);
 	Tile * XYToTile(int x, int y);
+	sf::Vector2i getPlayerPos(Player & player); // returns positon of current Tile player is on
 	void TileToXY(void* tile, int* x, int* y);
 	/**
 	Return the least possible cost between 2 states. For example, if your pathfinding
@@ -111,3 +113,4 @@ class Map : public ::micropather::Graph
 	*/
 	virtual void  PrintStateInfo(void* state);
 };
+

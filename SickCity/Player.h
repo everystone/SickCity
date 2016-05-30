@@ -21,7 +21,6 @@ public:
 	void draw(sf::RenderWindow& window, float dt);
 	void update(float dt);
 	void moveTo(sf::Vector2f pos);
-	sf::Vector2f getPos();
 	Player(){	}
 	Player(sf::Texture& texture, sf::Vector2f pos);
 	void Spawn(sf::Vector2f pos);
