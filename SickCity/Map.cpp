@@ -87,8 +87,11 @@ Tile* Map::XYToTile(int x, int y)
 }
 sf::Vector2i Map::getPlayerPos(Player& player) {
 
-	int x = player.sprite.getPosition().y / (this->tileSize) + player.sprite.getPosition().x / (2 * this->tileSize) - this->width * 0.5;;
-	int y = player.sprite.getPosition().y / (this->tileSize) - player.sprite.getPosition().x / (2 * this->tileSize) + this->width * 0.5;
+	float sx = player.getPosition().x;
+	float sy = player.getPosition().y;
+	//std::cout << "sprite pos " << sx << ", " << sy << std::endl;
+	int x = sy / (this->tileSize) + sx / (2 * this->tileSize) - (this->width * 0.5 - 0.5f); // -0.5
+	int y = sy / (this->tileSize) - sx / (2 * this->tileSize) + (this->width * 0.5 + 0.5f);// +0.5
 	return sf::Vector2i(x, y);
 }
 

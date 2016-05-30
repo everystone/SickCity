@@ -38,6 +38,13 @@ void Tile::update()
 	return;
 }
 
+sf::Vector2f Tile::getPosition()
+{
+	sf::Vector2f pos = this->sprite.getPosition();
+	//pos += sf::Vector2f(8, this->sprite.getOrigin().y);
+	return pos;
+}
+
 std::string tileTypeToStr(TileType type)
 {
 	switch (type)

@@ -27,6 +27,7 @@ private:
 	sf::Vector2f destination;
 public:
 	void setPath(std::vector<Tile*> path);
+	sf::Vector2f getPosition(); // returns centered position of player sprite
 	sf::Sprite sprite;
 	void draw(sf::RenderWindow& window, float dt);
 	void update(float dt);

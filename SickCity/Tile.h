@@ -51,7 +51,10 @@ public:
 		this->production = 0;
 		this->storedGoods = 0;
 
-		this->sprite.setOrigin(sf::Vector2f(0.0f, tileSize*(height - 1)));
+		// TODO: Figure out what is right here, new or old.
+		//this->sprite.setOrigin(sf::Vector2f(0.0f, tileSize*(height - 1)));
+		this->sprite.setOrigin(sf::Vector2f(tileSize, tileSize/2));
+
 		this->sprite.setTexture(texture);
 		this->animHandler.frameSize = sf::IntRect(0, 0, tileSize * 2, tileSize*height);
 		
@@ -64,7 +67,7 @@ public:
 
 	void draw(sf::RenderWindow& window, float dt);
 	void update();
-
+	sf::Vector2f getPosition(); // returns position of center of sprite
 	std::string getCost()
 	{
 		return patch::to_string(this->cost);
