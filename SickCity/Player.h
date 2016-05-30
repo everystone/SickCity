@@ -18,18 +18,18 @@ private:
 	enum class PlayerState { Idle, Moving, Building };
 	int health = 100;
 	thor::Animator<sf::Sprite, std::string> animator;
-
+	float rotation = 0;
 	float moveSpeed = .2f;
 	float factor = .1f;
 	int pathStep = 0;
 	PlayerState state = PlayerState::Idle;
 	std::vector<Tile*> path;
+	sf::Vector2f destination;
 public:
 	void setPath(std::vector<Tile*> path);
 	sf::Sprite sprite;
 	void draw(sf::RenderWindow& window, float dt);
 	void update(float dt);
-	void setDestination(sf::Vector2f pos);
 	Player(){	}
 	Player(sf::Texture& texture, sf::Vector2f pos);
 	void Spawn(sf::Vector2f pos);

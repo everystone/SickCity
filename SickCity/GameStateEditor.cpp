@@ -14,6 +14,13 @@ void GameStateEditor::draw(const float dt) {
     this->game->window.setView(this->gameView);
     this->city.map.draw(this->game->window, dt);
 	this->localPlayer.draw(this->game->window, dt);
+
+	// if build-menu is open, draw building circle around player
+	if (this->actionState == ActionState::MENU) {
+		// or color tiles green in radius around player?
+		// set selected[tileIndex] to 2 ?
+	}
+
 	this->game->window.draw(this->game->particleSystem);
 	//this->game->window.draw(this->game->pfx.particleSystem);
 	//this->game->window.draw(this->game->pfx.weatherSystem);

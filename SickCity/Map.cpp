@@ -277,10 +277,21 @@ void Map::draw(sf::RenderWindow& window, float dt)
         for(int x = 0; x < this->width; ++x)
         {
 			/* Change color if tile is selected */
-			if (this->selected[y*this->width + x])
-				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x7d, 0x7d, 0x7d));
-			else
+			int _selected = this->selected[y*this->width + x];
+			switch (_selected)
+			{
+			case 1: // valid build selection
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x2d, 0x7d, 0x2d));
+				break;
+			case 2: // invalid build selection
+				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0x7d, 0x2d, 0x2d));
+				break;
+			case 3: // availible build selection ( around player )
+				break;
+			default:
 				this->tiles[y*this->width + x].sprite.setColor(sf::Color(0xff, 0xff, 0xff));
+				break;
+			}
 
 			/* Change color if tile is hovered */
 			if (y*this->width + x == this->hovered)
@@ -434,7 +445,9 @@ void Map::select(sf::Vector2i start, sf::Vector2i end, std::vector<TileType> bla
 void Map::clearSelected()
 {
 	this->numSelected = 0;
-	for (auto& tile : this->selected) tile = 0;
+	for (auto& tile : this->selected) {
+		tile = 0;
+	}
 }
 
 void Map::initPather()
