@@ -85,7 +85,7 @@ class Map : public ::micropather::Graph
 
 	// Pathfinding related
 	void findPath(Tile& origin, Tile& destination);
-	void findPath(sf::Vector2i origin, sf::Vector2i destination);
+	std::vector<Tile*> findPath(sf::Vector2i origin, sf::Vector2i destination);
 	int Passable(int x, int y);
 	Tile * XYToTile(int x, int y);
 	sf::Vector2i getPlayerPos(Player & player); // returns positon of current Tile player is on

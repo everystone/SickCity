@@ -20,25 +20,29 @@ void Map::findPath(Tile& origin, Tile& destination)
 		std::cout << "no path: ";
 	}
 }
-void Map::findPath(sf::Vector2i origin, sf::Vector2i destination)
+std::vector<Tile*> Map::findPath(sf::Vector2i origin, sf::Vector2i destination)
 {
 	float totalCost;
+	std::vector<Tile*> _path;
 	this->clearSelected();
 	this->pather->Reset();
 	//int result = pather->Solve(XYToTile(from.x, from.y), XYToNode(to.x, to.y), &path, &totalCost);
 	int result = pather->Solve(XYToTile(origin.x, origin.y), XYToTile(destination.x, destination.y), &path, &totalCost);
 	if (result == micropather::MicroPather::SOLVED) {
+
 		std::cout << "Found path: ";
-		for (int i = 0; i < path.size(); i++) {
+		for (int i = 0; i < path.size(); ++i) {
 			int x, y;
 			TileToXY(path[i], &x, &y);
 			Tile* test = (Tile*)path[i];
+			_path.push_back(test);
 			this->selected[y*width + x] = 1;
 		}
 	}
 	else {
 		std::cout << "no path: ";
 	}
+	return _path;
 }
 
 // Determines if tile at x,y can be navigated by player

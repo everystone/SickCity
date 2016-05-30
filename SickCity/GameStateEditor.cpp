@@ -233,7 +233,7 @@ void GameStateEditor::handleInput()
 			{
 				int x2, y2;
 				this->city.map.TileToXY(&this->city.map.tiles[this->city.map.hovered], &x2, &y2);
-				this->city.map.findPath(this->city.map.getPlayerPos(localPlayer), sf::Vector2i(x2,y2));
+				this->localPlayer.setPath(this->city.map.findPath(this->city.map.getPlayerPos(localPlayer), sf::Vector2i(x2, y2)));
 			}
 			break;
 		}
@@ -287,7 +287,7 @@ void GameStateEditor::handleInput()
 		case sf::Event::KeyReleased:
 		{
 			if (event.key.code == sf::Keyboard::F1) {
-				this->city.map.generate(128, 128, this->game->tileAtlas);
+				this->city.map.generate(64, 64, this->game->tileAtlas);
 				this->city.shuffleTiles();
 			}
 		}
